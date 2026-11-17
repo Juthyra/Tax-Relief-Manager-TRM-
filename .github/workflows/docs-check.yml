@@ -1,0 +1,21 @@
+name: docs-check
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build the specifications
+        run: python3 docs/tools/build.py
+      - name: Build the change log
+        run: python3 docs/tools/changelog.py
+      - name: Acronym check
+        run: python3 docs/tools/check_acronyms.py
+      - name: Built files must be committed
+        run: git diff --exit-code docs/specs docs/registers

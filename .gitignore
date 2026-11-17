@@ -1,0 +1,12 @@
+exports/*
+!exports/.gitkeep
+__pycache__/
+*.pyc
+.env
+.env.*
+node_modules/
+
+# Local only
+.DS_Store
+_to_delete/
+Claude outputs/
