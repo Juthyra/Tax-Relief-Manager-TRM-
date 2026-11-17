@@ -6,7 +6,7 @@ Owner: Champs (product owner)
 Purpose: record every finding, decision and process step, so project quality can be tracked and controlled.
 Detail changes to the URS and SRS documents are **not** kept here. They are kept in [URS_SRS_CHANGE_LOG.md](URS_SRS_CHANGE_LOG.md). This log points to it.
 Started: 2026-11-12 (entries up to F-011 were back-filled from work done on 2026-11-07 to 2026-11-12)
-Last updated: 2026-11-14 (repository created; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47)
+Last updated: 2026-11-18 (Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47)
 
 ## How to read this log
 
@@ -63,6 +63,7 @@ Last updated: 2026-11-14 (repository created; six documents: F0 at 0.3, F1 to F4
 | P-20 | 2026-11-14 | Put examples of commit messages in the rule | AGENTS.md section 5 examples; PROMPT_RULES 0.4 (R-48) |
 | P-21 | 2026-11-14 | New owner rule: after each requirement change or creation, commit and push automatically with a commit message. Asked how to create the Git repository and whether GitHub needs a project first | AGENTS.md section 5; PROMPT_RULES 0.5 (R-49) |
 | P-22 | 2026-11-14 | Questions on front-end frameworks for Laravel (six options, Inertia.js, Vue 3 against Vue.js, Svelte, React and Redux), then "create md for the front-end framework finding" | `docs/decisions/research/R-001-frontend-frameworks.md`; link added in ADR-001; HTML and PHP added to ACRONYMS.md |
+| P-23 | 2026-11-18 | "create a git for this project, and push this to github" (remote Juthyra/Tax-Relief-Manager-TRM-) | Git started on `main` with one first commit; `.gitignore` now leaves out `.DS_Store`, `_to_delete/` and `Claude outputs/`; remote `origin` added; push waits for the owner's GitHub sign-in |
 
 ## Findings
 
@@ -163,6 +164,7 @@ Last updated: 2026-11-14 (repository created; six documents: F0 at 0.3, F1 to F4
 | 2026-11-14 | Edited the PRD Claude Doc (revision 47) and its local .md copy; no PDF made, as you asked | CHG-044 |
 | 2026-11-14 | Build checks 0 errors; acronym check passed; the 4 changed or new diagrams render; F5 dates recomputed by script | Build output |
 | 2026-11-14 | Created the repository layout, moved the files, changed the script paths, wrote README, AGENTS.md, CLAUDE.md, ADR-000 to ADR-005, PR template, CODEOWNERS, check workflow | CHG-045; F-053 |
+| 2026-11-18 | Ran the build (0 errors), change log and acronym check (passed); scanned for secrets (none); `git init -b main`, first commit 9b6e7bb, `git remote add origin`; first push refused (no GitHub sign-in on this Mac) | CHG-045; P-23 |
 
 ## Where the files live from 14/11/2026
 
