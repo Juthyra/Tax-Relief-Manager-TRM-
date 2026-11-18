@@ -11,3 +11,4 @@
 - [ ] The PRD does not need a change, or the owner approved it
 - [ ] No secrets, real tax data or personal data
 - [ ] Written with an AI agent: yes or no (a human has reviewed it)
+- [ ] Reviewed by someone other than the author, or merged by the owner under the owner bypass (R-50)

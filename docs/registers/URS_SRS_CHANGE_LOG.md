@@ -4,7 +4,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 
 Owner: Champs (product owner)
 Started: 2026-11-12
-Last updated: 2026-11-14 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at version 0.2)
+Last updated: 2026-11-18 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at version 0.2)
 
 ## How this log works
 
@@ -78,6 +78,7 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-043 | 2026-11-14 | F0, F1, F2, F3, F4, F5 | Header | Document version | Changed | F0 at 0.2; F1 to F4 at 0.4; F5 at 0.1 | F0 at 0.3; F1 to F4 at 0.5; F5 at 0.2 | CHG-036 to CHG-042 | Prompt P-16 |
 | CHG-044 | 2026-11-14 | PRD | Section 3.2 FR-2.3, section 4 (admin support tools), section 5 (TaxpayerProfile), NFR-7, NFR-8, section 8 (roles and admin support paragraph) | Pending sync items 13, 16, 18 and 19 | Synced | The PRD (revision 37) had one profile per user, no mandatory rule, an admin who managed the account on the user's behalf, and records "offered for deletion" after 7 years | PRD revision 47: TaxpayerProfile is one per user per YA with year, copied_from_year, state, has_first_home, first_home_price and dependants_confirmed, and every visible question is mandatory with the calculator, relief categories, spending records and dashboard locked until it is complete; an admin cannot change the email or the password and sends a temporary reset link; an admin sees a Filed flag only; records are kept 7 years and the taxpayer is told when a YA can be deleted | Owner approvals of 13/11/2026 and 14/11/2026 (SD-F0-01, DA-16, DA-19, DA-20, SD-F0-14, SD-F5-10, SD-F5-09) | Prompt P-16 |
 | CHG-045 | 2026-11-14 | F0, F1, F2, F3, F4, F5 | Links to the registers | Links to HISTORY_LOG.md, URS_SRS_CHANGE_LOG.md and ACRONYMS.md | Clarified | Links pointed to files in the same folder | Links point to ../registers/ because the files moved into the repository layout (docs/specs, docs/registers, docs/tools). No requirement changed, so the document versions stay at 0.3 and 0.5 and 0.2 | The owner asked for one repository from documentation to production | Prompt P-18 |
+| CHG-046 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md, PR template | AGENTS.md sections 1 and 5; PROMPT_RULES R-01, R-16, R-40, R-49, R-50; pull request checklist | Rules for how I respond, for review and for the repository | Added | R-01 covered only questions and decisions; no review rule; R-40 said the repository was local only; R-16 said files are sent to the owner; R-49 pushed automatically with no condition | R-01 covers every prompt (information first); R-50: every pull request into main is reviewed, the owner may bypass while alone, and with a second developer 1 review by someone other than the author is needed; R-49 applies only after "update"; R-40 and R-16 brought up to date; PR template has a review line. PROMPT_RULES at version 0.6. No requirement document changed, so F0 to F5 keep their versions | The owner asked for a review rule on merge requests and for information first on every prompt | Prompts P-24 to P-26 |
 
 ## Pending PRD sync
 
@@ -133,6 +134,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-14 | Acronym check (src/check_acronyms.py) | Passed (119 register rows) |
 | 2026-11-14 | All Mermaid diagrams render (FD-F2-03, FD-F0-03, FD-F5-10 changed; FD-F5-13 new) | The 4 changed or new diagrams render (FD-F0-03, FD-F2-03, FD-F5-10, FD-F5-13); the others are unchanged |
 | 2026-11-14 | New F5 dates recomputed by script: YA 2025 retention ends 31/12/2032 and is deletable from 01/01/2033; YA 2026 and YA 2027 from 01/01/2034 and 01/01/2035; deletion due 19/01/2035 (05/01/2035 plus 14 days); backup purge 23/02/2035 (19/01/2035 plus 35 days) | All match |
+| 2026-11-18 | After the rules change (CHG-046): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 
 ## ID register
 

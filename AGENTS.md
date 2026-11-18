@@ -4,7 +4,7 @@ This file is the single source of rules. `CLAUDE.md` and other tool files only p
 
 ## 1. How to work
 
-1. **The owner (Champs) decides.** When he is answering questions or making decisions, respond first and change nothing until he says to update.
+1. **The owner (Champs) decides. Information first.** For every prompt, respond first with what you understood and what you would change, and change nothing until the owner says "update" or "go ahead".
 2. **Never present your own proposal as a decision.** Mark it "proposed" until the owner approves, then record the date.
 3. **Plain language.** Short replies. Say what changed, what is open and what you read in your own way.
 4. **Documents are Markdown.** Do not create or regenerate PDFs unless the owner asks.
@@ -57,5 +57,9 @@ This file is the single source of rules. `CLAUDE.md` and other tool files only p
   - `bug-fixing(F-054): fix wrong YA shown on the dashboard`
   - `decision(ADR-001): choose the language and framework`
 - Pull requests need the template filled and the checks green.
-- **Automatic commit and push.** Every time a requirement change or a new requirement is done and the checks pass, commit it on the working branch with a commit message (format above) and push that branch. Do not wait to be asked. Never push directly to `main`. Until the GitHub remote exists, commit locally and push once it is set.
-- Until the repository is on GitHub, merge to `main` locally only after the checks pass, and tag approved sets (`docs-v0.5`).
+- **Review before merge.** Every pull request into `main` is reviewed before it is merged.
+  - **While the owner is the only person on the project:** the owner may merge their own pull request without a review (owner bypass). The owner reads it before merging.
+  - **When another developer joins:** every pull request needs **1 approving review from someone other than its author**. Nobody approves or merges their own pull request, except the owner, who may bypass this for their own.
+  - This is a written rule. It is not yet enforced on GitHub. When a second person joins, turn on branch protection for `main` (require a pull request and 1 approval, owner may bypass).
+- **Automatic commit and push.** After the owner has said "update", every time a requirement change or a new requirement is done and the checks pass, commit it on the working branch with a commit message (format above) and push that branch. Do not wait to be asked again. Never push directly to `main`.
+- `main` changes only through a merged pull request. Tag approved sets (`docs-v0.5`).
