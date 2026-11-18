@@ -6,7 +6,7 @@ Owner: Champs (product owner)
 Purpose: record every finding, decision and process step, so project quality can be tracked and controlled.
 Detail changes to the URS and SRS documents are **not** kept here. They are kept in [URS_SRS_CHANGE_LOG.md](URS_SRS_CHANGE_LOG.md). This log points to it.
 Started: 2026-11-12 (entries up to F-011 were back-filled from work done on 2026-11-07 to 2026-11-12)
-Last updated: 2026-11-18 (review rule R-50 added, PROMPT_RULES at 0.6; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47)
+Last updated: 2026-11-18 (agent opens pull requests with gh, R-49 extended, PROMPT_RULES at 0.7; review rule R-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47)
 
 ## How to read this log
 
@@ -67,6 +67,8 @@ Last updated: 2026-11-18 (review rule R-50 added, PROMPT_RULES at 0.6; Git start
 | P-24 | 2026-11-18 | Asked to share the project rules, then asked for a rule that a merge request needs a review; respond first, change nothing | Information only; nothing changed |
 | P-25 | 2026-11-18 | Answers: written rule only (layer a); owner may bypass while alone; with another developer, 1 review by someone other than the author, owner may bypass; repository is public; asked to explain R-49 | Information only; I explained R-49 and listed the planned changes |
 | P-26 | 2026-11-18 | "yes, update it"; make a standard, confirm everything, push the branch to Git and check it is on Git | PROMPT_RULES 0.6 (R-01, R-16, R-40, R-49 changed; R-50 new); AGENTS.md sections 1 and 5; PR template; CHG-046; F-054; branch `docs/CHG-046-pr-review-rule` pushed |
+| P-27 | 2026-11-18 | Asked what to do so the agent can open pull requests in future; then said yes, but would install `gh` first | Information only; I explained `gh` install and sign-in and the R-49 extension; nothing changed |
+| P-28 | 2026-11-18 | `gh` set up; asked to check it and "please update" | `gh` 2.104.0 checked (signed in as Juthyra, scopes repo and workflow, HTTPS); R-49 and AGENTS.md extended; PROMPT_RULES 0.7; CHG-047; F-055; branch `docs/CHG-047-pr-opening-rule` pushed and pull request opened with `gh` |
 
 ## Findings
 
@@ -126,6 +128,7 @@ Last updated: 2026-11-18 (review rule R-50 added, PROMPT_RULES at 0.6; Git start
 | F-052 | 2026-11-14 | Process | The PRD Claude Doc was edited directly (revision 37 to 47): roles table (admin and email, password, Filed flag, reset link), admin support paragraph and table row, FR-2.3 (mandatory answers and the lock), TaxpayerProfile row (per YA, first-home price, dependants confirmed), NFR-7 and NFR-8 (7-year rule). The local PRD .md copy was changed the same way; the PRD PDF was not regenerated. Pending PRD sync items 13, 16, 18 and 19 are done; 22 items remain (CHG-044). | Docs tool; URS_SRS_CHANGE_LOG.md | The PRD now agrees with the approved decisions | Verified | Items 14, 15 (DA-17, DA-18), the F0 and F5 feature blocks and the phase split wait for your approval |
 | F-053 | 2026-11-14 | Decision | The documents moved into one repository layout: docs/prd, docs/specs (built files), docs/tools (source, shared blocks, scripts), docs/registers, docs/decisions, then src, tests, infra, ops, exports. Git becomes the master of the PRD; the Claude Doc is a copy at revision 47. The scripts were changed to the new paths; the six documents are identical except the links to the registers (checked by comparison); build 0 errors, acronym check passed. `.mcp.json` was dropped (owner). The CODEOWNERS file holds a placeholder for the owner's GitHub name. | Owner prompt P-18 | Needed for development and teammates | Resolved | Owner: give the GitHub name for CODEOWNERS, decide when to move to GitHub, and decide ADR-001 to ADR-005 |
 | F-054 | 2026-11-18 | Decision | My readings of P-25, all written as rules: (a) R-01 now covers every prompt, and R-49 (automatic commit and push) applies only after you say "update"; (b) the review rule is written only, not enforced on GitHub, until a second person joins; (c) "merge request" means a GitHub pull request (PR); (d) "update it" also covered the two out-of-date rules, R-40 (repository now on GitHub) and R-16 (files no longer sent, as Git keeps them); (e) the old AGENTS.md line about merging to `main` locally until GitHub exists was replaced by "`main` changes only through a merged pull request" | Owner prompts P-25 and P-26 | Needed before a second developer joins | Resolved | Owner: tell me if any of (a) to (e) is wrong |
+| F-055 | 2026-11-18 | Decision | My readings of P-27 and P-28, written as rules: (a) after pushing a branch I open the pull request with `gh pr create` and stop; (b) I never merge, and I do not turn on auto-merge, because merging is the owner's (R-50); (c) this applies only after you say "update" (R-01); (d) `gh` is signed in as Juthyra with the scopes repo and workflow; the token is kept by `gh` and I never read or print it | Owner prompts P-27 and P-28 | Needed so an AI agent can hand work over for review | Resolved | Owner: tell me if any of (a) to (d) is wrong |
 
 ## Process log
 
@@ -171,6 +174,7 @@ Last updated: 2026-11-18 (review rule R-50 added, PROMPT_RULES at 0.6; Git start
 | 2026-11-18 | Ran the build (0 errors), change log and acronym check (passed); scanned for secrets (none); `git init -b main`, first commit 9b6e7bb, `git remote add origin`; first push refused (no GitHub sign-in on this Mac) | CHG-045; P-23 |
 | 2026-11-18 | PR #1 (CHG-045 docs branch) merged on GitHub; pulled `main`; created branch `docs/CHG-046-pr-review-rule` | Git |
 | 2026-11-18 | Wrote the review rule R-50 and the information-first rule; brought R-16 and R-40 up to date; raised PROMPT_RULES to 0.6; added CHG-046 and F-054 | CHG-046; F-054; P-24 to P-26 |
+| 2026-11-18 | Checked `gh` (installed, signed in as Juthyra); PR #2 merged earlier; created branch `docs/CHG-047-pr-opening-rule`; extended R-49 and AGENTS.md; PROMPT_RULES 0.7; added CHG-047 and F-055 | CHG-047; F-055; P-27, P-28 |
 
 ## Where the files live from 14/11/2026
 

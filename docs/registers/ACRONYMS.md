@@ -4,7 +4,7 @@ This file lists every acronym and abbreviation used in the PRD, the six URS and 
 
 Owner: Champs (product owner)
 Started: 2026-11-13
-Last updated: 2026-11-14 (repository files added)
+Last updated: 2026-11-18 (CLI added)
 Related logs: [HISTORY_LOG.md](HISTORY_LOG.md) (main log), [URS_SRS_CHANGE_LOG.md](URS_SRS_CHANGE_LOG.md) (detail log for the documents)
 
 ## How this file works
@@ -87,6 +87,7 @@ Counts: 60 acronyms (sections 1 to 3), 21 ID prefixes (section 4), 21 code value
 | PHP | PHP: Hypertext Preprocessor | The language Laravel is written in | Front-end findings | Active |
 | PNG | Portable Network Graphics | Receipt image format | F3 | Active |
 | PR | Pull request | A proposed change on GitHub that is reviewed and checked before it is merged | README, AGENTS.md, HISTORY_LOG | Active |
+| CLI | Command line interface | A program used by typing commands in the terminal, such as `gh` (GitHub CLI) | AGENTS.md, PROMPT_RULES, HISTORY_LOG | Active |
 | PWA | Progressive Web App | The kind of application being built: a web app that installs and works offline | All | Active |
 | QR | Quick response (code) | The square code the authenticator app scans to set up two-factor login | F5 | Active |
 | REST | Representational State Transfer | The style of the server interface | PRD | Active |
