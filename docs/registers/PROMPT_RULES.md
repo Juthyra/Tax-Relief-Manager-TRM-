@@ -1,7 +1,7 @@
 # Prompt and Working Rules: Malaysia Tax Relief System (PWA)
 
 Owner: Champs (product owner)
-Version: 0.7 (draft, for owner review)
+Version: 0.8 (draft, for owner review)
 Date: 2026-11-18
 Related files: [HISTORY_LOG.md](HISTORY_LOG.md), [AGENTS.md](../../AGENTS.md), [URS_SRS_CHANGE_LOG.md](URS_SRS_CHANGE_LOG.md), [ACRONYMS.md](ACRONYMS.md)
 
@@ -67,7 +67,8 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | R-47 | Documentation has its own branch type, `docs/<ID>-short-name`. It is for documentation only, in Phase 1 and in each later phase, which is planned separately. | Prompt P-19 |
 | R-48 | A commit message starts with the branch type, then the ID in brackets, then a short plain summary, and ends with the prompt (P-nn) or change (CHG-nn) number when there is one. Examples are in `AGENTS.md` section 5. | Prompt P-20 |
 | R-49 | When a requirement change or a new requirement is done and the checks pass, the work is committed on its branch with a commit message and the branch is pushed, automatically, without waiting to be asked. Never push directly to `main`. After the push I open a pull request into `main` with `gh pr create` (template filled, AI agent named) and stop; **I never merge it**, you merge it (R-50). This applies only **after you have said "update"** (R-01); until then I change nothing. This replaces the earlier rule "commit or push only when asked". | Prompts P-21, P-26 and P-28 |
-| R-50 | **Review before merge.** Every pull request into `main` is reviewed before it is merged. While you are the only person on the project, you may merge your own pull request without a review (owner bypass). When another developer joins, every pull request needs 1 approving review from someone other than its author; nobody approves or merges their own pull request, except you as owner, who may bypass it for your own. It is a written rule only; GitHub does not enforce it yet. When a second person joins, turn on branch protection for `main` (the repository is public, so it is free). | Prompts P-24 to P-26 |
+| R-50 | **Review before merge.** Every pull request into `main` is reviewed before it is merged. While you are the only person on the project, you may merge your own pull request without a review (owner bypass). When another developer joins, every pull request needs 1 approving review from someone other than its author; nobody approves or merges their own pull request, except you as owner, who may bypass it for your own. It is enforced on GitHub by R-51. | Prompts P-24 to P-26 and P-30 |
+| R-51 | **`main` is protected.** The ruleset `protect-main` (active since 18/11/2026) blocks direct pushes, force pushes and deletion on `main`; every change goes through a pull request, which needs 1 approving review. The only bypass is the repository admin role (the owner), set to **pull requests only**: the owner can merge a pull request without the approval but cannot push straight to `main`. No required status check yet. I do not change this ruleset unless you say "update". | Prompts P-29 and P-30 |
 
 ## 5. Decisions you have already made (14/11/2026)
 
@@ -101,5 +102,6 @@ You can write in your own words. These short forms help me act correctly.
 | 0.3 | 2026-11-14 | Added the branch rules R-46 and R-47 (prompt P-19) |
 | 0.4 | 2026-11-14 | Added the commit message rule R-48 with examples (prompt P-20) |
 | 0.5 | 2026-11-14 | Added the automatic commit and push rule R-49 (prompt P-21) |
+| 0.8 | 2026-11-18 | New R-51 (`main` protected by the ruleset `protect-main`, owner bypass for pull requests only); R-50 now enforced (prompts P-29 and P-30, CHG-048) |
 | 0.7 | 2026-11-18 | R-49 extended: after the push I open a pull request with `gh` and never merge it (prompts P-27 and P-28, CHG-047) |
 | 0.6 | 2026-11-18 | R-01 widened to every prompt; R-49 only after "update"; new R-50 (review before merge, owner bypass); R-16 and R-40 brought up to date (prompts P-24 to P-26, CHG-046) |
