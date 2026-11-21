@@ -46,7 +46,14 @@ added_p16 = {"URS-F0-15":("0.3","CHG-036"),"SD-F0-14":("0.3","CHG-036"),"TC-F0-2
  "URS-F5-14":("0.2","CHG-041"),"SRS-F5-21":("0.2","CHG-041"),"TC-F5-29":("0.2","CHG-041"),
  "SD-F5-17":("0.2","CHG-039"),"SD-F5-18":("0.2","CHG-040")}
 firstchg = {"F0":"CHG-018","F1":"CHG-001","F2":"CHG-002","F3":"CHG-003","F4":"CHG-004","F5":"CHG-028"}
-version = {"F0":"0.3","F1":"0.5","F2":"0.5","F3":"0.5","F4":"0.5","F5":"0.2"}
+version = {"F0":"0.3","F1":"0.5","F2":"0.5","F3":"0.5","F4":"0.5","F5":"0.3"}
+# changed in prompt P-34 (22/11/2026): F5 version 0.3, CHG-049
+changed_p34 = {i: "CHG-049" for i in ("URS-F5-06 URS-F5-07 URS-F5-08 URS-F5-14 SRS-F5-08 SRS-F5-12 SRS-F5-14 SRS-F5-16 SRS-F5-21 "
+    "TC-F5-14 TC-F5-19 TC-F5-21 TC-F5-22 TC-F5-29").split()}
+approved_p34 = {"SD-F5-09": "Approved by the owner 14/11/2026, confirmed 22/11/2026 (CHG-049)",
+    "SD-F5-17": "Approved by the owner 14/11/2026, changed 22/11/2026 (CHG-049)",
+    "SD-F5-19": "Approved by the owner 22/11/2026 (CHG-049)"}
+added_p16["SD-F5-19"] = ("0.3", "CHG-049")
 reg = {}
 counts = {}
 for k, f in files.items():
@@ -67,6 +74,8 @@ for k, f in files.items():
         else: d = short(cells[1], 120)
         status = {"URS": "Draft", "SRS": "Draft", "TC": "Draft", "SD": "Needs owner decision", "OI": "Open"}[typ]
         if "**Answered" in cells[1]: status = answered[id_]
+        elif id_ in approved_p34: status = approved_p34[id_]
+        elif id_ in changed_p34: status = f"Draft, changed in 0.3 ({changed_p34[id_]})"
         elif id_ in approved16: status = f"Approved by the owner 14/11/2026 ({approved16[id_]})"
         elif id_ in added_p16: status = "Draft, new"
         elif id_ in changed_p16: status = f"Draft, changed in {VER16[k]} ({changed_p16[id_]})"
@@ -89,7 +98,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 
 Owner: Champs (product owner)
 Started: 2026-11-12
-Last updated: 2026-11-18 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at version 0.2)
+Last updated: 2026-11-22 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at version 0.3)
 
 ## How this log works
 
@@ -162,10 +171,13 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-045 | 2026-11-14 | F0, F1, F2, F3, F4, F5 | Links to the registers | Links to HISTORY_LOG.md, URS_SRS_CHANGE_LOG.md and ACRONYMS.md | Clarified | Links pointed to files in the same folder | Links point to ../registers/ because the files moved into the repository layout (docs/specs, docs/registers, docs/tools). No requirement changed, so the document versions stay at 0.3 and 0.5 and 0.2 | The owner asked for one repository from documentation to production | Prompt P-18 |
 | CHG-046 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md, PR template | AGENTS.md sections 1 and 5; PROMPT_RULES R-01, R-16, R-40, R-49, R-50; pull request checklist | Rules for how I respond, for review and for the repository | Added | R-01 covered only questions and decisions; no review rule; R-40 said the repository was local only; R-16 said files are sent to the owner; R-49 pushed automatically with no condition | R-01 covers every prompt (information first); R-50: every pull request into main is reviewed, the owner may bypass while alone, and with a second developer 1 review by someone other than the author is needed; R-49 applies only after "update"; R-40 and R-16 brought up to date; PR template has a review line. PROMPT_RULES at version 0.6. No requirement document changed, so F0 to F5 keep their versions | The owner asked for a review rule on merge requests and for information first on every prompt | Prompts P-24 to P-26 |
 | CHG-047 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md | AGENTS.md section 5 (automatic commit and push); PROMPT_RULES R-49 | Automatic commit and push rule | Clarified | R-49 ended at commit and push; the owner opened the pull request by hand | R-49 continues: after the push the agent opens a pull request with `gh pr create` and stops; the agent never merges. PROMPT_RULES at version 0.7. No requirement document changed | The owner installed the GitHub CLI (`gh`) and asked for the agent to open pull requests | Prompts P-27 and P-28 |
+| CHG-048 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md | AGENTS.md section 5 (review before merge); PROMPT_RULES R-50 and new R-51 | Protection of the main branch | Added | The review rule was written only; GitHub did not enforce it and `main` was not protected | GitHub ruleset `protect-main` is active: no direct push, no force push, no deletion on `main`, pull request with 1 approval required; owner bypass for pull requests only. PROMPT_RULES at version 0.8. No requirement document changed | The owner asked to protect `main` so that changes go only through a pull request | Prompts P-29 and P-30 |
+| CHG-049 | 2026-11-22 | F5 | Header, A1, A2, A3, FD-F5-09 and FD-F5-13 titles, A5.4, A6 items 7 and 8, SRS-F5-08, SRS-F5-12, SRS-F5-14, SRS-F5-16, SRS-F5-21, B3.6, B4, B7, SD-F5-09, SD-F5-17, SD-F5-19 (new) | SD-F5-19 added; URS-F5-06, URS-F5-07, URS-F5-08, URS-F5-14, the SRS listed and TC-F5-14, TC-F5-19, TC-F5-21, TC-F5-22, TC-F5-29 changed | Changed | Phase 1 held data export and the deletion of a YA's records past 7 years; Phase 2 held the security events screen, the new-device notice and the list of devices; B3.6 had two columns; A6 item 8 said only that the owner accepted the risk | Data export, deletion of a YA's records past 7 years (with its notice and the one-YA erase run), the security events screen, the new-device notice and the session controls are built with R3, phase 4 of the PRD roadmap (SD-F5-19); B3.6 has a third column for R3; A6 item 8 records that Phase 1 is used only by the owner and invited people; SD-F5-09 confirmed: deletion is optional after the period and never before. F5 at version 0.3 | Owner answers of 22/11/2026 to F-049 and F-051: "yes for me and invited only"; "move it to phase 4 (r3)"; "deletio is optional after 7 years. strictly no delete before 7 years of YA" | Prompts P-33 and P-34 |
+| CHG-050 | 2026-11-22 | AGENTS.md, PROMPT_RULES.md, CODEOWNERS | AGENTS.md section 5 (review requests); PROMPT_RULES R-52 (new); `.github/CODEOWNERS` | Review requests on pull requests | Added | CODEOWNERS covered only docs/prd, docs/decisions, docs/registers and AGENTS.md, so a pull request that touched other paths asked nobody for a review | CODEOWNERS starts with `*` (every path) for the owner, with a note on how to add developers; GitHub asks the code owners for a review on every pull request and notifies them. PROMPT_RULES at version 0.10. No requirement document changed | The owner asked for a notice when a pull request is opened, so that the owner and later developers see it (option B) | Prompt P-34 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044); their numbers are not reused. 22 items are still pending. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044); their numbers are not reused. 23 items are still pending. When one is done, a CHG entry of type Synced is added.
 
 | # | PRD place | Change | Matching IDs |
 | --- | --- | --- | --- |
@@ -191,6 +203,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (Phase 2) | SD-F5-05, SD-F5-07 |
 | 25 | Section 3 (features) | Add the account and security feature F5 with its own FR block (proposed FR-5.1 to FR-5.9) and screens | URS-F5-01 to URS-F5-14 |
 | 26 | Section 9.1 (phases) | Account and security is built in two phases: Phase 1 the simple account, Phase 2 the held features (SD-F5-17) | SD-F5-17 |
+| 27 | Section 9.1, phase 4 (R3) | Add data export, deletion of a YA's records after 7 years, the security events screen, the new-device notice and the session controls to the R3 scope; settle the order against the public launch gate, which lists user export (F-058) | SD-F5-19 |
 
 ## Consistency checks
 
@@ -219,6 +232,9 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-14 | New F5 dates recomputed by script: YA 2025 retention ends 31/12/2032 and is deletable from 01/01/2033; YA 2026 and YA 2027 from 01/01/2034 and 01/01/2035; deletion due 19/01/2035 (05/01/2035 plus 14 days); backup purge 23/02/2035 (19/01/2035 plus 35 days) | All match |
 | 2026-11-18 | After the rules change (CHG-046): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 | 2026-11-18 | After the pull request rule (CHG-047): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
+| 2026-11-18 | After the protected main rule (CHG-048): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
+| 2026-11-22 | After the R3 move in F5 (CHG-049): build, change log and acronym check repeated over six documents; only F5 changed | 0 errors; acronym check passed |
+| 2026-11-22 | After the review requests rule (CHG-050): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 
 ## ID register
 

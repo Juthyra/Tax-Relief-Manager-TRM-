@@ -4,7 +4,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 
 Owner: Champs (product owner)
 Started: 2026-11-12
-Last updated: 2026-11-18 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at version 0.2)
+Last updated: 2026-11-22 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at version 0.3)
 
 ## How this log works
 
@@ -24,8 +24,8 @@ Last updated: 2026-11-18 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at vers
 | F2 | [URS_SRS_F2_Relief_Categories.md](URS_SRS_F2_Relief_Categories.md) | Relief categories and rule sets | 0.5 | 2026-11-13 | Draft for owner review | 12 | 17 | 7 | 0 | 24 | 9 | 3 | 646 |
 | F3 | [URS_SRS_F3_Spending_Records.md](URS_SRS_F3_Spending_Records.md) | Spending records | 0.5 | 2026-11-13 | Draft for owner review | 15 | 18 | 8 | 1 | 23 | 4 | 4 | 722 |
 | F4 | [URS_SRS_F4_Dashboard.md](URS_SRS_F4_Dashboard.md) | Dashboard | 0.5 | 2026-11-13 | Draft for owner review | 13 | 16 | 7 | 1 | 19 | 7 | 2 | 672 |
-| F5 | [URS_SRS_F5_Account_Security.md](URS_SRS_F5_Account_Security.md) | Account and security | 0.2 | 2026-11-13 | Draft for owner review | 14 | 21 | 13 | 2 | 29 | 18 | 7 | 982 |
-| | Total | | | | | 85 | 115 | 51 | 6 | 143 | 62 | 24 | |
+| F5 | [URS_SRS_F5_Account_Security.md](URS_SRS_F5_Account_Security.md) | Account and security | 0.3 | 2026-11-13 | Draft for owner review | 14 | 21 | 13 | 2 | 29 | 19 | 7 | 984 |
+| | Total | | | | | 85 | 115 | 51 | 6 | 143 | 63 | 24 | |
 
 Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
 
@@ -80,10 +80,13 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-045 | 2026-11-14 | F0, F1, F2, F3, F4, F5 | Links to the registers | Links to HISTORY_LOG.md, URS_SRS_CHANGE_LOG.md and ACRONYMS.md | Clarified | Links pointed to files in the same folder | Links point to ../registers/ because the files moved into the repository layout (docs/specs, docs/registers, docs/tools). No requirement changed, so the document versions stay at 0.3 and 0.5 and 0.2 | The owner asked for one repository from documentation to production | Prompt P-18 |
 | CHG-046 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md, PR template | AGENTS.md sections 1 and 5; PROMPT_RULES R-01, R-16, R-40, R-49, R-50; pull request checklist | Rules for how I respond, for review and for the repository | Added | R-01 covered only questions and decisions; no review rule; R-40 said the repository was local only; R-16 said files are sent to the owner; R-49 pushed automatically with no condition | R-01 covers every prompt (information first); R-50: every pull request into main is reviewed, the owner may bypass while alone, and with a second developer 1 review by someone other than the author is needed; R-49 applies only after "update"; R-40 and R-16 brought up to date; PR template has a review line. PROMPT_RULES at version 0.6. No requirement document changed, so F0 to F5 keep their versions | The owner asked for a review rule on merge requests and for information first on every prompt | Prompts P-24 to P-26 |
 | CHG-047 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md | AGENTS.md section 5 (automatic commit and push); PROMPT_RULES R-49 | Automatic commit and push rule | Clarified | R-49 ended at commit and push; the owner opened the pull request by hand | R-49 continues: after the push the agent opens a pull request with `gh pr create` and stops; the agent never merges. PROMPT_RULES at version 0.7. No requirement document changed | The owner installed the GitHub CLI (`gh`) and asked for the agent to open pull requests | Prompts P-27 and P-28 |
+| CHG-048 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md | AGENTS.md section 5 (review before merge); PROMPT_RULES R-50 and new R-51 | Protection of the main branch | Added | The review rule was written only; GitHub did not enforce it and `main` was not protected | GitHub ruleset `protect-main` is active: no direct push, no force push, no deletion on `main`, pull request with 1 approval required; owner bypass for pull requests only. PROMPT_RULES at version 0.8. No requirement document changed | The owner asked to protect `main` so that changes go only through a pull request | Prompts P-29 and P-30 |
+| CHG-049 | 2026-11-22 | F5 | Header, A1, A2, A3, FD-F5-09 and FD-F5-13 titles, A5.4, A6 items 7 and 8, SRS-F5-08, SRS-F5-12, SRS-F5-14, SRS-F5-16, SRS-F5-21, B3.6, B4, B7, SD-F5-09, SD-F5-17, SD-F5-19 (new) | SD-F5-19 added; URS-F5-06, URS-F5-07, URS-F5-08, URS-F5-14, the SRS listed and TC-F5-14, TC-F5-19, TC-F5-21, TC-F5-22, TC-F5-29 changed | Changed | Phase 1 held data export and the deletion of a YA's records past 7 years; Phase 2 held the security events screen, the new-device notice and the list of devices; B3.6 had two columns; A6 item 8 said only that the owner accepted the risk | Data export, deletion of a YA's records past 7 years (with its notice and the one-YA erase run), the security events screen, the new-device notice and the session controls are built with R3, phase 4 of the PRD roadmap (SD-F5-19); B3.6 has a third column for R3; A6 item 8 records that Phase 1 is used only by the owner and invited people; SD-F5-09 confirmed: deletion is optional after the period and never before. F5 at version 0.3 | Owner answers of 22/11/2026 to F-049 and F-051: "yes for me and invited only"; "move it to phase 4 (r3)"; "deletio is optional after 7 years. strictly no delete before 7 years of YA" | Prompts P-33 and P-34 |
+| CHG-050 | 2026-11-22 | AGENTS.md, PROMPT_RULES.md, CODEOWNERS | AGENTS.md section 5 (review requests); PROMPT_RULES R-52 (new); `.github/CODEOWNERS` | Review requests on pull requests | Added | CODEOWNERS covered only docs/prd, docs/decisions, docs/registers and AGENTS.md, so a pull request that touched other paths asked nobody for a review | CODEOWNERS starts with `*` (every path) for the owner, with a note on how to add developers; GitHub asks the code owners for a review on every pull request and notifies them. PROMPT_RULES at version 0.10. No requirement document changed | The owner asked for a notice when a pull request is opened, so that the owner and later developers see it (option B) | Prompt P-34 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044); their numbers are not reused. 22 items are still pending. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044); their numbers are not reused. 23 items are still pending. When one is done, a CHG entry of type Synced is added.
 
 | # | PRD place | Change | Matching IDs |
 | --- | --- | --- | --- |
@@ -109,6 +112,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (Phase 2) | SD-F5-05, SD-F5-07 |
 | 25 | Section 3 (features) | Add the account and security feature F5 with its own FR block (proposed FR-5.1 to FR-5.9) and screens | URS-F5-01 to URS-F5-14 |
 | 26 | Section 9.1 (phases) | Account and security is built in two phases: Phase 1 the simple account, Phase 2 the held features (SD-F5-17) | SD-F5-17 |
+| 27 | Section 9.1, phase 4 (R3) | Add data export, deletion of a YA's records after 7 years, the security events screen, the new-device notice and the session controls to the R3 scope; settle the order against the public launch gate, which lists user export (F-058) | SD-F5-19 |
 
 ## Consistency checks
 
@@ -137,6 +141,9 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-14 | New F5 dates recomputed by script: YA 2025 retention ends 31/12/2032 and is deletable from 01/01/2033; YA 2026 and YA 2027 from 01/01/2034 and 01/01/2035; deletion due 19/01/2035 (05/01/2035 plus 14 days); backup purge 23/02/2035 (19/01/2035 plus 35 days) | All match |
 | 2026-11-18 | After the rules change (CHG-046): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 | 2026-11-18 | After the pull request rule (CHG-047): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
+| 2026-11-18 | After the protected main rule (CHG-048): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
+| 2026-11-22 | After the R3 move in F5 (CHG-049): build, change log and acronym check repeated over six documents; only F5 changed | 0 errors; acronym check passed |
+| 2026-11-22 | After the review requests rule (CHG-050): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 
 ## ID register
 
@@ -517,15 +524,15 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | URS-F5-03 | URS | Sign in and out and be signed out after a period of no use (Phase 2: stay signed in on my own device) | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | URS-F5-04 | URS | Get back into my account when I forget my password: in Phase 1 an administrator sends me a temporary link; in Phase 2 I ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-040) |
 | URS-F5-05 | URS | (Phase 2) Turn two-factor login on and off with an authenticator app, keep recovery codes, and recover if I lose the ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
-| URS-F5-06 | URS | Change my password and my email (Phase 2: see where I am signed in and sign out another device) | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
-| URS-F5-07 | URS | (Phase 2) See the security events on my account: sign-ins, failed attempts, changes and actions by an administrator | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
-| URS-F5-08 | URS | Export all my data in a file I can keep | 0.1 (CHG-028) | Draft |
+| URS-F5-06 | URS | Change my password and my email (R3: see where I am signed in and sign out another device) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
+| URS-F5-07 | URS | (R3) See the security events on my account: sign-ins, failed attempts, changes and actions by an administrator | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
+| URS-F5-08 | URS | (R3) Export all my data in a file I can keep | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | URS-F5-09 | URS | (Phase 2) Delete my account and all my data, after a clear warning about the 7-year record rule, with time to change my ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | URS-F5-10 | URS | Use the app offline, and be safe if a device is shared, lost or kept offline for a long time | 0.1 (CHG-028) | Draft |
 | URS-F5-11 | URS | Be sure that an administrator can never see my tax data or change my email or password | 0.1 (CHG-028) | Draft |
 | URS-F5-12 | URS | (Admin) Invite people, see the status of accounts, disable or enable an account and send a password reset email, ... | 0.1 (CHG-028) | Draft |
 | URS-F5-13 | URS | Find language, security, privacy, export and deletion in one Settings screen | 0.1 (CHG-028) | Draft |
-| URS-F5-14 | URS | Be told when the records of a year are older than 7 years, and delete them myself when I choose | 0.2 (CHG-041) | Draft, new |
+| URS-F5-14 | URS | (R3) Be told when the records of a year are older than 7 years, and delete them myself when I choose; never before the ... | 0.2 (CHG-041) | Draft, changed in 0.3 (CHG-049) |
 | SRS-F5-01 | SRS | Sign-up (by invitation) | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SRS-F5-02 | SRS | Password rules | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SRS-F5-03 | SRS | Email verification | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
@@ -533,20 +540,20 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SRS-F5-05 | SRS | Sign-in | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SRS-F5-06 | SRS | Two-factor login (admins and taxpayers) | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SRS-F5-07 | SRS | Recovery codes and a lost authenticator | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
-| SRS-F5-08 | SRS | Sessions | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
+| SRS-F5-08 | SRS | Sessions | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | SRS-F5-09 | SRS | Offline use, expiry and sign-out | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SRS-F5-10 | SRS | Forgot password | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-040) |
 | SRS-F5-11 | SRS | Change password and change email | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
-| SRS-F5-12 | SRS | Security events | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
+| SRS-F5-12 | SRS | Security events | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | SRS-F5-13 | SRS | Settings screen | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
-| SRS-F5-14 | SRS | Data export (IF-19) | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
+| SRS-F5-14 | SRS | Data export (IF-19) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | SRS-F5-15 | SRS | Account deletion request | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-041) |
-| SRS-F5-16 | SRS | Erase run (IF-20) | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
+| SRS-F5-16 | SRS | Erase run (IF-20) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | SRS-F5-17 | SRS | Admin account tools (IF-21) | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SRS-F5-18 | SRS | Serving identity and events (IF-18, EV-07, EV-08) | 0.1 (CHG-028) | Draft |
 | SRS-F5-19 | SRS | Transport, storage and logs | 0.1 (CHG-028) | Draft |
 | SRS-F5-20 | SRS | Layout, language, accessibility, performance | 0.1 (CHG-028) | Draft |
-| SRS-F5-21 | SRS | Records older than 7 years | 0.2 (CHG-041) | Draft, new |
+| SRS-F5-21 | SRS | Records older than 7 years | 0.2 (CHG-041) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-01 | TC | A valid invitation; email Aisyah@Example.com; password "correct horse battery 7"; ... | 0.1 (CHG-028) | Draft |
 | TC-F5-02 | TC | (a) no code; (b) a used code; (c) a code made 8 days ago; (d) a valid code with an email ... | 0.1 (CHG-028) | Draft |
 | TC-F5-03 | TC | Passwords: "short1"; "aisyah@example.com"; "password1234"; a 128-character password; a ... | 0.1 (CHG-028) | Draft |
@@ -560,22 +567,22 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F5-11 | TC | (Phase 2) Turn off two-factor as Aisyah (password and a current code); then as an admin | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | TC-F5-12 | TC | (Phase 2) Sign in with a recovery code; use it again; use 8 codes in all; make new codes; ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | TC-F5-13 | TC | Own device: last server contact 13/11/2026 09:00; contact again 20/11/2026 09:00. Shared ... | 0.1 (CHG-028) | Draft |
-| TC-F5-14 | TC | (Phase 2) Aisyah is signed in on a phone and a laptop; on the laptop she taps "Sign out ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
+| TC-F5-14 | TC | (R3) Aisyah is signed in on a phone and a laptop; on the laptop she taps "Sign out all ... | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-15 | TC | Phone offline 10 days (own device); then offline 15 days after the last contact; then she ... | 0.1 (CHG-028) | Draft |
 | TC-F5-16 | TC | Sign out with 3 unsent changes; choose Wait; later sign out again and choose Sign out and ... | 0.1 (CHG-028) | Draft |
 | TC-F5-17 | TC | (Phase 2) Forgot password for aisyah@example.com and for nobody@example.com; open the ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-040) |
 | TC-F5-18 | TC | Change password: new equals old; then a new one. Change email to bilal@example.com. An ... | 0.1 (CHG-028) | Draft |
-| TC-F5-19 | TC | (Phase 2) After TC-F5-07 and TC-F5-08, open Settings, Security events | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
+| TC-F5-19 | TC | (R3) After TC-F5-07 and TC-F5-08, open Settings, Security events | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-20 | TC | Open Settings online, then offline; change the language to English | 0.1 (CHG-028) | Draft |
-| TC-F5-21 | TC | Export: request after 11 minutes since sign-in; a second request while the first is ... | 0.1 (CHG-028) | Draft |
-| TC-F5-22 | TC | Export of Aisyah's data (three YAs, the F3 data of TC-F3-23) | 0.1 (CHG-028) | Draft |
+| TC-F5-21 | TC | (R3) Export: request after 11 minutes since sign-in; a second request while the first is ... | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
+| TC-F5-22 | TC | (R3) Export of Aisyah's data (three YAs, the F3 data of TC-F3-23) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-23 | TC | (Phase 2) Delete account: on 13/11/2026 Aisyah taps Delete my account; on 05/01/2035 she ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-041) |
 | TC-F5-24 | TC | (Phase 2) Due date 19/01/2035 reached. Case 1: F0, F1 and F3 all confirm. Case 2: F3 does ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-041) |
 | TC-F5-25 | TC | An admin (two-factor on) opens Accounts; creates an invitation; disables Aisyah with the ... | 0.1 (CHG-028) | Draft |
 | TC-F5-26 | TC | An admin tries: setting a password; changing an email; turning two-factor off; reading ... | 0.1 (CHG-028) | Draft |
 | TC-F5-27 | TC | Run sign-in, add an expense of RM 120.00 at "Klinik Sihat", request an export; then ... | 0.1 (CHG-028) | Draft |
 | TC-F5-28 | TC | 360 px screen, Bahasa Malaysia; sign-in screen on a mid-range phone over 4G | 0.1 (CHG-028) | Draft |
-| TC-F5-29 | TC | Aisyah's data as in B3.4. Today is 05/01/2033. She opens the app offline, then online; ... | 0.2 (CHG-041) | Draft, new |
+| TC-F5-29 | TC | (R3) Aisyah's data as in B3.4. Today is 05/01/2033. She opens the app offline, then ... | 0.2 (CHG-041) | Draft, changed in 0.3 (CHG-049) |
 | SD-F5-01 | SD | In R1, sign-up needs a single-use invitation code made by an admin (valid 7 days). Public sign-up opens after the ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-02 | SD | Passwords are 12 to 128 characters, any characters, checked against a list of common passwords; no composition rules, ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-03 | SD | (Phase 2) The email must be verified before first use of the app (link valid 24 hours); an account not verified in 7 ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
@@ -584,7 +591,7 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SD-F5-06 | SD | A session lasts 14 days after the last server contact for a taxpayer and 30 minutes for an admin (Phase 1). Phase 2 ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SD-F5-07 | SD | (Phase 2) A lost authenticator is recovered by an emailed link, a 24-hour wait, notices at both ends and a Cancel link. ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SD-F5-08 | SD | (The grace period is Phase 2; the 35-day backup purge is Phase 1) Deletion has a 14-day grace period that a sign-in ... | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
-| SD-F5-09 | SD | The user can delete the records of a YA, or the account, only after the 7-year period has ended: 31 December of the YA ... | 0.1 (CHG-028) | Approved by the owner 14/11/2026 (CHG-041) |
+| SD-F5-09 | SD | The user can delete the records of a YA, or the account, only after the 7-year period has ended: 31 December of the YA ... | 0.1 (CHG-028) | Approved by the owner 14/11/2026, confirmed 22/11/2026 (CHG-049) |
 | SD-F5-10 | SD | Approved by the owner on 14/11/2026 ("for admin only; as taxpayer they can change the email"; the admin helps with a ... | 0.1 (CHG-028) | Approved by the owner 14/11/2026 (CHG-040) |
 | SD-F5-11 | SD | In R1 the owner sets the role in the data; there is no screen for roles. An admin account cannot be deleted in R1 | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-12 | SD | R1 has one consent purpose, CORE. The text is a draft with the headings of B3.5 until the PDPA adviser writes the final ... | 0.1 (CHG-028) | Needs owner decision |
@@ -592,8 +599,9 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SD-F5-14 | SD | The export is a ZIP with CSV files, one JSON file and the original receipts; ready within 24 hours; the link works 7 ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-15 | SD | (Phase 2) Security events are kept 12 months; IP addresses are kept 30 days; the user can read the last 50 | 0.1 (CHG-028) | Draft, changed in 0.2 (CHG-039) |
 | SD-F5-16 | SD | Sign-out with unsent changes offers Wait or Sign out and discard; another user cannot sign in on a device that holds ... | 0.1 (CHG-028) | Needs owner decision |
-| SD-F5-17 | SD | Phase 1 is the simple account: invitation-only sign-up, password sign-in, a simple session, consent, change of the own ... | 0.2 (CHG-039) | Approved by the owner 14/11/2026 (CHG-039) |
+| SD-F5-17 | SD | Phase 1 is the simple account: invitation-only sign-up, password sign-in, a simple session, consent, change of the own ... | 0.2 (CHG-039) | Approved by the owner 14/11/2026, changed 22/11/2026 (CHG-049) |
 | SD-F5-18 | SD | In Phase 1 a taxpayer changes the own email in Settings with the current password and it takes effect at once; the ... | 0.2 (CHG-040) | Approved by the owner 14/11/2026 (CHG-040) |
+| SD-F5-19 | SD | Data export (SRS-F5-14), the deletion of the records of a YA past its 7 years with its notice (SRS-F5-21 and the one-YA ... | 0.3 (CHG-049) | Approved by the owner 22/11/2026 (CHG-049) |
 | OI-F5-01 | OI | Where is the data hosted, and what is the basis for any transfer outside Malaysia (PRD decision on hosting)? | 0.1 (CHG-028) | Open |
 | OI-F5-02 | OI | Who writes the final consent text and privacy notice? | 0.1 (CHG-028) | Open |
 | OI-F5-03 | OI | How long may security events and IP addresses be kept? | 0.1 (CHG-028) | Open |

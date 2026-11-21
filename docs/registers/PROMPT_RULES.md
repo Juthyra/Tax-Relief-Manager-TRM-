@@ -1,8 +1,8 @@
 # Prompt and Working Rules: Malaysia Tax Relief System (PWA)
 
 Owner: Champs (product owner)
-Version: 0.7 (draft, for owner review)
-Date: 2026-11-18
+Version: 0.10 (draft, for owner review)
+Date: 2026-11-22
 Related files: [HISTORY_LOG.md](HISTORY_LOG.md), [AGENTS.md](../../AGENTS.md), [URS_SRS_CHANGE_LOG.md](URS_SRS_CHANGE_LOG.md), [ACRONYMS.md](ACRONYMS.md)
 
 This file collects the standing rules for how we work on the Tax Relief Manager (TRM) documents: how you give a prompt, how I answer, and what I must update. Every rule below came from your messages. When you give a new rule, I add it here and raise the version.
@@ -67,16 +67,18 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | R-47 | Documentation has its own branch type, `docs/<ID>-short-name`. It is for documentation only, in Phase 1 and in each later phase, which is planned separately. | Prompt P-19 |
 | R-48 | A commit message starts with the branch type, then the ID in brackets, then a short plain summary, and ends with the prompt (P-nn) or change (CHG-nn) number when there is one. Examples are in `AGENTS.md` section 5. | Prompt P-20 |
 | R-49 | When a requirement change or a new requirement is done and the checks pass, the work is committed on its branch with a commit message and the branch is pushed, automatically, without waiting to be asked. Never push directly to `main`. After the push I open a pull request into `main` with `gh pr create` (template filled, AI agent named) and stop; **I never merge it**, you merge it (R-50). This applies only **after you have said "update"** (R-01); until then I change nothing. This replaces the earlier rule "commit or push only when asked". | Prompts P-21, P-26 and P-28 |
-| R-50 | **Review before merge.** Every pull request into `main` is reviewed before it is merged. While you are the only person on the project, you may merge your own pull request without a review (owner bypass). When another developer joins, every pull request needs 1 approving review from someone other than its author; nobody approves or merges their own pull request, except you as owner, who may bypass it for your own. It is a written rule only; GitHub does not enforce it yet. When a second person joins, turn on branch protection for `main` (the repository is public, so it is free). | Prompts P-24 to P-26 |
+| R-50 | **Review before merge.** Every pull request into `main` is reviewed before it is merged. While you are the only person on the project, you may merge your own pull request without a review (owner bypass). When another developer joins, every pull request needs 1 approving review from someone other than its author; nobody approves or merges their own pull request, except you as owner, who may bypass it for your own. It is enforced on GitHub by R-51. | Prompts P-24 to P-26 and P-30 |
+| R-51 | **`main` is protected.** The ruleset `protect-main` (active since 18/11/2026) blocks direct pushes, force pushes and deletion on `main`; every change goes through a pull request, which needs 1 approving review. The only bypass is the repository admin role (the owner), set to **pull requests only**: the owner can merge a pull request without the approval but cannot push straight to `main`. No required status check yet. I do not change this ruleset unless you say "update". | Prompts P-29 and P-30 |
+| R-52 | **Review requests.** `.github/CODEOWNERS` names the code owners for every path (`*`), so GitHub asks them for a review on every new pull request and notifies them. When a developer joins, you add their GitHub username to CODEOWNERS. GitHub never notifies the author of a pull request, so the pull requests I open under your account show in your Pull requests list, not as a notification. The ruleset does not require a code owner's review; the 1 approval of R-51 is enough. | Prompt P-34 |
 
-## 5. Decisions you have already made (14/11/2026)
+## 5. Decisions you have already made (14/11/2026 and 22/11/2026)
 
 | Topic | Decision | Recorded as |
 | --- | --- | --- |
 | Profile answers | Every visible profile question is mandatory. Marital status is a choice of status, not Yes or No. Until a year's profile is complete, F1 to F4 are locked for that year (hard gate). | SD-F0-14, DA-20 |
 | Admin and passwords | An admin cannot change a taxpayer's email or password. The admin sends a temporary reset link. The taxpayer can change their own email. | SD-F5-10, SD-F5-18 |
-| Phases | Phase 1 is the simple account. Sign-in lock, emailed links, staying signed in, two-factor, account deletion and the security events screen are held for Phase 2. | SD-F5-17 |
-| Deletion | Records can be deleted only after 7 years from the end of the YA. The app shows a notice when a YA becomes deletable. | SD-F5-09 |
+| Phases | Phase 1 is the simple account, used only by you and the people you invite (22/11/2026). Sign-in lock, emailed links, staying signed in, two-factor and account deletion are held for Phase 2. Data export, deletion of old records, the security events screen, the new-device notice and the session controls are built with R3, phase 4 of the PRD roadmap (22/11/2026). | SD-F5-17, SD-F5-19, F-049 |
+| Deletion | Records can be deleted only after 7 years from the end of the YA, and strictly never before. Deleting is optional, the taxpayer's own choice. The app shows a notice when a YA becomes deletable. | SD-F5-09 (confirmed 22/11/2026) |
 | Later | Hosting, consent text and email service are decided during development. Where to store and share the documents is decided after the basic documents are complete. | OI-F5-01, OI-F5-02, OI-F5-06, F-035 |
 
 ## 6. How to write a prompt to me
@@ -101,5 +103,8 @@ You can write in your own words. These short forms help me act correctly.
 | 0.3 | 2026-11-14 | Added the branch rules R-46 and R-47 (prompt P-19) |
 | 0.4 | 2026-11-14 | Added the commit message rule R-48 with examples (prompt P-20) |
 | 0.5 | 2026-11-14 | Added the automatic commit and push rule R-49 (prompt P-21) |
+| 0.10 | 2026-11-22 | New R-52: CODEOWNERS covers every path, so every pull request asks the code owners for a review (prompt P-34, CHG-050) |
+| 0.9 | 2026-11-22 | Section 5: Phase 1 only for the owner and invited people; export, deletion of old records and the security screens moved to R3; deletion strictly after 7 years and optional (prompt P-34, CHG-049) |
+| 0.8 | 2026-11-18 | New R-51 (`main` protected by the ruleset `protect-main`, owner bypass for pull requests only); R-50 now enforced (prompts P-29 and P-30, CHG-048) |
 | 0.7 | 2026-11-18 | R-49 extended: after the push I open a pull request with `gh` and never merge it (prompts P-27 and P-28, CHG-047) |
 | 0.6 | 2026-11-18 | R-01 widened to every prompt; R-49 only after "update"; new R-50 (review before merge, owner bypass); R-16 and R-40 brought up to date (prompts P-24 to P-26, CHG-046) |
