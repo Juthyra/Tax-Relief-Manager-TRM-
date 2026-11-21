@@ -1,4 +1,10 @@
-# Owner: @Juthyra. Pull requests that touch these paths need the owner's approval.
+# Code owners (R-52). GitHub asks the code owners for a review on every pull
+# request and sends them a notification. The last matching line wins, so the
+# paths below also keep the owner on them.
+# When a developer joins, the owner adds their GitHub username to each line,
+# for example:  *  @Juthyra @their-username
+# GitHub never asks the author of a pull request to review it.
+*                 @Juthyra
 /docs/prd/        @Juthyra
 /docs/decisions/  @Juthyra
 /docs/registers/  @Juthyra
