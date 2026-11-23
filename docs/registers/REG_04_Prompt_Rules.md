@@ -5,7 +5,7 @@
 | Document ID | REG-04 |
 | Document type | Register (standing rules for prompts and work) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.19 |
+| Version | 0.20 |
 | Status | Draft (for owner review) |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
@@ -90,6 +90,7 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | RULE-57 | **IDs that look alike are kept apart.** Working rules are RULE-nn (were R-nn), research notes RES-nnn (was R-001), so they cannot be mixed up with releases R1 to R4 or relief codes R01 to R24. | Prompt P-38 |
 | RULE-58 | **Waiting items are marked.** What you have not approved says "Proposed"; a PRD change that waits keeps the status "Waiting for owner approval" (RULE-21). | Prompt P-38 |
 | RULE-59 | **Checked.** `docs/tools/check_standard.py` checks file names, titles and headers, and runs in the `docs-check` workflow. It must pass, like the build and the acronym check. | Prompt P-38 |
+| RULE-60 | **Design files.** They live in `docs/design/`, in a folder per phase and feature. A `DES` document names the SRS, URS and tests it shows, is Markdown with the standard header, and stays Proposed until the owner approves it. Mockups are static pages with test data only, in English and Bahasa Malaysia, and never go into `src/`. Where the design and a specification differ, the specification wins and the difference is a finding. | Prompts P-80 to P-83 |
 
 ## 5. Decisions you have already made (14/11/2026, 22/11/2026 and 23/11/2026)
 
@@ -105,6 +106,7 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | Item-level rules | A rule on one item of a category is a sub-limit with its own eligibility test and claim frequency (23/11/2026) | DA-25, OI-F2-04 |
 | LHDN conditions and PCB help | LHDN's eligibility conditions are asked in the profile (Q11 to Q13, child relief shared or child with own income); the YA 2025 deadline is stored; PCB entry has help text and LHDN's PCB example is a test (23/11/2026) | F-067, DA-26, RES-003 |
 | Email service | Held: no domain yet; decided with the stack (23/11/2026) | ADR-006, OI-F5-06 |
+| Design | Direction A "Navy Trust" is chosen, direction B is kept as a backup file. Design files are kept in `docs/design/` by phase and feature, in English and Bahasa Malaysia, and the other developer reviews them. Phase 1 starts with the seven F0 screens (23/11/2026) | RULE-60, DES-000, DES-F0, F-080 |
 | Stack records | ADR-001 to ADR-004 are approved at version 1.0 (23/11/2026). ADR-005 hosting and ADR-006 email are held | ADR-001 to ADR-004, F-079 |
 | Docker | All development runs in Docker; no PHP, Node or PostgreSQL on a laptop; the document tools are included. Sail or our own compose file is decided when the project is created; the project is not started yet (23/11/2026) | ADR-003, F-077 |
 | Stack | Laravel, Inertia, Vue 3, TypeScript and PostgreSQL; local development first, other environments and hosting later. The tax engine runs only in the browser and the server never calculates. The publish gate runs in the admin's browser with the passing run stored on the server. Offline is built later but is still required before phase 1 exits (23/11/2026) | ADR-001 to ADR-006, SD-F1-11, SD-F2-10, OI-F1-05, F-074 |
@@ -135,6 +137,7 @@ You can write in your own words. These short forms help me act correctly.
 | 0.3 | 2026-11-14 | Added the branch rules RULE-46 and RULE-47 (prompt P-19) |
 | 0.4 | 2026-11-14 | Added the commit message rule RULE-48 with examples (prompt P-20) |
 | 0.5 | 2026-11-14 | Added the automatic commit and push rule RULE-49 (prompt P-21) |
+| 0.20 | 2026-11-23 | New RULE-60 (design files); section 5: design direction A (prompts P-80 to P-83, CHG-065) |
 | 0.19 | 2026-11-23 | Section 5: ADR-001 to ADR-004 approved (prompts P-77 and P-78, CHG-064) |
 | 0.18 | 2026-11-23 | Section 5: development is 100% in Docker, document tools included (prompts P-72 to P-75, CHG-063) |
 | 0.17 | 2026-11-23 | Section 5: the stack and the browser-only tax engine (prompts P-68 to P-71, CHG-061, CHG-062) |

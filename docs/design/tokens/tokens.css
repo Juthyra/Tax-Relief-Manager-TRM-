@@ -1,0 +1,42 @@
+/* TRM design tokens, direction A "Navy Trust" (approved by the owner on 23/11/2026, P-83).
+   Values come from the ui-ux-pro-max banking palette; contrast checked by script (see DES-000).
+   Fonts are loaded by the page. In the real app they are self-hosted (DES-000, rule F1). */
+:root {
+  /* type */
+  --font-head: "Lexend", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+  /* colour */
+  --color-bg: #F8FAFC;
+  --color-fg: #020617;
+  --color-muted: #475569;
+  --color-line: #E2E8F0;
+  --color-card: #FFFFFF;
+  --color-bar: #0F172A;
+  --color-on-bar: #FFFFFF;
+  --color-primary: #1E3A8A;
+  --color-on-primary: #FFFFFF;
+  --color-accent: #A16207;
+  --color-ok: #15803D;
+  --color-warn: #92400E;
+  --color-warn-bg: #FEF3C7;
+  --color-info: #1E3A8A;
+  --color-info-bg: #EFF3FB;
+  --color-chip: #E8ECF1;
+  --color-on-chip: #1E293B;
+  --color-track: #E2E8F0;
+  --color-status-bg: #FFFFFF;
+  --color-tab: #FFFFFF;
+  --color-ring: #1E3A8A;
+  --color-danger: #B91C1C;
+  --color-danger-bg: #FEF2F2;
+  --color-disabled-bg: #E2E8F0;
+  --color-disabled-fg: #475569;
+  --color-ok-bg: #DCFCE7;
+  --color-on-ok: #14532D;
+  --color-scrim: rgba(2, 6, 23, .55);
+  /* shape and space */
+  --radius: 6px;
+  --radius-s: 6px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px;
+  --touch: 44px;
+}
