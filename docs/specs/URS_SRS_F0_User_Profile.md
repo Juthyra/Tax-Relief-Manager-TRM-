@@ -5,12 +5,12 @@
 | Document ID | URS-SRS-F0 |
 | Document type | URS and SRS (user and system requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.9 |
+| Version | 0.10 |
 | Status | Draft (for owner review) |
 | Date | 2026-11-23 (first written 2026-11-13) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 3.5 "User profile and tax-year history", FR-0.1 to FR-0.8 (added in revision 53); also sections 5, 7 and 8 and FR-2.3 |
-| Source | PRD-TRM (written from revision 37; names checked against revision 48); owner prompts P-12 to P-16, P-38 and P-46; conditions from RES-003; owner answers to the PRD items (P-60 to P-67); PRD revision 53 |
+| Source | PRD-TRM (written from revision 37; names checked against revision 48); owner prompts P-12 to P-16, P-38 and P-46; conditions from RES-003; owner answers to the PRD items (P-60 to P-67); PRD revision 53; stack decisions of P-68 to P-71 (ADR-001) |
 | Change tracking | [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md); short forms in [REG-03 Acronyms](../registers/REG_03_Acronyms.md) |
 
 ## 0. Conventions shared by all six documents
@@ -428,6 +428,7 @@ Reading the map: a solid arrow is data a feature reads or receives; a dashed arr
 | UserTaxYear (DA-12: filed status per user) | R (lock follows status) | O | none | R | R | Export, erase | none |
 | TaxEstimate | Agg (IF-16) | O | Agg (IF-06) | none | R | Export, erase | none |
 | TaxYear, TaxBand, RebateRule | none | R (IF-01) | O | none | R (IF-07) | none | Create and edit |
+| RuleTestRun (DA-27) | none | none | O | none | none | none | Runs the tests in the browser; no edit |
 | ReliefCategory, ReliefRule, SubLimit, RuleTier | none | R (IF-01) | O | R (IF-02) | R (IF-07) | none | Create and edit |
 | Expense, ExpenseAllocation | none | Agg (IF-04) | Agg (IF-03) | O | Agg (IF-08) | Export, erase | none (amounts and descriptions are confidential) |
 | Receipt | none | none | none | O | Agg (IF-08) | Export, erase | File name and type only; upload, download, delete on request ([OI-F3-01](URS_SRS_F3_Spending_Records.md#oi-f3-01)) |
@@ -520,7 +521,7 @@ Reading the map: a solid arrow is data a feature reads or receives; a dashed arr
 ### B2.2 Data additions
 
 <a id="da-list"></a>
-**DA-01 to DA-26: data additions the specification needs (identical in all six documents).** Each stays "proposed" until the owner approves it; then the PRD is updated. Since PRD revision 53 (23/11/2026) every one of them is approved and in the PRD data model, except DA-03, which is removed. On 13/11/2026 the owner approved DA-16 and DA-19. On 14/11/2026 he approved DA-20 with a change: every question is mandatory. On 23/11/2026 he approved DA-01 to DA-15 (PRD items 1 and 2); DA-03 is removed and DA-10 loses include_projection, because he chose no projection ([SD-F1-02](URS_SRS_F1_Tax_Calculator.md#sd-f1-02)). Later on 23/11/2026 he approved DA-17, DA-18 and DA-21 to DA-24; the account tables are built by phase (basic account in R1, the rest with the launch account and R3).
+**DA-01 to DA-27: data additions the specification needs (identical in all six documents).** Each stays "proposed" until the owner approves it; then the PRD is updated. Since PRD revision 53 (23/11/2026) every one of them is approved and in the PRD data model, except DA-03, which is removed. On 13/11/2026 the owner approved DA-16 and DA-19. On 14/11/2026 he approved DA-20 with a change: every question is mandatory. On 23/11/2026 he approved DA-01 to DA-15 (PRD items 1 and 2); DA-03 is removed and DA-10 loses include_projection, because he chose no projection ([SD-F1-02](URS_SRS_F1_Tax_Calculator.md#sd-f1-02)). Later on 23/11/2026 he approved DA-17, DA-18 and DA-21 to DA-24; the account tables are built by phase (basic account in R1, the rest with the launch account and R3).
 
 | ID | Entity and field | Why it is needed | Used by | Status |
 | --- | --- | --- | --- | --- |
@@ -550,6 +551,7 @@ Reading the map: a solid arrow is data a feature reads or receives; a dashed arr
 | DA-24 | New entity DataRequest (id, user_id, type export, delete or delete_ya, ya, status, requested_at, ready_at, due_on, expires_at, file_ref) and new entity SecurityEvent (id, user_id, type, at, device_label, actor_id, reason, ip_address kept 30 days) | Export and deletion on request (NFR-7); the user's list of security events; the trail of admin actions on accounts | F5 | Approved 23/11/2026 (built with the launch account and R3) |
 | DA-25 | SubLimit.eligibility_rule (structured test, as DA-04) and SubLimit.claim_frequency, frequency_n, period_from_year, period_to_year (as DA-06) | Some rules apply to one item of a category: once-only items in R12, the child's age by type of centre in R23, breastfeeding inside R07 from YA 2027 ([OI-F2-04](URS_SRS_F2_Relief_Categories.md#oi-f2-04)) | F2, F3 | Approved 23/11/2026 |
 | DA-26 | TaxpayerProfile.spouse_foreign_income_above_limit, is_pensionable_public_servant, first_home_earns_income (booleans); Dependant.relief_shared, own_income_above_relief (booleans); TaxYear.efiling_deadline (date) | LHDN eligibility conditions for R03, R14, R06 and R20 to R22, and the e-Filing deadline next to the filing deadline (RES-003) | F0, F2 | Approved 23/11/2026 |
+| DA-27 | New entity RuleTestRun (id, change_set_id, rows_hash, engine_version, passed, failed_tests, run_at, run_by) | The server has no tax engine, so it stores the result of the publish-gate tests that ran in the admin's browser and accepts Publish only for a passing run of the same draft ([SRS-F2-11](URS_SRS_F2_Relief_Categories.md#srs-f2-11), [SD-F2-10](URS_SRS_F2_Relief_Categories.md#sd-f2-10)) | F2 | Proposed (the gate design is approved, [SD-F2-10](URS_SRS_F2_Relief_Categories.md#sd-f2-10); the field list waits) |
 
 
 ### B2.3 Category codes

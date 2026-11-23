@@ -5,12 +5,12 @@
 | Document ID | ADR-006 |
 | Document type | ADR (architecture decision record) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.1 |
+| Version | 0.2 |
 | Status | Proposed (held by the owner on 23/11/2026; decided with the stack) |
 | Date | 2026-11-23 (first written 2026-11-23) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7 (sign in, security, PDPA) and section 9.3 decision 8 (hosting) |
-| Source | Owner prompts P-40 and P-41; F5 OI-F5-06 |
+| Source | Owner prompts P-40, P-41 and P-68; F5 OI-F5-06 |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md) |
 | Decided by | Owner (not decided yet) |
 
@@ -41,12 +41,20 @@ No email ever carries tax data (F5 A6 item 6).
 
 | Option | For | Against |
 | --- | --- | --- |
-| To be filled when the stack is chosen. Prices, regions and terms are read from each provider's own pages at that time | | |
+| **A. Mail catcher in local development (now)** | Nothing is sent; the reset-link screens can be built and tested; Laravel's mail layer takes the provider as a setting, so choosing later changes configuration, not code | Not a real provider |
+| B. A transactional email service | Built for deliverability; Laravel supports such services | Stores recipients' email addresses (personal data); region and terms need a PDPA basis |
+| C. The SMTP of the domain host | Simple if a domain exists | Deliverability depends on that host |
+
+Prices, regions and terms are read from each provider's own pages when the provider is chosen.
 
 ## Decision and reason
 
 Not decided. On 23/11/2026 the owner held this decision: no domain yet, and the provider is chosen together with the stack (ADR-001 to ADR-005), after the YA 2026 and YA 2027 rules are firm.
 
+## Decision and reason
+
+Not decided. On 23/11/2026 the owner held this decision: no domain yet, and the provider is chosen with the stack. With the stack now chosen ([ADR-001](ADR_001_Language_And_Framework.md)) it stays held, because the choice needs a domain and the hosting decision ([ADR-005](ADR_005_Hosting.md)). Local development uses a mail catcher (option A), so the build is not blocked.
+
 ## Effect on the specifications
 
-Answers OI-F5-06 when decided. Until then the basic account cannot send the admin reset link, so it must be decided before the R1 build reaches F5.
+Answers OI-F5-06 when decided. A provider and a domain are needed before the basic account is used by anyone other than the developers, because the admin reset link and the password-changed notice are sent by email.

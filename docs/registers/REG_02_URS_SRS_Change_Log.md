@@ -12,7 +12,7 @@
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-23 (remaining PRD items approved, F0 at 0.9, F1 to F4 at 0.11, F5 at 0.10, CHG-059; PRD revision 53 synced items 1 to 10, 14, 15, 17, 20, 21, 25 and part of 22, 3 items pending, CHG-060); 2026-11-23 (owner answers to PRD items 1 to 4 and 7 to 9: no projection, PCB to date, closed year, admin download, LHDN rounding; DA-01 to DA-15 approved, DA-03 removed; F0 at 0.8, F1 to F4 at 0.10, F5 at 0.9; PRD not changed, CHG-058); 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055; F-067 applied, PRD revision 52, F0 at 0.7, F1 to F4 at 0.9, F5 at 0.8, CHG-057) |
+| Last updated | 2026-11-23 (stack decisions: ADR-001 to ADR-006 written, CHG-061; the engine runs only in the browser, so the publish gate, month-end snapshot and sync check changed, DA-27 proposed, CHG-062; F0 at 0.10, F1 to F4 at 0.12, F5 at 0.11; PRD not changed); 2026-11-23 (remaining PRD items approved, F0 at 0.9, F1 to F4 at 0.11, F5 at 0.10, CHG-059; PRD revision 53 synced items 1 to 10, 14, 15, 17, 20, 21, 25 and part of 22, 3 items pending, CHG-060); 2026-11-23 (owner answers to PRD items 1 to 4 and 7 to 9: no projection, PCB to date, closed year, admin download, LHDN rounding; DA-01 to DA-15 approved, DA-03 removed; F0 at 0.8, F1 to F4 at 0.10, F5 at 0.9; PRD not changed, CHG-058); 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055; F-067 applied, PRD revision 52, F0 at 0.7, F1 to F4 at 0.9, F5 at 0.8, CHG-057) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -21,7 +21,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 1. **Version numbers.** Each document starts at 0.1 (first draft). Any change to an ID, a number, a rule or a diagram raises the minor version (0.2, 0.3). When the owner approves a document it becomes 1.0. After that, changes raise 1.1, 1.2.
 2. **One entry per detail.** Every change gets the next CHG number and states: the document, the section, the ID changed, the type, what it said before, what it says now, why, and which prompt or finding caused it.
 3. **Change types:** Added, Changed, Removed, Clarified, Decided (owner answered an SD or OI), Synced (the PRD was updated to match).
-4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-26) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
+4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-27) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
 5. **IDs are never reused.** A removed ID stays in the register with status Removed.
 6. **Status in the register:** Draft (written, not reviewed), Needs owner decision (SD), Open (OI), Approved, Changed, Removed.
 
@@ -29,15 +29,15 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 
 | Doc | File | Feature | Version | Date | State | URS | SRS | Flow diagrams (FD) | Sequence (SQ) | Test cases | SD | OI | Lines |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| F0 | [URS_SRS_F0_User_Profile.md](../specs/URS_SRS_F0_User_Profile.md) | User profile and tax-year history | 0.9 | 2026-11-13 | Draft for owner review | 15 | 19 | 8 | 1 | 27 | 14 | 4 | 787 |
-| F1 | [URS_SRS_F1_Tax_Calculator.md](../specs/URS_SRS_F1_Tax_Calculator.md) | Tax calculator for any year | 0.11 | 2026-11-13 | Draft for owner review | 16 | 24 | 8 | 1 | 24 | 10 | 4 | 767 |
-| F2 | [URS_SRS_F2_Relief_Categories.md](../specs/URS_SRS_F2_Relief_Categories.md) | Relief categories and ranges | 0.11 | 2026-11-13 | Draft for owner review | 12 | 17 | 7 | 0 | 26 | 9 | 4 | 657 |
-| F3 | [URS_SRS_F3_Spending_Records.md](../specs/URS_SRS_F3_Spending_Records.md) | Spending records | 0.11 | 2026-11-13 | Draft for owner review | 15 | 18 | 8 | 1 | 23 | 4 | 4 | 730 |
-| F4 | [URS_SRS_F4_Dashboard.md](../specs/URS_SRS_F4_Dashboard.md) | Dashboard | 0.11 | 2026-11-13 | Draft for owner review | 13 | 16 | 7 | 1 | 19 | 7 | 2 | 679 |
-| F5 | [URS_SRS_F5_Account_Security.md](../specs/URS_SRS_F5_Account_Security.md) | Account and security | 0.10 | 2026-11-13 | Draft for owner review | 14 | 21 | 13 | 2 | 29 | 19 | 7 | 992 |
-| | Total | | | | | 85 | 115 | 51 | 6 | 148 | 63 | 25 | |
+| F0 | [URS_SRS_F0_User_Profile.md](../specs/URS_SRS_F0_User_Profile.md) | User profile and tax-year history | 0.10 | 2026-11-13 | Draft for owner review | 15 | 19 | 8 | 1 | 27 | 14 | 4 | 789 |
+| F1 | [URS_SRS_F1_Tax_Calculator.md](../specs/URS_SRS_F1_Tax_Calculator.md) | Tax calculator for any year | 0.12 | 2026-11-13 | Draft for owner review | 16 | 24 | 8 | 1 | 24 | 11 | 5 | 771 |
+| F2 | [URS_SRS_F2_Relief_Categories.md](../specs/URS_SRS_F2_Relief_Categories.md) | Relief categories and ranges | 0.12 | 2026-11-13 | Draft for owner review | 12 | 17 | 7 | 0 | 27 | 10 | 4 | 663 |
+| F3 | [URS_SRS_F3_Spending_Records.md](../specs/URS_SRS_F3_Spending_Records.md) | Spending records | 0.12 | 2026-11-13 | Draft for owner review | 15 | 18 | 8 | 1 | 23 | 4 | 4 | 732 |
+| F4 | [URS_SRS_F4_Dashboard.md](../specs/URS_SRS_F4_Dashboard.md) | Dashboard | 0.12 | 2026-11-13 | Draft for owner review | 13 | 16 | 7 | 1 | 19 | 7 | 2 | 681 |
+| F5 | [URS_SRS_F5_Account_Security.md](../specs/URS_SRS_F5_Account_Security.md) | Account and security | 0.11 | 2026-11-13 | Draft for owner review | 14 | 21 | 13 | 2 | 29 | 19 | 7 | 994 |
+| | Total | | | | | 85 | 115 | 51 | 6 | 149 | 65 | 26 | |
 
-Shared across all six: 21 interfaces, 8 events, 26 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
+Shared across all six: 21 interfaces, 8 events, 27 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
 
 ## Change register
 
@@ -103,16 +103,19 @@ Shared across all six: 21 interfaces, 8 events, 26 data additions, 26 category c
 | CHG-058 | 2026-11-23 | F0, F1, F2, F3, F4, F5 | F1 A1, A3, FD-F1-03, FD-F1-04, B1, B2, B3, B7, B8; F4 A3, FD, B1, B2, B3.1, B7; F3 SRS-F3-17, B7, B8; F0 SRS-F0-11; F5 B3.3; shared glossary and DA table | URS-F1-03, URS-F1-09, URS-F1-10, URS-F1-12, SRS-F1-02, SRS-F1-03, SRS-F1-05, SRS-F1-07, SRS-F1-08, SRS-F1-12, SRS-F1-13, SRS-F1-14, SRS-F1-19, SRS-F1-23, SRS-F1-24, TC-F1-07, TC-F1-08, TC-F1-22, TC-F1-24, SD-F1-02, SD-F1-05, OI-F1-02, OI-F1-03, SRS-F3-17, TC-F3-16, OI-F3-01, URS-F4-02, URS-F4-08, SRS-F4-03, SRS-F4-09, SRS-F4-12, TC-F4-03, TC-F4-12, SRS-F0-11, DA-01 to DA-15 | Decided | Months with no record projected (carry forward, on by default); projected annual PCB with overrides; a projected PCB card; closed year, rounding and admin download open; DA-01 to DA-15 proposed | No projection: only entered months count; PCB to date = regular plus bonus PCB of every entered month from January, each once; balance "so far" until the YA ends, then final; projected PCB card removed; tax follows LHDN's Form BE method (tax on the first plus the balance, to the sen); admin download stays, the admin does not open the contents and is responsible for the file; DA-01 to DA-15 approved, DA-03 removed, DA-10 without include_projection. TC-F1-07 (1,250.00; 199.00), TC-F1-08 (1,550.00; -101.00), TC-F1-24 (1,161.90), TC-F4-03 and TC-F4-12 recomputed by script | Owner answers to PRD items 1 to 4 and 7 to 9 (option (a) for items 3 and 4); the PRD is not changed until the owner says "update the PRD" | Prompts P-60 to P-63, findings F-070 to F-072 |
 | CHG-059 | 2026-11-23 | F0, F1, F2, F3, F4, F5 | F0 and F5 header and A3, B6; B8 of F1, F2, F4, F5; shared DA table | URS-F0-01 to URS-F0-15, URS-F5-01 to URS-F5-14, SD-F1-09, SD-F2-08, SD-F4-04, SD-F5-01, SD-F5-02, SD-F5-06, DA-17, DA-18, DA-21 to DA-24 | Decided | SD and DA rows proposed; F0 and F5 had no PRD feature section | SD-F1-09, SD-F2-08, SD-F4-04, SD-F5-01, SD-F5-02 approved; SD-F5-06 approved for the basic account; DA-17, DA-18, DA-21 to DA-24 approved and built by phase; every F0 and F5 URS names its new FR-0.x or FR-5.x | Owner approvals of PRD items 5, 6, 10, 14, 15, 17, 20, 21, 22 (basic account) and 25 | Prompts P-64 to P-67 |
 | CHG-060 | 2026-11-23 | PRD | Sections 2.2, 3 (new 3.5 and 3.6), 3.1, 3.4, 4, 5, 6, 7, 8, 9.1, 9.3, 9.4 | FR-0.1 to FR-0.8, FR-5.1 to FR-5.9, FR-1.1, FR-1.3, FR-1.9, FR-1.10, FR-4.2, FR-4.4, FR-4.8, BR-9, BR-10 | Synced | Revision 52 | Revision 53: no PCB projection (PCB to date, balance so far until the YA ends); closed = the YA has ended; LHDN rounding; admin file download rule; band lower threshold; potential saving from the calculator; per-rule history; feature sections for F0 and F5; section 5 data model with DA-01 to DA-26 (DA-03 removed), UserTaxYear and the six account tables built by phase; basic account sign-in values; 9.4 now lists 3 items | Owner said "update and update the PRD" | Prompt P-67; Pending PRD sync items 1 to 10, 14, 15, 17, 20, 21, 22 (basic account part), 25 |
+| CHG-061 | 2026-11-23 | ADR-001 to ADR-006, RES-001 | Whole ADRs | ADR-001 to ADR-006 | Decided | Options "to be filled"; stack not recorded | The owner's stack (Laravel, Inertia, Vue 3, TypeScript, PostgreSQL) and options written for all six ADRs; versions of Laravel 13, PHP 8.5, Vue 3.5, Inertia 3, Node LTS and PostgreSQL 18 proposed after reading their official pages; ADR-005 and ADR-006 held; ADRs stay Proposed | Owner stated the stack and asked for all six to be written | Prompts P-68 to P-71 |
+| CHG-062 | 2026-11-23 | F0, F1, F2, F3, F4, F5 | F1 A6, SRS-F1-19, TC-F1-21, B8; F2 FD-F2-05, SRS-F2-11, B2, B7, B8; F4 SRS-F4-10; shared DA table and ownership table | SRS-F1-19, TC-F1-21, SD-F1-07, SD-F1-11, OI-F1-05, SRS-F2-11, TC-F2-27, SD-F2-10, SRS-F4-10, DA-27 | Changed | The same tax engine runs in the browser and on the server (verification); the publish-gate tests run on the server; a system job makes month-end snapshots; F4 compares with a server figure after sync | The engine runs only in the browser; the publish gate runs in the admin's browser and the server stores the passing run with a hash of the draft rows (DA-27 proposed) and the same tests run in CI; the browser makes the month-end snapshot at the next visit; no server comparison after sync; offline approach deferred (OI-F1-05); TC-F2-27 added | Owner answers to the stack questions (calculation in the browser; publish gate option A; snapshot at the next visit; offline later) | Prompts P-69 to P-71; findings F-074 to F-076 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052), item 28 in revision 51 on 23/11/2026 (CHG-055), and items 1 to 10, 14, 15, 17, 20, 21, 25 and the basic account part of item 22 in revision 53 on 23/11/2026 (CHG-060); their numbers are not reused. 3 items are still pending; the owner keeps them for the launch account and R3. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052), item 28 in revision 51 on 23/11/2026 (CHG-055), and items 1 to 10, 14, 15, 17, 20, 21, 25 and the basic account part of item 22 in revision 53 on 23/11/2026 (CHG-060); their numbers are not reused. 4 items are still pending: 3 the owner keeps for the launch account and R3, and item 29 from the stack decision. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
 
 | # | PRD place | Change | Matching IDs | Status |
 | --- | --- | --- | --- | --- |
 | 22 (launch account part) | Section 7, NFR-6 | Email verified before first use; sign-in lock; emailed link lives; shared-device session (launch account, SD-F5-17) | SD-F5-03, SD-F5-04, SD-F5-06 (launch part) | Waiting for owner approval |
 | 23 | Section 7 Settings, NFR-7, NFR-8 | Export as a ZIP (R3); deletion of the whole account with a 14-day grace period (launch account); 35-day backup purge; consent purposes and text headings | SD-F5-08, SD-F5-12, SD-F5-14 | Waiting for owner approval |
 | 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (launch account) | SD-F5-05, SD-F5-07 | Waiting for owner approval |
+| 29 | Section 7 (suggested technology direction), section 5 | Say that the tax engine runs only in the browser and the server never calculates; add the RuleTestRun entity (DA-27) to the data model | SD-F1-11, SD-F2-10, DA-27, ADR-001 | Waiting for owner approval |
 
 ## Consistency checks
 
@@ -152,6 +155,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-23 | After F-067 (CHG-057): build, change log, acronym check and standard check; TC-F1-24 recomputed by script (328.20 + 106.20 x 9 = 1,284.00; plus 727.50 = 2,011.50; wrong entry 328.20 + 833.70 x 9 = 7,831.50); TC-F2-25 (1,000 + 0 + 2,000 = 3,000); F0 counts (2 of 6 = 33%, 3 of 8 = 37%, 9 of 9) | 0 errors; acronym check passed; standard check 0 errors; all values match |
 | 2026-11-23 | After the owner answers to PRD items 1 to 4 and 7 to 9 (CHG-058): build, change log, acronym check and standard check; changed IDs found by diffing the built rows against the last commit; TC-F1-07 (125 x 10 = 1,250.00; 1,449 minus 1,250 = 199.00), TC-F1-08 (1,250 + 300 = 1,550.00; -101.00), TC-F1-24 (109.40 x 3 + 106.20 = 434.40; plus 727.50 = 1,161.90; wrong entry 328.20 + 833.70 = 1,161.90) and LHDN's Form BE example (45,500 gives 1,230.00) recomputed by script; no projection wording left in the specifications except the decision and removal notes | 0 errors; acronym check passed; standard check 0 errors; all values match |
 | 2026-11-23 | After the PRD sync (CHG-059, CHG-060): build, change log, acronym check and standard check; every F0 and F5 URS names an FR-0.x or FR-5.x that exists in PRD revision 53; Pending PRD sync and PRD section 9.4 both list 3 items; no projection wording left in the PRD except decision 10 and the no-projection rules | 0 errors; acronym check passed; standard check 0 errors; 3 of 3 |
+| 2026-11-23 | After the stack decisions (CHG-061, CHG-062): build, change log, acronym check and standard check; changed IDs found by diffing the built rows against the last commit; every ID named in a new or changed SRS exists; FD-F2-05 still renders; Pending PRD sync has 4 items and the PRD is unchanged | 0 errors; acronym check passed; standard check 0 errors |
 
 ## ID register
 
@@ -162,28 +166,28 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 
 | ID | Type | Short description | Added in | Status |
 | --- | --- | --- | --- | --- |
-| URS-F0-01 | URS | Create my profile the first time I use the app, in short steps that I can leave and finish later | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-02 | URS | Tell the app my residency, marital status, my spouse's situation, my own disability and my first-home loan, so that ... | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-03 | URS | Add, change and remove dependants (children and parents) with the facts that decide their reliefs | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-04 | URS | See my whole profile on one screen: what is answered, what is missing, and which reliefs each answer affects | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-05 | URS | Have a separate profile for each YA, which starts as a copy of the previous year, so that a change in a later year ... | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-06 | URS | When I change a fact, choose whether it also applies to the later YAs that are not filed | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-07 | URS | See the history of my tax years: for each YA, whether it is not started, in progress, calculated or filed, and its main ... | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-08 | URS | Open one tax year to see the profile it used and its saved calculations, and jump to the calculator, the spending list ... | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-09 | URS | Be sure that the profile of a filed YA cannot change unless I reopen the YA, and see which profile version each saved ... | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-10 | URS | See the history of changes to a profile: who changed what, when, and from which value to which value, including changes ... | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-11 | URS | Compare the profiles of two YAs and see what changed | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-12 | URS | Let an admin help me with my profile fields without the admin seeing my income, tax or spending | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-13 | URS | Use and change my profile offline, and have the changes arrive once and in order when I am online again | 0.1 (CHG-018) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-14 | URS | Keep my name and language with my profile, and have my profile data included when I export my data and removed when I ... | 0.2 (CHG-031) | Draft, PRD link added in 0.9 (CHG-059) |
-| URS-F0-15 | URS | Be asked for every fact that my reliefs depend on, and be unable to calculate, see reliefs or record spending for a ... | 0.3 (CHG-036) | Draft, PRD link added in 0.9 (CHG-059) |
-| SRS-F0-01 | SRS | Guided creation of the first profile | 0.1 (CHG-018) | Draft, changed in 0.9 (CHG-057) |
-| SRS-F0-02 | SRS | Questions, answers and visibility | 0.1 (CHG-018) | Draft, changed in 0.9 (CHG-057) |
+| URS-F0-01 | URS | Create my profile the first time I use the app, in short steps that I can leave and finish later | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-02 | URS | Tell the app my residency, marital status, my spouse's situation, my own disability and my first-home loan, so that ... | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-03 | URS | Add, change and remove dependants (children and parents) with the facts that decide their reliefs | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-04 | URS | See my whole profile on one screen: what is answered, what is missing, and which reliefs each answer affects | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-05 | URS | Have a separate profile for each YA, which starts as a copy of the previous year, so that a change in a later year ... | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-06 | URS | When I change a fact, choose whether it also applies to the later YAs that are not filed | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-07 | URS | See the history of my tax years: for each YA, whether it is not started, in progress, calculated or filed, and its main ... | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-08 | URS | Open one tax year to see the profile it used and its saved calculations, and jump to the calculator, the spending list ... | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-09 | URS | Be sure that the profile of a filed YA cannot change unless I reopen the YA, and see which profile version each saved ... | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-10 | URS | See the history of changes to a profile: who changed what, when, and from which value to which value, including changes ... | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-11 | URS | Compare the profiles of two YAs and see what changed | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-12 | URS | Let an admin help me with my profile fields without the admin seeing my income, tax or spending | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-13 | URS | Use and change my profile offline, and have the changes arrive once and in order when I am online again | 0.1 (CHG-018) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-14 | URS | Keep my name and language with my profile, and have my profile data included when I export my data and removed when I ... | 0.2 (CHG-031) | Draft, PRD link added in 0.10 (CHG-059) |
+| URS-F0-15 | URS | Be asked for every fact that my reliefs depend on, and be unable to calculate, see reliefs or record spending for a ... | 0.3 (CHG-036) | Draft, PRD link added in 0.10 (CHG-059) |
+| SRS-F0-01 | SRS | Guided creation of the first profile | 0.1 (CHG-018) | Draft, changed in 0.10 (CHG-057) |
+| SRS-F0-02 | SRS | Questions, answers and visibility | 0.1 (CHG-018) | Draft, changed in 0.10 (CHG-057) |
 | SRS-F0-03 | SRS | Completeness and the gate | 0.1 (CHG-018) | Draft, changed in 0.3 (CHG-036) |
 | SRS-F0-04 | SRS | Profile of a new YA (copy forward) | 0.1 (CHG-018) | Draft, changed in 0.3 (CHG-036) |
 | SRS-F0-05 | SRS | Profile screen | 0.1 (CHG-018) | Draft |
 | SRS-F0-06 | SRS | Validation of facts | 0.1 (CHG-018) | Draft |
-| SRS-F0-07 | SRS | Dependants | 0.1 (CHG-018) | Draft, changed in 0.9 (CHG-057) |
+| SRS-F0-07 | SRS | Dependants | 0.1 (CHG-018) | Draft, changed in 0.10 (CHG-057) |
 | SRS-F0-08 | SRS | Saving and versions | 0.1 (CHG-018) | Draft |
 | SRS-F0-09 | SRS | Apply a change to later YAs | 0.1 (CHG-018) | Draft |
 | SRS-F0-10 | SRS | Lock of a filed YA | 0.1 (CHG-018) | Draft |
@@ -197,8 +201,8 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SRS-F0-18 | SRS | Layout, language, accessibility, performance | 0.1 (CHG-018) | Draft, changed in 0.3 (CHG-036) |
 | SRS-F0-19 | SRS | Account fields, identity, export and erase (links to F5) | 0.2 (CHG-031) | Draft, changed in 0.3 (CHG-042) |
 | TC-F0-01 | TC | New user, name and language empty, first sign-in on 13/11/2026; at step 2 answer "No", ... | 0.1 (CHG-018) | Draft |
-| TC-F0-02 | TC | Same user answers step 2 Yes and step 3 single, then leaves the app and returns | 0.1 (CHG-018) | Draft, changed in 0.9 (CHG-057) |
-| TC-F0-03 | TC | Married, spouse_has_income not answered; then answered No; then Q4 No, Q11 No, Q12 No, ... | 0.1 (CHG-018) | Draft, changed in 0.9 (CHG-057) |
+| TC-F0-02 | TC | Same user answers step 2 Yes and step 3 single, then leaves the app and returns | 0.1 (CHG-018) | Draft, changed in 0.10 (CHG-057) |
+| TC-F0-03 | TC | Married, spouse_has_income not answered; then answered No; then Q4 No, Q11 No, Q12 No, ... | 0.1 (CHG-018) | Draft, changed in 0.10 (CHG-057) |
 | TC-F0-04 | TC | Married, spouse_has_income No, spouse_is_disabled Yes; change marital status to divorced | 0.1 (CHG-018) | Draft |
 | TC-F0-05 | TC | Add a dependant with date of birth 01/01/1900; then a future date; then an empty ... | 0.1 (CHG-018) | Draft |
 | TC-F0-06 | TC | The three children of B3.2; test ages for YA 2026, YA 2027 and YA 2028 and the R20 test | 0.1 (CHG-018) | Draft |
@@ -280,7 +284,7 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SRS-F1-16 | SRS | What-if | 0.1 (CHG-001) | Draft |
 | SRS-F1-17 | SRS | Year comparison | 0.1 (CHG-001) | Draft |
 | SRS-F1-18 | SRS | Scenario service (IF-09) | 0.1 (CHG-001) | Draft |
-| SRS-F1-19 | SRS | Estimate snapshots | 0.1 (CHG-001) | Draft, changed in 0.10 (CHG-058) |
+| SRS-F1-19 | SRS | Estimate snapshots | 0.1 (CHG-001) | Draft, changed in 0.12 (CHG-062) |
 | SRS-F1-20 | SRS | Audit and versions of income entries | 0.1 (CHG-001) | Draft |
 | SRS-F1-21 | SRS | Mark YA as filed and reopen | 0.1 (CHG-001) | Draft, changed in 0.3 (CHG-020) |
 | SRS-F1-22 | SRS | (R2) PCB estimate from salary, reserved | 0.1 (CHG-001) | Draft |
@@ -306,7 +310,7 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F1-18 | TC | Profile: 2 unmarried children under 18 | 0.1 (CHG-001) | Draft |
 | TC-F1-19 | TC | Mark YA 2026 as filed | 0.1 (CHG-001) | Draft |
 | TC-F1-20 | TC | Edit a salary in a filed YA | 0.1 (CHG-001) | Draft |
-| TC-F1-21 | TC | Stored YAs: 2025 filed on 20/04/2026 (final snapshot: chargeable income 45,150.00, ... | 0.3 (CHG-021) | Draft |
+| TC-F1-21 | TC | Stored YAs: 2025 filed on 20/04/2026 (final snapshot: chargeable income 45,150.00, ... | 0.3 (CHG-021) | Draft, changed in 0.12 (CHG-062) |
 | TC-F1-22 | TC | Aisyah's data: YA 2025 filed with its final snapshot, YA 2026 with 2 snapshots and income ... | 0.4 (CHG-032) | Draft, changed in 0.10 (CHG-058) |
 | TC-F1-23 | TC | Chargeable income RM 700,000.00 under YA 2026 rules, then YA 2027 rules (no rebate) | 0.7 (CHG-054) | Draft, new |
 | TC-F1-24 | TC | YA 2026 current, today in May. Regular PCB 109.40 in January, February and March; April ... | 0.9 (CHG-057) | Draft, changed in 0.10 (CHG-058) |
@@ -316,14 +320,16 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SD-F1-04 | SD | A month missing between two recorded months is flagged, not filled | 0.1 (CHG-001) | Needs owner decision |
 | SD-F1-05 | SD | Approved by the owner on 23/11/2026 (P-61, P-62): follow LHDN. Tax is worked out as on LHDN's Form BE: tax on the first ... | 0.1 (CHG-001) | Approved by the owner 23/11/2026: follow LHDN (CHG-058) |
 | SD-F1-06 | SD | Year comparison has two modes (own data, same data under other rules) | 0.1 (CHG-001) | Needs owner decision |
-| SD-F1-07 | SD | Snapshots are saved on "Save estimate", on "Mark as filed" and at each month-end by the SYSTEM user | 0.1 (CHG-001) | Needs owner decision |
+| SD-F1-07 | SD | Snapshots are saved on "Save estimate", on "Mark as filed" and, for a current YA, by the browser at the first visit ... | 0.1 (CHG-001) | Draft, changed in 0.12 (CHG-062) |
 | SD-F1-08 | SD | A filed YA can be reopened; filing and reopening are versioned | 0.1 (CHG-001) | Needs owner decision |
 | SD-F1-09 | SD | Approved by the owner on 23/11/2026 (P-64, P-67). Bands store the lower threshold (5,000.00), not the displayed start ... | 0.1 (CHG-001) | Approved by the owner 23/11/2026, synced in PRD revision 53 (CHG-059) |
 | SD-F1-10 | SD | IF-16 gives F0 the live figure of each stored YA through the scenario as_recorded, and the saved figures through the ... | 0.3 (CHG-021) | Needs owner decision |
+| SD-F1-11 | SD | Approved by the owner on 23/11/2026 (P-69, P-70). The tax engine runs only in the browser. The server stores and ... | 0.12 (CHG-062) | Approved by the owner 23/11/2026 (CHG-062) |
 | OI-F1-01 | OI | On which date is a child's age tested (period end, period start or the date of expense)? BR-11 says to follow LHDN. | 0.1 (CHG-001) | Open |
 | OI-F1-02 | OI | Answered 2026-11-23 by the owner (P-61, P-62). PCB is the sum of every entered month from January, rebuilt after every ... | 0.1 (CHG-001) | Answered by the owner 23/11/2026: counted once, PCB to date (CHG-058) |
 | OI-F1-03 | OI | Answered 2026-11-23 by the owner (P-60, P-61). Closed means the YA has ended (today after period_end, 31 December), not ... | 0.1 (CHG-001) | Answered by the owner 23/11/2026: closed = the YA has ended (CHG-058) |
 | OI-F1-04 | OI | Departure levy needs an input field (DA-09) | 0.1 (CHG-001) | Open |
+| OI-F1-05 | OI | How are the device store and the sync built, so the app works offline (URS-F1-06, URS-F3-07, URS-F0-13, URS-F5-10, ... | 0.12 (CHG-062) | Open: offline approach deferred by the owner 23/11/2026 (CHG-062) |
 
 ### F2. Relief categories and ranges (URS_SRS_F2_Relief_Categories.md)
 
@@ -344,14 +350,14 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SRS-F2-01 | SRS | Catalogue list | 0.1 (CHG-002) | Draft |
 | SRS-F2-02 | SRS | Group, search, filter | 0.1 (CHG-002) | Draft |
 | SRS-F2-03 | SRS | New and Changed flags | 0.1 (CHG-002) | Draft |
-| SRS-F2-04 | SRS | Profile relevance and the eligibility test | 0.1 (CHG-002) | Draft, changed in 0.11 (CHG-057) |
-| SRS-F2-05 | SRS | Effective cap, claimed, remaining, room | 0.1 (CHG-002) | Draft, changed in 0.11 (CHG-057) |
+| SRS-F2-04 | SRS | Profile relevance and the eligibility test | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-057) |
+| SRS-F2-05 | SRS | Effective cap, claimed, remaining, room | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-057) |
 | SRS-F2-06 | SRS | Category detail | 0.1 (CHG-002) | Draft |
 | SRS-F2-07 | SRS | Switching the YA | 0.1 (CHG-002) | Draft |
-| SRS-F2-08 | SRS | Seed data | 0.1 (CHG-002) | Draft, changed in 0.11 (CHG-057) |
+| SRS-F2-08 | SRS | Seed data | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-057) |
 | SRS-F2-09 | SRS | Admin rules manager | 0.1 (CHG-002) | Draft |
 | SRS-F2-10 | SRS | Status, source and confirmation | 0.1 (CHG-002) | Draft |
-| SRS-F2-11 | SRS | Publish gate and RuleSetChanged | 0.1 (CHG-002) | Draft |
+| SRS-F2-11 | SRS | Publish gate and RuleSetChanged | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-062) |
 | SRS-F2-12 | SRS | Delete and retire | 0.1 (CHG-002) | Draft |
 | SRS-F2-13 | SRS | Serving rules to other features (IF-01, IF-02, IF-07) | 0.1 (CHG-002) | Draft |
 | SRS-F2-14 | SRS | Shared-cap groups and claim frequency (configuration) | 0.1 (CHG-002) | Draft, changed in 0.2 (CHG-012) |
@@ -359,8 +365,8 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SRS-F2-16 | SRS | Audit and rule history | 0.1 (CHG-002) | Draft |
 | SRS-F2-17 | SRS | (R2) Consolidated rule change log, reserved | 0.1 (CHG-002) | Draft |
 | TC-F2-01 | TC | Open the catalogue for YA 2025 | 0.1 (CHG-002) | Draft |
-| TC-F2-02 | TC | YA 2026, then YA 2027 | 0.1 (CHG-002) | Draft, changed in 0.11 (CHG-054) |
-| TC-F2-03 | TC | YA 2027 flags against YA 2026 | 0.1 (CHG-002) | Draft, changed in 0.11 (CHG-054) |
+| TC-F2-02 | TC | YA 2026, then YA 2027 | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-054) |
+| TC-F2-03 | TC | YA 2027 flags against YA 2026 | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-054) |
 | TC-F2-04 | TC | YA 2025 | 0.1 (CHG-002) | Draft |
 | TC-F2-05 | TC | Search "vaccin" | 0.1 (CHG-002) | Draft |
 | TC-F2-06 | TC | Filter Has room on, with the F1 worked example | 0.1 (CHG-002) | Draft |
@@ -384,18 +390,20 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F2-24 | TC | Profile of YA 2027 copied from YA 2026 (Aisyah, F0 B3.2), dependants_confirmed false; ... | 0.3 (CHG-022) | Draft, changed in 0.5 (CHG-037) |
 | TC-F2-25 | TC | YA 2026, three unmarried children: aged 5 with relief_shared Yes; aged 9 with ... | 0.9 (CHG-057) | Draft, new |
 | TC-F2-26 | TC | YA 2026: (a) married, spouse not disabled, Q11 Yes; (b) Q12 public servant Yes; (c) Q13 ... | 0.9 (CHG-057) | Draft, new |
+| TC-F2-27 | TC | A Publish request reaches the server (a) with no RuleTestRun for the change set, (b) with ... | 0.12 (CHG-062) | Draft, new |
 | SD-F2-01 | SD | Nine groups in a fixed order (B2.3) | 0.1 (CHG-002) | Needs owner decision |
 | SD-F2-02 | SD | The YA selector always starts on the current YA and is not remembered | 0.1 (CHG-002) | Needs owner decision |
-| SD-F2-03 | SD | filing_deadline stays empty until published; F4 shows "Deadline not published" | 0.1 (CHG-002) | Draft, changed in 0.11 (CHG-057) |
+| SD-F2-03 | SD | filing_deadline stays empty until published; F4 shows "Deadline not published" | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-057) |
 | SD-F2-04 | SD | Seed status: YA 2025 and YA 2026 Gazetted, YA 2027 Announced, none Confirmed until an admin verifies | 0.1 (CHG-002) | Needs owner decision |
 | SD-F2-05 | SD | Draft rows and change sets for admin edits | 0.1 (CHG-002) | Needs owner decision |
 | SD-F2-06 | SD | A value edit on a Confirmed rule resets it to Gazetted | 0.1 (CHG-002) | Needs owner decision |
 | SD-F2-07 | SD | No override on the publish gate; band tests are generated for new YAs | 0.1 (CHG-002) | Needs owner decision |
 | SD-F2-08 | SD | Approved by the owner on 23/11/2026 (P-64, P-67). Per-rule history in R1; the combined log view is R2. A taxpayer sees ... | 0.1 (CHG-002) | Approved by the owner 23/11/2026, synced in PRD revision 53 (CHG-059) |
 | SD-F2-09 | SD | Bilingual name and condition fields on categories | 0.1 (CHG-002) | Needs owner decision |
+| SD-F2-10 | SD | Approved by the owner on 23/11/2026 (P-70, option A). The publish gate runs the tests in the admin's browser; the ... | 0.12 (CHG-062) | Approved by the owner 23/11/2026 (CHG-062) |
 | OI-F2-01 | OI | Answered 2026-11-12 (version 0.2); YA 2026 confirmed 2026-11-23 (version 0.7, LHDN Public Ruling 5/2026, RES-002). ... | 0.1 (CHG-002) | Answered in 0.2 (CHG-011); YA 2026 confirmed in 0.7 (CHG-054) |
 | OI-F2-02 | OI | Answered 2026-11-12 (version 0.2). Decision 5, EPF and life insurance. LHDN gives a total of RM 7,000 with a limit of ... | 0.1 (CHG-002) | Answered in 0.2 (CHG-012) |
-| OI-F2-03 | OI | Which YA 2027 changes are Gazetted yet (Finance Act)? | 0.1 (CHG-002) | Draft, changed in 0.11 (CHG-054) |
+| OI-F2-03 | OI | Which YA 2027 changes are Gazetted yet (Finance Act)? | 0.1 (CHG-002) | Draft, changed in 0.12 (CHG-054) |
 | OI-F2-04 | OI | Answered 2026-11-23 (version 0.8): held as sub-limits (DA-25). Some rules apply to one item inside a category, not to ... | 0.7 (CHG-054) | Answered by the owner 23/11/2026 in 0.8: sub-limits, DA-25 approved (CHG-055) |
 
 ### F3. Spending records (URS_SRS_F3_Spending_Records.md)
@@ -444,9 +452,9 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F3-07 | TC | R10: 10 Jan RM 2,000.00 and 15 Feb RM 1,000.00; then edit January to RM 500.00 | 0.1 (CHG-003) | Draft |
 | TC-F3-08 | TC | Group GRP-INS-EPF cap 7,000; R14 cap 4,000; R15 cap 3,000; EPF prior 7,920.00 from IF-05; ... | 0.1 (CHG-003) | Draft, changed in 0.2 (CHG-013) |
 | TC-F3-09 | TC | Total income 72,000.00; donations RM 10,000.00; then again with professional ... | 0.1 (CHG-003) | Draft |
-| TC-F3-10 | TC | R24 breastfeeding RM 1,000.00 applied in YA 2025; then RM 800.00 in YA 2026; then RM ... | 0.1 (CHG-003) | Draft, changed in 0.11 (CHG-054) |
+| TC-F3-10 | TC | R24 breastfeeding RM 1,000.00 applied in YA 2025; then RM 800.00 in YA 2026; then RM ... | 0.1 (CHG-003) | Draft, changed in 0.12 (CHG-054) |
 | TC-F3-11 | TC | R10 expense RM 3,000.00 with do not claim on | 0.1 (CHG-003) | Draft |
-| TC-F3-12 | TC | R23 childcare in YA 2026: (a) a child aged 7 at a TASKA (limit 6); (b) the same child at ... | 0.1 (CHG-003) | Draft, changed in 0.11 (CHG-054) |
+| TC-F3-12 | TC | R23 childcare in YA 2026: (a) a child aged 7 at a TASKA (limit 6); (b) the same child at ... | 0.1 (CHG-003) | Draft, changed in 0.12 (CHG-054) |
 | TC-F3-13 | TC | Expense with no receipt; then add a receipt that is still uploading | 0.1 (CHG-003) | Draft |
 | TC-F3-14 | TC | Same expense edited on two devices while offline; the later client time was on device B | 0.1 (CHG-003) | Draft |
 | TC-F3-15 | TC | Date tomorrow | 0.1 (CHG-003) | Draft |
@@ -493,7 +501,7 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | SRS-F4-07 | SRS | Multi-year trend | 0.1 (CHG-004) | Draft |
 | SRS-F4-08 | SRS | Alerts | 0.1 (CHG-004) | Draft |
 | SRS-F4-09 | SRS | PCB panel | 0.1 (CHG-004) | Draft, changed in 0.10 (CHG-058) |
-| SRS-F4-10 | SRS | Live update, offline, freshness | 0.1 (CHG-004) | Draft, changed in 0.3 (CHG-024) |
+| SRS-F4-10 | SRS | Live update, offline, freshness | 0.1 (CHG-004) | Draft, changed in 0.12 (CHG-062) |
 | SRS-F4-11 | SRS | Drill-down and navigation | 0.1 (CHG-004) | Draft |
 | SRS-F4-12 | SRS | Estimate labels | 0.1 (CHG-004) | Draft, changed in 0.10 (CHG-058) |
 | SRS-F4-13 | SRS | Empty and error states | 0.1 (CHG-004) | Draft |
@@ -533,37 +541,37 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 
 | ID | Type | Short description | Added in | Status |
 | --- | --- | --- | --- | --- |
-| URS-F5-01 | URS | Create an account with an invitation, an email and a password (launch account: and prove the email is mine before I use ... | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-02 | URS | Read the data consent before I use the app, accept it, see later what I accepted and when, and be asked again if the ... | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-03 | URS | Sign in and out and be signed out after a period of no use (launch account: stay signed in on my own device) | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-04 | URS | Get back into my account when I forget my password: in the basic account an administrator sends me a temporary link; in ... | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-05 | URS | (launch account) Turn two-factor login on and off with an authenticator app, keep recovery codes, and recover if I lose ... | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-06 | URS | Change my password and my email (R3: see where I am signed in and sign out another device) | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-07 | URS | (R3) See the security events on my account: sign-ins, failed attempts, changes and actions by an administrator | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-08 | URS | (R3) Export all my data in a file I can keep | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-09 | URS | (launch account) Delete my account and all my data, after a clear warning about the 7-year record rule, with time to ... | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-10 | URS | Use the app offline, and be safe if a device is shared, lost or kept offline for a long time | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-11 | URS | Be sure that an administrator can never see my tax data or change my email or password | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-12 | URS | (Admin) Invite people, see the status of accounts, disable or enable an account and send a password reset email, ... | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-13 | URS | Find language, security, privacy, export and deletion in one Settings screen | 0.1 (CHG-028) | Draft, PRD link added in 0.10 (CHG-059) |
-| URS-F5-14 | URS | (R3) Be told when the records of a year are older than 7 years, and delete them myself when I choose; never before the ... | 0.2 (CHG-041) | Draft, PRD link added in 0.10 (CHG-059) |
-| SRS-F5-01 | SRS | Sign-up (by invitation) | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-02 | SRS | Password rules | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-03 | SRS | Email verification | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-04 | SRS | Consent | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-05 | SRS | Sign-in | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-06 | SRS | Two-factor login (admins and taxpayers) | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-07 | SRS | Recovery codes and a lost authenticator | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-08 | SRS | Sessions | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-09 | SRS | Offline use, expiry and sign-out | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-10 | SRS | Forgot password | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-11 | SRS | Change password and change email | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-12 | SRS | Security events | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-13 | SRS | Settings screen | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| URS-F5-01 | URS | Create an account with an invitation, an email and a password (launch account: and prove the email is mine before I use ... | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-02 | URS | Read the data consent before I use the app, accept it, see later what I accepted and when, and be asked again if the ... | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-03 | URS | Sign in and out and be signed out after a period of no use (launch account: stay signed in on my own device) | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-04 | URS | Get back into my account when I forget my password: in the basic account an administrator sends me a temporary link; in ... | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-05 | URS | (launch account) Turn two-factor login on and off with an authenticator app, keep recovery codes, and recover if I lose ... | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-06 | URS | Change my password and my email (R3: see where I am signed in and sign out another device) | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-07 | URS | (R3) See the security events on my account: sign-ins, failed attempts, changes and actions by an administrator | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-08 | URS | (R3) Export all my data in a file I can keep | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-09 | URS | (launch account) Delete my account and all my data, after a clear warning about the 7-year record rule, with time to ... | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-10 | URS | Use the app offline, and be safe if a device is shared, lost or kept offline for a long time | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-11 | URS | Be sure that an administrator can never see my tax data or change my email or password | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-12 | URS | (Admin) Invite people, see the status of accounts, disable or enable an account and send a password reset email, ... | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-13 | URS | Find language, security, privacy, export and deletion in one Settings screen | 0.1 (CHG-028) | Draft, PRD link added in 0.11 (CHG-059) |
+| URS-F5-14 | URS | (R3) Be told when the records of a year are older than 7 years, and delete them myself when I choose; never before the ... | 0.2 (CHG-041) | Draft, PRD link added in 0.11 (CHG-059) |
+| SRS-F5-01 | SRS | Sign-up (by invitation) | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-02 | SRS | Password rules | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-03 | SRS | Email verification | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-04 | SRS | Consent | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-05 | SRS | Sign-in | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-06 | SRS | Two-factor login (admins and taxpayers) | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-07 | SRS | Recovery codes and a lost authenticator | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-08 | SRS | Sessions | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-09 | SRS | Offline use, expiry and sign-out | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-10 | SRS | Forgot password | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-11 | SRS | Change password and change email | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-12 | SRS | Security events | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-13 | SRS | Settings screen | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | SRS-F5-14 | SRS | Data export (IF-19) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
-| SRS-F5-15 | SRS | Account deletion request | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-16 | SRS | Erase run (IF-20) | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SRS-F5-17 | SRS | Admin account tools (IF-21) | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| SRS-F5-15 | SRS | Account deletion request | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-16 | SRS | Erase run (IF-20) | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SRS-F5-17 | SRS | Admin account tools (IF-21) | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | SRS-F5-18 | SRS | Serving identity and events (IF-18, EV-07, EV-08) | 0.1 (CHG-028) | Draft |
 | SRS-F5-19 | SRS | Transport, storage and logs | 0.1 (CHG-028) | Draft |
 | SRS-F5-20 | SRS | Layout, language, accessibility, performance | 0.1 (CHG-028) | Draft |
@@ -571,27 +579,27 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F5-01 | TC | A valid invitation; email Aisyah@Example.com; password "correct horse battery 7"; ... | 0.1 (CHG-028) | Draft |
 | TC-F5-02 | TC | (a) no code; (b) a used code; (c) a code made 8 days ago; (d) a valid code with an email ... | 0.1 (CHG-028) | Draft |
 | TC-F5-03 | TC | Passwords: "short1"; "aisyah@example.com"; "password1234"; a 128-character password; a ... | 0.1 (CHG-028) | Draft |
-| TC-F5-04 | TC | (launch account) Verification link opened at 23 h 59 min; another account's link at 24 h ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| TC-F5-04 | TC | (launch account) Verification link opened at 23 h 59 min; another account's link at 24 h ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | TC-F5-05 | TC | Consent version 1 accepted; version 2 is published; Aisyah signs in; (a) she accepts; (b) ... | 0.1 (CHG-028) | Draft |
 | TC-F5-06 | TC | Settings, Privacy: try to withdraw the core consent | 0.1 (CHG-028) | Draft |
 | TC-F5-07 | TC | Sign in with the right password; then with a wrong password; then with an unknown email | 0.1 (CHG-028) | Draft |
-| TC-F5-08 | TC | (launch account) Five wrong passwords, the 5th at 10:00:00; the right password at 10:05; ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| TC-F5-08 | TC | (launch account) Five wrong passwords, the 5th at 10:00:00; the right password at 10:05; ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | TC-F5-09 | TC | Two-factor is on. Right password, then (a) a wrong code, (b) the right code, (c) the same ... | 0.1 (CHG-028) | Draft |
-| TC-F5-10 | TC | (launch account) Turn on two-factor: after 11 minutes since sign-in; then with a fresh ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| TC-F5-11 | TC | (launch account) Turn off two-factor as Aisyah (password and a current code); then as an ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| TC-F5-12 | TC | (launch account) Sign in with a recovery code; use it again; use 8 codes in all; make new ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| TC-F5-10 | TC | (launch account) Turn on two-factor: after 11 minutes since sign-in; then with a fresh ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| TC-F5-11 | TC | (launch account) Turn off two-factor as Aisyah (password and a current code); then as an ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| TC-F5-12 | TC | (launch account) Sign in with a recovery code; use it again; use 8 codes in all; make new ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | TC-F5-13 | TC | Own device: last server contact 13/11/2026 09:00; contact again 20/11/2026 09:00. Shared ... | 0.1 (CHG-028) | Draft |
 | TC-F5-14 | TC | (R3) Aisyah is signed in on a phone and a laptop; on the laptop she taps "Sign out all ... | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-15 | TC | Phone offline 10 days (own device); then offline 15 days after the last contact; then she ... | 0.1 (CHG-028) | Draft |
 | TC-F5-16 | TC | Sign out with 3 unsent changes; choose Wait; later sign out again and choose Sign out and ... | 0.1 (CHG-028) | Draft |
-| TC-F5-17 | TC | (launch account) Forgot password for aisyah@example.com and for nobody@example.com; open ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| TC-F5-17 | TC | (launch account) Forgot password for aisyah@example.com and for nobody@example.com; open ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | TC-F5-18 | TC | Change password: new equals old; then a new one. Change email to bilal@example.com. An ... | 0.1 (CHG-028) | Draft |
 | TC-F5-19 | TC | (R3) After TC-F5-07 and TC-F5-08, open Settings, Security events | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-20 | TC | Open Settings online, then offline; change the language to English | 0.1 (CHG-028) | Draft |
 | TC-F5-21 | TC | (R3) Export: request after 11 minutes since sign-in; a second request while the first is ... | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-22 | TC | (R3) Export of Aisyah's data (three YAs, the F3 data of TC-F3-23) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
-| TC-F5-23 | TC | (launch account) Delete account: on 13/11/2026 Aisyah taps Delete my account; on ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| TC-F5-24 | TC | (launch account) Due date 19/01/2035 reached. Case 1: F0, F1 and F3 all confirm. Case 2: ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| TC-F5-23 | TC | (launch account) Delete account: on 13/11/2026 Aisyah taps Delete my account; on ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| TC-F5-24 | TC | (launch account) Due date 19/01/2035 reached. Case 1: F0, F1 and F3 all confirm. Case 2: ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | TC-F5-25 | TC | An admin (two-factor on) opens Accounts; creates an invitation; disables Aisyah with the ... | 0.1 (CHG-028) | Draft |
 | TC-F5-26 | TC | An admin tries: setting a password; changing an email; turning two-factor off; reading ... | 0.1 (CHG-028) | Draft |
 | TC-F5-27 | TC | Run sign-in, add an expense of RM 120.00 at "Klinik Sihat", request an export; then ... | 0.1 (CHG-028) | Draft |
@@ -599,19 +607,19 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F5-29 | TC | (R3) Aisyah's data as in B3.4. Today is 05/01/2033. She opens the app offline, then ... | 0.2 (CHG-041) | Draft, changed in 0.3 (CHG-049) |
 | SD-F5-01 | SD | Approved by the owner on 23/11/2026 (P-64, P-67). In R1, sign-up needs a single-use invitation code made by an admin ... | 0.1 (CHG-028) | Approved by the owner 23/11/2026, synced in PRD revision 53 (CHG-059) |
 | SD-F5-02 | SD | Approved by the owner on 23/11/2026 (P-64, P-67). Passwords are 12 to 128 characters, any characters, checked against a ... | 0.1 (CHG-028) | Approved by the owner 23/11/2026, synced in PRD revision 53 (CHG-059) |
-| SD-F5-03 | SD | (launch account) The email must be verified before first use of the app (link valid 24 hours); an account not verified ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SD-F5-04 | SD | (launch account, except the 1-hour life of the admin-sent link, which is in the basic account) 5 failed sign-ins in 15 ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SD-F5-05 | SD | (launch account) Two-factor uses an authenticator app only (no SMS). It is optional for taxpayers and required for ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| SD-F5-03 | SD | (launch account) The email must be verified before first use of the app (link valid 24 hours); an account not verified ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SD-F5-04 | SD | (launch account, except the 1-hour life of the admin-sent link, which is in the basic account) 5 failed sign-ins in 15 ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SD-F5-05 | SD | (launch account) Two-factor uses an authenticator app only (no SMS). It is optional for taxpayers and required for ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | SD-F5-06 | SD | Basic account part approved by the owner on 23/11/2026 (P-64, P-67); the launch account part waits. A session lasts 14 ... | 0.1 (CHG-028) | Basic account part approved by the owner 23/11/2026, synced in PRD revision 53; launch account part waits (CHG-059) |
-| SD-F5-07 | SD | (launch account) A lost authenticator is recovered by an emailed link, a 24-hour wait, notices at both ends and a ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
-| SD-F5-08 | SD | (The grace period is in the launch account; the 35-day backup purge is in the basic account) Deletion has a 14-day ... | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| SD-F5-07 | SD | (launch account) A lost authenticator is recovered by an emailed link, a 24-hour wait, notices at both ends and a ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
+| SD-F5-08 | SD | (The grace period is in the launch account; the 35-day backup purge is in the basic account) Deletion has a 14-day ... | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | SD-F5-09 | SD | The user can delete the records of a YA, or the account, only after the 7-year period has ended: 31 December of the YA ... | 0.1 (CHG-028) | Approved by the owner 14/11/2026, confirmed 22/11/2026 (CHG-049) |
 | SD-F5-10 | SD | Approved by the owner on 14/11/2026 ("for admin only; as taxpayer they can change the email"; the admin helps with a ... | 0.1 (CHG-028) | Approved by the owner 14/11/2026 (CHG-040) |
 | SD-F5-11 | SD | In R1 the owner sets the role in the data; there is no screen for roles. An admin account cannot be deleted in R1 | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-12 | SD | R1 has one consent purpose, CORE. The text is a draft with the headings of B3.5 until the PDPA adviser writes the final ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-13 | SD | F0 owns the name and the language; F5 owns the email, password, role and status. F5 creates the User row with the ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-14 | SD | The export is a ZIP with CSV files, one JSON file and the original receipts; ready within 24 hours; the link works 7 ... | 0.1 (CHG-028) | Needs owner decision |
-| SD-F5-15 | SD | (launch account) Security events are kept 12 months; IP addresses are kept 30 days; the user can read the last 50 | 0.1 (CHG-028) | Draft, wording changed in 0.10 (CHG-051) |
+| SD-F5-15 | SD | (launch account) Security events are kept 12 months; IP addresses are kept 30 days; the user can read the last 50 | 0.1 (CHG-028) | Draft, wording changed in 0.11 (CHG-051) |
 | SD-F5-16 | SD | Sign-out with unsent changes offers Wait or Sign out and discard; another user cannot sign in on a device that holds ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-17 | SD | (Named Phase 1 and Phase 2 until 23/11/2026; renamed basic account and launch account by the owner on 23/11/2026, ... | 0.2 (CHG-039) | Approved by the owner 14/11/2026, changed 22/11/2026 (CHG-049) |
 | SD-F5-18 | SD | In the basic account a taxpayer changes the own email in Settings with the current password and it takes effect at ... | 0.2 (CHG-040) | Approved by the owner 14/11/2026 (CHG-040) |

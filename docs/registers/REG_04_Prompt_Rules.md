@@ -5,7 +5,7 @@
 | Document ID | REG-04 |
 | Document type | Register (standing rules for prompts and work) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.16 |
+| Version | 0.17 |
 | Status | Draft (for owner review) |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
@@ -105,6 +105,7 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | Item-level rules | A rule on one item of a category is a sub-limit with its own eligibility test and claim frequency (23/11/2026) | DA-25, OI-F2-04 |
 | LHDN conditions and PCB help | LHDN's eligibility conditions are asked in the profile (Q11 to Q13, child relief shared or child with own income); the YA 2025 deadline is stored; PCB entry has help text and LHDN's PCB example is a test (23/11/2026) | F-067, DA-26, RES-003 |
 | Email service | Held: no domain yet; decided with the stack (23/11/2026) | ADR-006, OI-F5-06 |
+| Stack | Laravel, Inertia, Vue 3, TypeScript and PostgreSQL; local development first, other environments and hosting later. The tax engine runs only in the browser and the server never calculates. The publish gate runs in the admin's browser with the passing run stored on the server. Offline is built later but is still required before phase 1 exits (23/11/2026) | ADR-001 to ADR-006, SD-F1-11, SD-F2-10, OI-F1-05, F-074 |
 | Data model and account | Every data addition approved and in the PRD; the six account tables are built by phase (R1: Credential, Session, Invitation, ConsentRecord). Basic account values: invitation 7 days, password 12 to 128 with a common-password check, session 14 days (admin 30 minutes). Launch account values, export and two-factor wait (23/11/2026) | DA-17 to DA-24, SD-F5-01, SD-F5-02, SD-F5-06, PRD revision 53 |
 | PCB and balance | No projection: only the months entered count. PCB to date adds regular and bonus PCB of every entered month from January, each once. The balance is "so far" until the YA ends on 31 December ("closed"), then final (23/11/2026) | SD-F1-02, OI-F1-02, OI-F1-03, F-070 |
 | Rounding and admin files | Tax follows LHDN's method to the sen, not Bank Negara's cash rounding. Admins keep upload, download and delete to help with failed files; the admin does not open a file and is responsible for any file downloaded. DA-01 to DA-15 approved (23/11/2026) | SD-F1-05, OI-F3-01, F-070 |
@@ -132,6 +133,7 @@ You can write in your own words. These short forms help me act correctly.
 | 0.3 | 2026-11-14 | Added the branch rules RULE-46 and RULE-47 (prompt P-19) |
 | 0.4 | 2026-11-14 | Added the commit message rule RULE-48 with examples (prompt P-20) |
 | 0.5 | 2026-11-14 | Added the automatic commit and push rule RULE-49 (prompt P-21) |
+| 0.17 | 2026-11-23 | Section 5: the stack and the browser-only tax engine (prompts P-68 to P-71, CHG-061, CHG-062) |
 | 0.16 | 2026-11-23 | Section 5: data model and account values approved, PRD revision 53 (prompts P-64 to P-67, CHG-059, CHG-060) |
 | 0.15 | 2026-11-23 | Section 5: no PCB projection, closed year, LHDN rounding, admin file download (prompts P-60 to P-63, CHG-058) |
 | 0.14 | 2026-11-23 | Section 5: LHDN conditions and PCB help approved (prompt P-46, CHG-057) |
