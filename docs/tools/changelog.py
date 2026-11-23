@@ -27,7 +27,7 @@ changed_p15 = {"SRS-F0-01":"CHG-031","SRS-F0-02":"CHG-031","SRS-F0-16":"CHG-031"
 added_p15 = {"URS-F0-14":("0.2","CHG-031"),"SRS-F0-19":("0.2","CHG-031"),"TC-F0-25":("0.2","CHG-031"),
  "URS-F1-16":("0.4","CHG-032"),"SRS-F1-24":("0.4","CHG-032"),"TC-F1-22":("0.4","CHG-032"),
  "URS-F3-15":("0.4","CHG-033"),"SRS-F3-18":("0.4","CHG-033"),"TC-F3-23":("0.4","CHG-033")}
-answered = {"OI-F2-01":"Answered in 0.2 (CHG-011)","OI-F2-02":"Answered in 0.2 (CHG-012)",
+answered = {"OI-F2-01":"Answered in 0.2 (CHG-011); YA 2026 confirmed in 0.7 (CHG-054)","OI-F2-02":"Answered in 0.2 (CHG-012)",
  "OI-F0-01":"Answered in 0.2 (CHG-030)","OI-F0-04":"Answered in 0.2 (CHG-030)"}
 # changed in prompt P-16 (14/11/2026): id -> CHG ; version by feature
 VER16 = {"F0":"0.3","F1":"0.5","F2":"0.5","F3":"0.5","F4":"0.5","F5":"0.2"}
@@ -46,7 +46,7 @@ added_p16 = {"URS-F0-15":("0.3","CHG-036"),"SD-F0-14":("0.3","CHG-036"),"TC-F0-2
  "URS-F5-14":("0.2","CHG-041"),"SRS-F5-21":("0.2","CHG-041"),"TC-F5-29":("0.2","CHG-041"),
  "SD-F5-17":("0.2","CHG-039"),"SD-F5-18":("0.2","CHG-040")}
 firstchg = {"F0":"CHG-018","F1":"CHG-001","F2":"CHG-002","F3":"CHG-003","F4":"CHG-004","F5":"CHG-028"}
-version = {"F0":"0.4","F1":"0.6","F2":"0.6","F3":"0.6","F4":"0.6","F5":"0.5"}
+version = {"F0":"0.5","F1":"0.7","F2":"0.7","F3":"0.7","F4":"0.7","F5":"0.6"}
 # changed in prompt P-34 (22/11/2026): F5 version 0.3, CHG-049
 changed_p34 = {i: "CHG-049" for i in ("URS-F5-06 URS-F5-07 URS-F5-08 URS-F5-14 SRS-F5-08 SRS-F5-12 SRS-F5-14 SRS-F5-16 SRS-F5-21 "
     "TC-F5-14 TC-F5-19 TC-F5-21 TC-F5-22 TC-F5-29").split()}
@@ -54,6 +54,9 @@ approved_p34 = {"SD-F5-09": "Approved by the owner 14/11/2026, confirmed 22/11/2
     "SD-F5-17": "Approved by the owner 14/11/2026, changed 22/11/2026 (CHG-049)",
     "SD-F5-19": "Approved by the owner 22/11/2026 (CHG-049)"}
 added_p16["SD-F5-19"] = ("0.3", "CHG-049")
+# prompt P-42 (23/11/2026): rule corrections from RES-002 (CHG-054)
+changed_p42 = {i: "CHG-054" for i in "SRS-F2-08 TC-F2-02 TC-F2-03 OI-F2-03 TC-F3-10 TC-F3-12".split()}
+added_p16["TC-F1-23"] = ("0.7", "CHG-054"); added_p16["OI-F2-04"] = ("0.7", "CHG-054")
 # changed in prompt P-38 (23/11/2026): wording only, Phase 1 and Phase 2 renamed basic account and launch account (CHG-051)
 changed_p38 = {i: "CHG-051" for i in ("SRS-F0-01 URS-F5-01 URS-F5-03 URS-F5-04 URS-F5-05 URS-F5-09 SRS-F5-01 SRS-F5-02 SRS-F5-03 "
     "SRS-F5-04 SRS-F5-05 SRS-F5-06 SRS-F5-07 SRS-F5-08 SRS-F5-09 SRS-F5-10 SRS-F5-11 SRS-F5-12 SRS-F5-13 SRS-F5-15 SRS-F5-16 "
@@ -80,6 +83,8 @@ for k, f in files.items():
         status = {"URS": "Draft", "SRS": "Draft", "TC": "Draft", "SD": "Needs owner decision", "OI": "Open"}[typ]
         if "**Answered" in cells[1]: status = answered[id_]
         elif id_ in approved_p34: status = approved_p34[id_]
+        elif id_ in ("TC-F1-23", "OI-F2-04"): status = "Draft, new" if id_ == "TC-F1-23" else "Open, proposal waiting for the owner (CHG-054)"
+        elif id_ in changed_p42: status = f"Draft, changed in {version[k]} ({changed_p42[id_]})"
         elif id_ == "OI-F5-06": status = "Held by the owner 23/11/2026, decided with the stack in ADR-006 (CHG-053)"
         elif id_ in changed_p38: status = f"Draft, wording changed in {version[k]} ({changed_p38[id_]})"
         elif id_ in changed_p34: status = f"Draft, changed in 0.3 ({changed_p34[id_]})"
@@ -113,7 +118,7 @@ A("""# REG-02: URS and SRS change log
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053) |
+| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -122,7 +127,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 1. **Version numbers.** Each document starts at 0.1 (first draft). Any change to an ID, a number, a rule or a diagram raises the minor version (0.2, 0.3). When the owner approves a document it becomes 1.0. After that, changes raise 1.1, 1.2.
 2. **One entry per detail.** Every change gets the next CHG number and states: the document, the section, the ID changed, the type, what it said before, what it says now, why, and which prompt or finding caused it.
 3. **Change types:** Added, Changed, Removed, Clarified, Decided (owner answered an SD or OI), Synced (the PRD was updated to match).
-4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-24) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
+4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-25) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
 5. **IDs are never reused.** A removed ID stays in the register with status Removed.
 6. **Status in the register:** Draft (written, not reviewed), Needs owner decision (SD), Open (OI), Approved, Changed, Removed.
 
@@ -135,7 +140,7 @@ for k, f in files.items():
     A(f"| {k} | [{f}](../specs/{f}) | {names[k]} | {version[k]} | 2026-11-13 | Draft for owner review | {c['URS']} | {c['SRS']} | {c['FD']} | {c['SQ']} | {c['TC']} | {c['SD']} | {c['OI']} | {c['lines']} |")
 A(f"| | Total | | | | | {tot['URS']} | {tot['SRS']} | {tot['FD']} | {tot['SQ']} | {tot['TC']} | {tot['SD']} | {tot['OI']} | |")
 A("""
-Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
+Shared across all six: 21 interfaces, 8 events, 25 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
 
 ## Change register
 
@@ -194,10 +199,11 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-051 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5, ADR-000 to ADR-005, RES-001, REG-01 to REG-04, AGENTS.md, README, docs-check workflow | File names, title line and header of every document; section 0 shared blocks (document set, FD-00, terms); F5 A1, B3.1, B3.6, SD-F5-17 and every row that said Phase 1 or Phase 2; SRS-F0-01; IF-20; AGENTS.md sections 2, 3 and 6 (new); REG-04 RULE-53 to RULE-59 (new) | The SRS, URS, TC and SD listed in the ID register as "wording changed in 0.4" or "0.6" | Changed | Each type of document had its own file name style (PRD_..., URS_SRS_..., ADR-001-..., HISTORY_LOG.md) and header; F1 and F2 had titles that differ from the PRD headings; "Phase" meant the PRD roadmap, the two parts of F5 and the stages; rule IDs R-nn and research R-001 looked like releases R1 to R4 and relief codes R01 to R24 | One standard (AGENTS.md section 6): file names `<type>_<ID>_<Short_Name>.md` (PRD_TRM, URS_SRS_F0 to F5, ADR_001, RES_001, REG_01 to REG_04); first line `# <Document ID>: <Title>`; the same header rows in every document; the PRD is the master for names and IDs, so F1 is "Tax calculator for any year" and F2 "Relief categories and ranges"; "Phase" means only a PRD roadmap phase; F5 Phase 1 and Phase 2 renamed basic account (R1) and launch account (before public launch), meaning unchanged; stages in AGENTS.md section 3; rule IDs RULE-nn; research RES-001; a new check docs/tools/check_standard.py runs in the workflow. PRD to revision 48 (header and file name only, no requirement changed); F0 to 0.4, F1 to F4 to 0.6, F5 to 0.4 (the shared blocks changed); REG-04 to 0.11 | The owner asked for one standard for every document, with names that follow the PRD IDs and the PRD winning when there is a conflict, so the work can be managed and tracked during development | Prompts P-37 and P-38 |
 | CHG-052 | 2026-11-23 | PRD | Section 2.3 (education and medical insurance; life insurance and EPF), section 9.1 (phase 1, phase 4, public launch gate), section 9.3 decisions 4 and 5, section 9.4 (new), Sources | Pending sync items 11, 12, 26 and 27 | Synced | Revision 48: education and medical insurance "4,000 (confirm)" for every YA; EPF and life insurance sub-limits "as published on LHDN's site"; decisions 4 and 5 kept in view; section 9.1 had no account and security parts; no list of the items waiting for approval | Revision 49: RM 4,000 for YA 2025 from LHDN, carried forward for YA 2026 and YA 2027 with needs confirmation; EPF up to 4,000 and life insurance, family takaful and additional voluntary EPF up to 3,000 inside 7,000; decisions 4 and 5 answered with the LHDN source; phase 1 holds the basic account, phase 4 (R3) the export, old-record deletion, security screens and session controls, and the public launch gate the launch account; F-058 named as open; section 9.4 lists the 19 items still waiting for owner approval | The owner said "update the PRD" for the items that have approval; the others wait and are marked (OI-F2-01, OI-F2-02 answered from LHDN on 12/11/2026; SD-F5-17 approved 14/11/2026; SD-F5-19 approved 22/11/2026) | Prompt P-38 |
 | CHG-053 | 2026-11-23 | F5, ADR-006 | A6 item 6, OI-F5-06, header; new docs/decisions/ADR_006_Email_Service.md | OI-F5-06 | Changed | OI-F5-06: the email service is chosen at development | OI-F5-06 is held by the owner (no domain yet) and decided with the stack in ADR-006, which lists the emails of the basic account and the launch account and what the choice needs (domain with SPF, DKIM and DMARC; provider region and data terms under the PDPA). F5 to 0.5. The YA 2026 and YA 2027 rule check is written in RES-002; no rule value in the documents is changed (F-063 waits for the owner) | Owner answer of 23/11/2026: "not yet, not sure which one to use. can we hold this for moment. can remarks for next stack" | Prompt P-41 |
+| CHG-054 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5 | PRD sections 2.2, 2.3, 2.5, 9.4, Sources; F1 B3.1, B7; F2 A6 item 3, SRS-F2-08, B7, B8; F3 B7; shared seed catalogue (B2.3) and DA table | SRS-F2-08, TC-F2-02, TC-F2-03, OI-F2-01, OI-F2-03, TC-F3-10, TC-F3-12 changed; TC-F1-23, OI-F2-04, DA-25 added | Changed | One band 400,001 to 1,000,000 at 26% (28% to 2,000,000; YA 2027 30% from 1,000,001); R12 once-only for the whole relief and no grinder; R23 child up to 12 everywhere from YA 2026; R15 child policy "confirm"; R17 YA 2026 and YA 2027 "needs confirmation"; R13 not available in YA 2027; R05 skills sub-limit 2,000 in YA 2027; R24 a separate relief in YA 2027; YA rule rows from secondary sources | Bands 400,001 to 600,000 at 26% and 600,001 to 1,000,000 at 28% (YA 2027 the same, then 30% above 1,000,000), with TC-F1-23 (RM 700,000 gives 164,400.00 for YA 2026 and 163,600.00 for YA 2027); R12 sub-limits EV_CHARGING, COMPOSTER, GRINDER, CCTV with their own once-only rules; R23 sub-limits TASKA_TADIKA (6) and CARE_CENTRE (12); R15 child policy counts from YA 2026; R17 Confirmed for YA 2026; R13 1,000 in YA 2027; R05 YA 2027 sub-limits TVET 3,000 and COURSES_CLASSES 2,000; R24 moves into R07 as BREASTFEEDING from YA 2027; R07 and R05 take their YA 2027 names; DA-25 and OI-F2-04 proposed for item-level rules; PRD revision 50 with primary sources and pending sync item 28. TC-F1-01 to TC-F1-06 recomputed by script: no change | The owner said "update" for the F-063 corrections found by the YA 2026 and YA 2027 check (RES-002) | Prompt P-42 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), and items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052); their numbers are not reused. 19 items are still pending. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), and items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052); their numbers are not reused. 20 items are still pending. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
 
 | # | PRD place | Change | Matching IDs | Status |
 | --- | --- | --- | --- | --- |
@@ -220,6 +226,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 23 | Section 7 Settings, NFR-7, NFR-8 | Export as a ZIP; deletion of the whole account with a 14-day grace period (launch account); consent purposes and text headings. The 7-year rule is already in the PRD (CHG-044) | SD-F5-08, SD-F5-09, SD-F5-12, SD-F5-14 | Waiting for owner approval |
 | 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (launch account) | SD-F5-05, SD-F5-07 | Waiting for owner approval |
 | 25 | Section 3 (features) | Add the account and security feature F5 with its own FR block (proposed FR-5.1 to FR-5.9) and screens | URS-F5-01 to URS-F5-14 | Waiting for owner approval |
+| 28 | Section 5, SubLimit | Add an eligibility test and a claim frequency to SubLimit, so a rule can apply to one item of a category (R12 once-only items, R23 age by type of centre, breastfeeding inside R07 from YA 2027) | DA-25, OI-F2-04 | Waiting for owner approval |
 
 ## Consistency checks
 
@@ -254,6 +261,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-23 | After the document standard (CHG-051): build, change log, acronym check and the new document standard check (check_standard.py) over every document under docs/ | 0 errors; acronym check passed; standard check 0 errors |
 | 2026-11-23 | After the PRD sync (CHG-052): build, change log, acronym check and standard check; Pending PRD sync has 19 rows, each with the status Waiting for owner approval, and PRD section 9.4 lists the same 19 items | 0 errors; acronym check passed; standard check 0 errors; 19 of 19 |
 | 2026-11-23 | After the phase 0 answers (CHG-053): build, change log, acronym check and standard check; RES-002 tax bands above RM 400,000 re-read on the LHDN rate page | 0 errors; acronym check passed; standard check 0 errors; LHDN table matches RES-002 |
+| 2026-11-23 | After the rule corrections (CHG-054): build, change log, acronym check and standard check; band tax recomputed by script for TC-F1-01 to TC-F1-06, TC-F1-10, TC-F1-11, TC-F1-17 (unchanged) and TC-F1-23 (new); cumulative tax at 400,000, 600,000 and 2,000,000 equals LHDN's table (84,400.00, 136,400.00, 528,400.00); Pending PRD sync and PRD section 9.4 both list 20 items | 0 errors; acronym check passed; standard check 0 errors; all values match |
 
 ## ID register
 

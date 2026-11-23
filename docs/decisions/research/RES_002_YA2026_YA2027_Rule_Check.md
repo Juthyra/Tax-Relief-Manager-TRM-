@@ -5,12 +5,12 @@
 | Document ID | RES-002 |
 | Document type | Research note (findings only) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.1 |
-| Status | Draft. Findings only. The PRD and the specifications are not changed until the owner approves (F-063) |
+| Version | 0.2 |
+| Status | Draft. Findings only. Applied to the PRD (revision 50) and the specifications on 23/11/2026 after the owner said "update" (F-063, CHG-054) |
 | Date | 2026-11-23 (first written 2026-11-23) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM sections 2.1 to 2.4 and section 9.1 phase 0 (verify every rule for YA 2025, 2026 and 2027) |
-| Source | Owner prompt P-41 ("go ahead" for the check); the sources S1 to S8 below |
+| Source | Owner prompts P-41 ("go ahead" for the check) and P-42 ("update"); the sources S1 to S8 below |
 | Change tracking | [REG-01 History log](../../registers/REG_01_History_Log.md) |
 | Scope | Resident individual rules: tax bands, reliefs, rebates, deductions, filing deadline |
 

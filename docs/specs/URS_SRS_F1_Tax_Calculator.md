@@ -5,12 +5,12 @@
 | Document ID | URS-SRS-F1 |
 | Document type | URS and SRS (user and system requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.6 |
+| Version | 0.7 |
 | Status | Draft (for owner review) |
 | Date | 2026-11-23 (first written 2026-11-13) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 3.1 "Tax calculator for any year", FR-1.1 to FR-1.11 (includes PCB) |
-| Source | PRD-TRM (written from revision 37; names checked against revision 48); owner prompts P-16 and P-38 |
+| Source | PRD-TRM (written from revision 37; names checked against revision 48); owner prompts P-16, P-38 and P-42; rules checked in RES-002 |
 | Change tracking | [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md); short forms in [REG-03 Acronyms](../registers/REG_03_Acronyms.md) |
 
 ## 0. Conventions shared by all six documents
@@ -508,7 +508,7 @@ How to read: **Flow** names the diagram in Part A that the behaviour works from.
 ### B2.2 Data additions
 
 <a id="da-list"></a>
-**DA-01 to DA-24: data additions the specification needs (identical in all six documents).** None of these is in the PRD data model yet. They stay "proposed" until the owner approves them; then the PRD is updated. On 13/11/2026 the owner approved DA-16 and DA-19. On 14/11/2026 he approved DA-20 with a change: every question is mandatory.
+**DA-01 to DA-25: data additions the specification needs (identical in all six documents).** None of these is in the PRD data model yet. They stay "proposed" until the owner approves them; then the PRD is updated. On 13/11/2026 the owner approved DA-16 and DA-19. On 14/11/2026 he approved DA-20 with a change: every question is mandatory.
 
 | ID | Entity and field | Why it is needed | Used by | Status |
 | --- | --- | --- | --- | --- |
@@ -536,12 +536,13 @@ How to read: **Flow** names the diagram in Part A that the behaviour works from.
 | DA-22 | New entity Credential (user_id, password_hash, hash_algorithm, password_changed_at, failed_attempts, locked_until, totp_secret_encrypted, totp_enabled, recovery_codes_hash) and new entity Session (id, user_id, device_label, remembered, created_at, last_seen_at, expires_at, revoked_at, revoked_reason) | Password, two-factor login, the list of signed-in devices and session timeout (NFR-6) | F5 | Proposed |
 | DA-23 | New entity ConsentRecord (id, user_id, purpose, text_version, language, accepted_at, withdrawn_at) and new entity Invitation (id, code_hash, created_by, created_at, expires_at, used_by, used_at) | PDPA consent recorded at sign-up (NFR-7); invitation-only sign-up in R1 ([SD-F5-01](URS_SRS_F5_Account_Security.md#sd-f5-01)) | F5 | Proposed |
 | DA-24 | New entity DataRequest (id, user_id, type export, delete or delete_ya, ya, status, requested_at, ready_at, due_on, expires_at, file_ref) and new entity SecurityEvent (id, user_id, type, at, device_label, actor_id, reason, ip_address kept 30 days) | Export and deletion on request (NFR-7); the user's list of security events; the trail of admin actions on accounts | F5 | Proposed |
+| DA-25 | SubLimit.eligibility_rule (structured test, as DA-04) and SubLimit.claim_frequency, frequency_n, period_from_year, period_to_year (as DA-06) | Some rules apply to one item of a category: once-only items in R12, the child's age by type of centre in R23, breastfeeding inside R07 from YA 2027 ([OI-F2-04](URS_SRS_F2_Relief_Categories.md#oi-f2-04)) | F2, F3 | Proposed |
 
 
 ### B2.3 Category codes
 
 <a id="seed-catalogue"></a>
-**Category codes (identical in all six documents; used by tests and by the category picker).** Caps are in RM. "Src" is the DA-07 amount source: A automatic, P profile, I income, S spending. Basis is the DA-05 cap basis. YA 2027 values are Announced.
+**Category codes (identical in all six documents; used by tests and by the category picker).** Caps are in RM. "Src" is the DA-07 amount source: A automatic, P profile, I income, S spending. Basis is the DA-05 cap basis. YA 2025 and YA 2026 values are Gazetted (Finance Act 2025) or Confirmed by LHDN (Public Ruling 5/2026); YA 2027 values are Announced (Budget 2027; Finance Bill 2026, first reading 16/11/2026). Checked on 23/11/2026 (RES-002). Item-level rules use sub-limit rows (DA-25, [OI-F2-04](URS_SRS_F2_Relief_Categories.md#oi-f2-04)).
 
 | Code | Category | Group | Src | YA 2025 | YA 2026 | YA 2027 | Basis and sub-limits | Frequency |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -549,35 +550,35 @@ How to read: **Flow** names the diagram in Part A that the behaviour works from.
 | R02 | Disabled individual | Personal and family | P | 7,000 | 7,000 | 7,000 | fixed | annual |
 | R03 | Spouse or alimony | Personal and family | P | 4,000 | 4,000 | 4,000 | fixed | annual |
 | R04 | Disabled spouse | Personal and family | P | 6,000 | 6,000 | 6,000 | fixed | annual |
-| R05 | Education fees (self) | Education | S | 7,000 | 7,000 | 7,000 | fixed; sub-limit SKILLS 2,000 | annual |
+| R05 | Education fees (self); from YA 2027 Education and Skills Training Fees | Education | S | 7,000 | 7,000 | 7,000 | fixed; sub-limit SKILLS 2,000 (YA 2025, YA 2026); from YA 2027 sub-limits TVET 3,000 (self or spouse) and COURSES_CLASSES 2,000 (non-employment courses for self or spouse and children's STEM, arts, language or religion classes) | annual |
 | R06 | First-home loan interest | Housing | S | 7,000 or 5,000 | 7,000 or 5,000 | 7,000 or 5,000 | tiered by home price (profile fact first_home_price, DA-19): up to 500,000 gives 7,000; 500,001 to 750,000 gives 5,000 | up to 3 consecutive YAs |
-| R07 | Medical (self, spouse, child) | Medical and health | S | 10,000 | 10,000 | 10,000 | fixed; sub-limits VACC 1,000, DENTAL 1,000, CHECKUP 1,000, CHILD_LD (6,000 in YA 2025, 10,000 after), POSTNATAL 3,000 (YA 2027 only) | annual |
-| R08 | Parents or grandparents (medical and care) | Medical and health | S | 8,000 | 8,000 | 8,000 | fixed; sub-limit CHECKUP_VACC 1,000 | annual |
+| R07 | Medical (self, spouse, child); from YA 2027 Health and Well-being | Medical and health | S | 10,000 | 10,000 | 10,000 | fixed; sub-limits VACC 1,000 (any NPRA-registered vaccine from YA 2026), DENTAL 1,000, CHECKUP 1,000, CHILD_LD (6,000 in YA 2025, 10,000 after), POSTNATAL 3,000 (YA 2027 only), BREASTFEEDING 1,000 (YA 2027 only, child 2 and below, once every 2 YAs, self or spouse) | annual |
+| R08 | Parents or grandparents (medical and care) | Medical and health | S | 8,000 | 8,000 | 8,000 | fixed; sub-limit CHECKUP_VACC 1,000; YA 2027 covers all types of care | annual |
 | R09 | Supporting equipment for disabled person | Medical and health | S | 6,000 | 6,000 | 6,000 | fixed | annual |
-| R10 | Lifestyle | Lifestyle | S | 2,500 | 2,500 | 2,500 | fixed | annual |
+| R10 | Lifestyle | Lifestyle | S | 2,500 | 2,500 | 2,500 | fixed; YA 2027 moves skills courses to R05 and adds AI subscriptions and pet adoption, vaccination and neutering | annual |
 | R11 | Sports (additional lifestyle) | Lifestyle | S | 1,000 | 1,000 | 1,000 | fixed; sub-limit SHOES 300 (YA 2027, inside the cap) | annual |
-| R12 | EV charging, food waste composter, home CCTV | Green and safety | S | 2,500 | 2,500 | 2,500 | fixed | once within YA 2026 to YA 2027 |
-| R13 | Domestic tourism | Lifestyle | S | none | 1,000 | none announced | fixed | annual |
+| R12 | EV charging, food waste composter or grinder, home CCTV | Green and safety | S | 2,500 | 2,500 | 2,500 | fixed; sub-limit rows (DA-25): EV_CHARGING (YA 2025 to YA 2027), COMPOSTER (once in YA 2025 to YA 2027), GRINDER and CCTV (from YA 2026, each once in YA 2026 or YA 2027) | per sub-limit (DA-25) |
+| R13 | Domestic tourism | Lifestyle | S | none | 1,000 | 1,000 | fixed; YA 2026 and YA 2027 only (YA 2027 extension announced in Budget 2027) | annual |
 | R14 | Employee EPF | Insurance and savings | I | 7,000 shared | 7,000 shared | 7,000 shared | member of group GRP-INS-EPF (group cap 7,000); category cap 4,000 for mandatory contributions (LHDN YA 2023 to YA 2025) | annual |
-| R15 | Life insurance and takaful | Insurance and savings | S | 7,000 shared | 7,000 shared | 7,000 shared | member of group GRP-INS-EPF (group cap 7,000); category cap 3,000 for life insurance, family takaful and additional voluntary EPF (LHDN YA 2023 to YA 2025) | annual |
+| R15 | Life insurance and takaful | Insurance and savings | S | 7,000 shared | 7,000 shared | 7,000 shared | member of group GRP-INS-EPF (group cap 7,000); category cap 3,000 for life insurance, family takaful and additional voluntary EPF (LHDN YA 2023 to YA 2025; Finance Act 2025 for YA 2026); from YA 2026 a policy on the life of the individual's child counts | annual |
 | R16 | PRS and deferred annuity | Insurance and savings | S | 3,000 | 3,000 | 3,000 | fixed | annual |
-| R17 | Education and medical insurance | Insurance and savings | S | 4,000 (LHDN) | 4,000 (carried forward) | 4,000 (carried forward) | fixed; LHDN gives 4,000 for YA 2025 and 3,000 for YA 2018 to YA 2024; needs_confirmation = true for YA 2026 and YA 2027 | annual |
-| R18 | SOCSO and EIS | Insurance and savings | I and S | 350 | 350 | 500 | fixed; YA 2027 sub-limits MANDATORY 350, VOLUNTARY 150 | annual |
+| R17 | Education and medical insurance | Insurance and savings | S | 4,000 (LHDN) | 4,000 (LHDN) | 4,000 (unchanged) | fixed; LHDN gives 4,000 from YA 2025 (3,000 for YA 2018 to YA 2024), confirmed for YA 2026 in Public Ruling 5/2026 | annual |
+| R18 | SOCSO and EIS | Insurance and savings | I and S | 350 | 350 | 500 | fixed; YA 2027 sub-limits MANDATORY 350 (now also mandatory Lindung Kendiri), VOLUNTARY 150 (Lindung 24 Jam and the other Lindung Kendiri sectors) | annual |
 | R19 | SSPN net savings | Insurance and savings | S | 8,000 | 8,000 | 8,000 | fixed; deposits minus withdrawals ([OI-F3-03](URS_SRS_F3_Spending_Records.md#oi-f3-03)) | annual |
 | R20 | Child under 18 | Personal and family | P | 2,000 per child | 2,000 per child | 2,000 per child | per_dependant | annual |
 | R21 | Child 18 and above, full-time education | Personal and family | P | 2,000 or 8,000 per child | 2,000 or 8,000 per child | 2,000 or 8,000 per child | per_dependant and tiered by education level (8,000 for diploma and above in Malaysia, degree and above overseas) | annual |
 | R22 | Disabled child | Personal and family | P | 8,000 per child | 8,000 per child | 8,000 per child | per_dependant; tier HIGHER_EDU adds 8,000 for a child 18 and above in higher education | annual |
-| R23 | Childcare or kindergarten fees | Childcare | S | 3,000 (child up to 6) | 3,000 (child up to 12) | 3,000 (child up to 12) | fixed; beneficiary must be a child within the age limit | annual |
-| R24 | Breastfeeding equipment | Childcare | S | 1,000 | 1,000 | 1,000 | fixed; beneficiary child 2 and below | once every 2 YAs |
+| R23 | Childcare or kindergarten fees | Childcare | S | 3,000 (child up to 6) | 3,000 (child up to 6, or 12 at a care centre) | 3,000 (child up to 6, or 12 at a care centre) | fixed; sub-limit rows (DA-25): TASKA_TADIKA (child 6 and below) and CARE_CENTRE (from YA 2026, child 12 and below, centre registered under the Care Centres Act 1993) | annual |
+| R24 | Breastfeeding equipment | Childcare | S | 1,000 | 1,000 | none (moved into R07) | fixed; beneficiary child 2 and below; working mothers only; from YA 2027 the R07 sub-limit BREASTFEEDING | once every 2 YAs |
 | D01 | Approved donations | Deductions | S | 10% of aggregate income | 10% of aggregate income | 10% of aggregate income | percent_of_aggregate, 10% of aggregate income before donations ([OI-F3-02](URS_SRS_F3_Spending_Records.md#oi-f3-02)) | annual |
 | D02 | Professional body subscriptions | Deductions | S | no cap | no cap | no cap | actual cost | annual |
 
-LHDN values for R14, R15 and R17 were read on 2026-11-12 from the hasil.gov.my tax reliefs page and its "Maximise your tax relief" leaflet; they are printed up to YA 2025. Rebates are not categories. They are RebateRule rows: PERSONAL RM400 (chargeable income RM35,000 or below), SPOUSE RM400 (same threshold, when R03 applies), ZAKAT (ringgit for ringgit), DEPARTURE_LEVY (ringgit for ringgit).
+LHDN values for R14, R15 and R17 were read on 2026-11-12 from the hasil.gov.my tax reliefs page and its "Maximise your tax relief" leaflet (up to YA 2025). Every row was checked on 2026-11-23 against the Finance Act 2025, LHDN Public Ruling 5/2026 and the Budget 2027 tax measures (RES-002). Rebates are not categories. They are RebateRule rows: PERSONAL RM400 (chargeable income RM35,000 or below), SPOUSE RM400 (same threshold, when R03 applies), ZAKAT (ringgit for ringgit), DEPARTURE_LEVY (ringgit for ringgit).
 
 
 ## B3. Calculation specification
 
-**B3.1 Band table used by the tests** (sen thresholds; the rate is applied to the part of chargeable income inside the band).
+**B3.1 Band table used by the tests** (sen thresholds; the rate is applied to the part of chargeable income inside the band). YA 2025 and YA 2026 from LHDN's tax rate page (Gazetted); YA 2027 from the Budget 2027 tax measures (Announced); checked on 23/11/2026 (RES-002). Bands 9 and 10 were one band (26% to 1,000,000) before version 0.7; the cumulative tax of 84,400.00 at 400,000, 136,400.00 at 600,000 and 528,400.00 at 2,000,000 (YA 2026) matches LHDN's table.
 
 | Band | Lower threshold (RM) | Upper limit (RM) | YA 2025 and YA 2026 | YA 2027 |
 | --- | --- | --- | --- | --- |
@@ -589,9 +590,10 @@ LHDN values for R14, R15 and R17 were read on 2026-11-12 from the hasil.gov.my t
 | 6 | 70,000 | 100,000 | 19% | 18% |
 | 7 | 100,000 | 150,000 | 25% | 24% |
 | 8 | 150,000 | 400,000 | 25% | 25% |
-| 9 | 400,000 | 1,000,000 | 26% | 26% |
-| 10 | 1,000,000 | 2,000,000 | 28% | 30% |
-| 11 | 2,000,000 | none | 30% | 30% |
+| 9 | 400,000 | 600,000 | 26% | 26% |
+| 10 | 600,000 | 1,000,000 | 28% | 28% |
+| 11 | 1,000,000 | 2,000,000 | 28% | 30% |
+| 12 | 2,000,000 | none | 30% | 30% |
 
 **B3.2 Pseudocode** (the engine; every number is an integer in sen).
 
@@ -694,7 +696,7 @@ Widths: usable one-handed at 360 px (NFR-12). Amounts right-aligned; negative ba
 | <a id="urs-f1-01"></a>URS-F1-01 | [SRS-F1-02](URS_SRS_F1_Tax_Calculator.md#srs-f1-02), [SRS-F1-03](URS_SRS_F1_Tax_Calculator.md#srs-f1-03) | [FD-F1-01](URS_SRS_F1_Tax_Calculator.md#fd-f1-01) | FR-1.1 | [TC-F1-12](URS_SRS_F1_Tax_Calculator.md#tc-f1-12) |
 | <a id="urs-f1-02"></a>URS-F1-02 | [SRS-F1-01](URS_SRS_F1_Tax_Calculator.md#srs-f1-01), [SRS-F1-07](URS_SRS_F1_Tax_Calculator.md#srs-f1-07) | [FD-F1-03](URS_SRS_F1_Tax_Calculator.md#fd-f1-03) | FR-1.2, BR-1 | [TC-F1-01](URS_SRS_F1_Tax_Calculator.md#tc-f1-01), [TC-F1-05](URS_SRS_F1_Tax_Calculator.md#tc-f1-05), [TC-F1-14](URS_SRS_F1_Tax_Calculator.md#tc-f1-14) |
 | <a id="urs-f1-03"></a>URS-F1-03 | [SRS-F1-07](URS_SRS_F1_Tax_Calculator.md#srs-f1-07), [SRS-F1-08](URS_SRS_F1_Tax_Calculator.md#srs-f1-08), [SRS-F1-10](URS_SRS_F1_Tax_Calculator.md#srs-f1-10) | [FD-F1-03](URS_SRS_F1_Tax_Calculator.md#fd-f1-03) | FR-1.3 | [TC-F1-02](URS_SRS_F1_Tax_Calculator.md#tc-f1-02) to [TC-F1-06](URS_SRS_F1_Tax_Calculator.md#tc-f1-06) |
-| <a id="urs-f1-04"></a>URS-F1-04 | [SRS-F1-09](URS_SRS_F1_Tax_Calculator.md#srs-f1-09) | [FD-F1-03](URS_SRS_F1_Tax_Calculator.md#fd-f1-03) | FR-1.4 | [TC-F1-01](URS_SRS_F1_Tax_Calculator.md#tc-f1-01) |
+| <a id="urs-f1-04"></a>URS-F1-04 | [SRS-F1-09](URS_SRS_F1_Tax_Calculator.md#srs-f1-09) | [FD-F1-03](URS_SRS_F1_Tax_Calculator.md#fd-f1-03) | FR-1.4 | [TC-F1-01](URS_SRS_F1_Tax_Calculator.md#tc-f1-01), [TC-F1-23](URS_SRS_F1_Tax_Calculator.md#tc-f1-23) |
 | <a id="urs-f1-05"></a>URS-F1-05 | [SRS-F1-17](URS_SRS_F1_Tax_Calculator.md#srs-f1-17), [SRS-F1-19](URS_SRS_F1_Tax_Calculator.md#srs-f1-19), [SRS-F1-23](URS_SRS_F1_Tax_Calculator.md#srs-f1-23) | [FD-F1-01](URS_SRS_F1_Tax_Calculator.md#fd-f1-01) | FR-1.5 | [TC-F1-05](URS_SRS_F1_Tax_Calculator.md#tc-f1-05), [TC-F1-06](URS_SRS_F1_Tax_Calculator.md#tc-f1-06), [TC-F1-19](URS_SRS_F1_Tax_Calculator.md#tc-f1-19), [TC-F1-21](URS_SRS_F1_Tax_Calculator.md#tc-f1-21) |
 | <a id="urs-f1-06"></a>URS-F1-06 | [SRS-F1-15](URS_SRS_F1_Tax_Calculator.md#srs-f1-15) | [FD-F1-06](URS_SRS_F1_Tax_Calculator.md#fd-f1-06) | FR-1.6 | [TC-F1-15](URS_SRS_F1_Tax_Calculator.md#tc-f1-15), [TC-F1-16](URS_SRS_F1_Tax_Calculator.md#tc-f1-16) |
 | <a id="urs-f1-07"></a>URS-F1-07 | [SRS-F1-16](URS_SRS_F1_Tax_Calculator.md#srs-f1-16), [SRS-F1-18](URS_SRS_F1_Tax_Calculator.md#srs-f1-18) | [FD-F1-05](URS_SRS_F1_Tax_Calculator.md#fd-f1-05) | FR-1.7 | [TC-F1-10](URS_SRS_F1_Tax_Calculator.md#tc-f1-10), [TC-F1-11](URS_SRS_F1_Tax_Calculator.md#tc-f1-11), [TC-F1-17](URS_SRS_F1_Tax_Calculator.md#tc-f1-17) |
@@ -710,7 +712,7 @@ Widths: usable one-handed at 360 px (NFR-12). Amounts right-aligned; negative ba
 
 ## B7. Test cases
 
-Expected values for [TC-F1-01](URS_SRS_F1_Tax_Calculator.md#tc-f1-01) to [TC-F1-06](URS_SRS_F1_Tax_Calculator.md#tc-f1-06) were computed by script on 2026-11-12 from the band table in B3.1.
+Expected values for [TC-F1-01](URS_SRS_F1_Tax_Calculator.md#tc-f1-01) to [TC-F1-06](URS_SRS_F1_Tax_Calculator.md#tc-f1-06) were computed by script on 2026-11-12 from the band table in B3.1, and again on 2026-11-23 after the band correction (no change, all at or below RM 100,000); [TC-F1-23](URS_SRS_F1_Tax_Calculator.md#tc-f1-23) was computed by script on 2026-11-23.
 
 | ID | Inputs | Expected | Checks |
 | --- | --- | --- | --- |
@@ -736,6 +738,7 @@ Expected values for [TC-F1-01](URS_SRS_F1_Tax_Calculator.md#tc-f1-01) to [TC-F1-
 | <a id="tc-f1-20"></a>TC-F1-20 | Edit a salary in a filed YA | A confirmation is required; after confirming, a new version is saved; the YA stays filed | [SRS-F1-21](URS_SRS_F1_Tax_Calculator.md#srs-f1-21) |
 | <a id="tc-f1-21"></a>TC-F1-21 | Stored YAs: 2025 filed on 20/04/2026 (final snapshot: chargeable income 45,150.00, reliefs 20,850.00, tax payable 1,209.00); 2026 the worked example with 2 snapshots (31/10/2026 system, 10/11/2026 user); 2027 with no income. IF-16 request from the owner, then from an admin | Owner: three entries. 2025: status filed, filed_on 20/04/2026, final snapshot id. 2026: open, has_income true, live tax payable 1,449.00, total reliefs 22,850.00, chargeable income 49,150.00, 2 snapshots with profile_id and profile_version_no. 2027: has_income false, live empty, no snapshots. Admin: refused | [SRS-F1-23](URS_SRS_F1_Tax_Calculator.md#srs-f1-23) |
 | <a id="tc-f1-22"></a>TC-F1-22 | Aisyah's data: YA 2025 filed with its final snapshot, YA 2026 with 2 snapshots and projected months; she exports, then deletes her account; an admin session asks for her tax-year summary (IF-16) | The export part holds every income version (projected and deleted rows included), the three snapshots with their profile versions and the UserTaxYear rows. After the grace period F1 deletes all income, UserTaxYear and snapshot rows, the filed YA 2025 included, and returns counts equal to the rows exported. The admin request is refused | [SRS-F1-24](URS_SRS_F1_Tax_Calculator.md#srs-f1-24) |
+| <a id="tc-f1-23"></a>TC-F1-23 | Chargeable income RM 700,000.00 under YA 2026 rules, then YA 2027 rules (no rebate) | YA 2026: tax 164,400.00 (136,400.00 on the first 600,000 plus 100,000 at 28%). YA 2027: tax 163,600.00 (135,600.00 on the first 600,000 plus 100,000 at 28%). The old single 26% band would have given 162,400.00 for YA 2026 | [SRS-F1-07](URS_SRS_F1_Tax_Calculator.md#srs-f1-07), [SRS-F1-09](URS_SRS_F1_Tax_Calculator.md#srs-f1-09) |
 
 ## B8. Specification decisions and open items
 

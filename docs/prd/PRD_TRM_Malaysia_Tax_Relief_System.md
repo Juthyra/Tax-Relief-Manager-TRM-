@@ -5,12 +5,12 @@
 | Document ID | PRD-TRM |
 | Document type | PRD (product requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | Revision 49 |
+| Version | Revision 50 |
 | Status | Active (the owner's document; changed only when the owner says so, RULE-20) |
 | Date | 2026-11-23 (first written 2026-11-07) |
 | Owner | Champs (product owner) |
 | PRD reference | This document. It is the master for feature names, IDs, releases and phases (AGENTS.md section 6) |
-| Source | Owner prompts P-01 to P-06, P-16 and P-38. The Claude Doc is a copy, last synced at revision 47; revisions 48 and 49 are in Git only |
+| Source | Owner prompts P-01 to P-06, P-16, P-38 and P-42. The Claude Doc is a copy, last synced at revision 47; revisions 48 to 50 are in Git only |
 | Change tracking | Synced entries in [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md) |
 
 ## 1. Product overview
@@ -59,7 +59,7 @@ The system must store tax rules per Year of Assessment (YA), because Budget 2027
 
 ### 2.2 Resident tax bands
 
-Bands are unchanged from YA 2023 to YA 2026. Budget 2027 cuts two bands and raises the top band threshold from YA 2027. Bands the announcement does not mention are assumed unchanged until the Finance Act is checked.
+Bands are unchanged from YA 2023 to YA 2026 (LHDN, Gazetted; the Finance Act 2025 does not change them). Budget 2027 cuts two bands by one point and applies 30% to all income above RM1,000,000 from YA 2027 (Announced; Finance Bill 2026, first reading 16/11/2026).
 
 | Chargeable income (RM) | YA 2023 to YA 2026 | YA 2027 (announced) |
 | --- | --- | --- |
@@ -71,15 +71,16 @@ Bands are unchanged from YA 2023 to YA 2026. Budget 2027 cuts two bands and rais
 | 70,001 to 100,000 | 19% | 18% |
 | 100,001 to 150,000 | 25% | 24% |
 | 150,001 to 400,000 | 25% | 25% |
-| 400,001 to 1,000,000 | 26% | 26% |
+| 400,001 to 600,000 | 26% | 26% |
+| 600,001 to 1,000,000 | 28% | 28% |
 | 1,000,001 to 2,000,000 | 28% | 30% |
 | Above 2,000,000 | 30% | 30% |
 
-Sources: [3E Accounting, resident tax rates](https://www.3ecpa.com.my/resources/malaysia-taxation/individual-income-tax/malaysia-personal-income-tax-rate/) (YA 2023 onwards); [RinggitPlus, Budget 2027](https://ringgitplus.com/en/blog/budget-2027/budget-2027-what-changes-for-your-money-in-2027.html) (YA 2027).
+Sources: [LHDN tax rate page](https://www.hasil.gov.my/en/individu/kadar-cukai/) (YA 2023 to YA 2025, read 23/11/2026); [Finance Act 2025, Act 874](https://www.hasil.gov.my/wp-content/uploads/Akta-Kewangan-2025-Akta-874.pdf) (YA 2026); [Ministry of Finance, Budget 2027 tax measures, appendix 1](https://belanjawan.mof.gov.my/pdf/belanjawan2027/ucapan/tax-measures.pdf) (YA 2027). Checked in RES-002.
 
 ### 2.3 Relief categories and caps
 
-This is the seed data for the rules table, with one column per YA. YA 2027 values equal YA 2026 unless Budget 2027 announced a change, and stay Announced until the Finance Act is checked.
+This is the seed data for the rules table, with one column per YA. YA 2026 values are Gazetted (Finance Act 2025) or Confirmed by LHDN (Public Ruling 5/2026). YA 2027 values equal YA 2026 unless Budget 2027 announced a change, and stay Announced until the Finance Act 2026 is gazetted. Checked against these sources on 23/11/2026 (RES-002).
 
 | Category | YA 2025 (RM) | YA 2026 (RM) | YA 2027 (RM, announced) | Key conditions and scope changes |
 | --- | --- | --- | --- | --- |
@@ -87,25 +88,25 @@ This is the seed data for the rules table, with one column per YA. YA 2027 value
 | Disabled individual | 7,000 | 7,000 | 7,000 | Certified by Department of Social Welfare (JKM) |
 | Spouse or alimony | 4,000 | 4,000 | 4,000 | Spouse has no income, or joint assessment |
 | Disabled spouse | 6,000 | 6,000 | 6,000 | Spouse certified disabled |
-| Education fees (self) | 7,000 (skills sub-limit 2,000) | 7,000 (skills sub-limit 2,000) | 7,000 (skills sub-limit 2,000) | Recognised institution. YA 2027: all fields of study; children's tuition in STEM, arts, languages or religion up to 2,000 |
+| Education fees (self) | 7,000 (upskilling sub-limit 2,000) | 7,000 (upskilling sub-limit 2,000) | 7,000 (TVET upskilling 3,000; other courses and children's classes 2,000) | Recognised institution. YA 2027 renames it Education and Skills Training Fees: any field from certificate to doctorate; TVET upskilling for self or spouse up to 3,000; non-employment courses for self or spouse and children's STEM, arts, language or religion classes share 2,000 |
 | First-home loan interest | 7,000 or 5,000 | 7,000 or 5,000 | 7,000 or 5,000 | 7,000 for a home up to 500,000; 5,000 for 500,001 to 750,000. Interest only; SPA signed 1 Jan 2025 to 31 Dec 2027; up to 3 consecutive YAs |
-| Medical (self, spouse, child) | 10,000 overall; child learning-disability programme 6,000 | 10,000 overall; child programme 10,000 | 10,000 overall; child programme 10,000; postnatal care up to 3,000 | Sub-limits of 1,000 each for vaccination, dental exam and medical check-up. YA 2026: all MOH-approved vaccines |
-| Parents or grandparents (medical and care) | 8,000 | 8,000 | 8,000 | Medical, dental, special needs, nursing home; check-up and vaccination sub-limit 1,000. YA 2027: all care expenses |
+| Medical (self, spouse, child) | 10,000 overall; child learning-disability programme 6,000 | 10,000 overall; child programme 10,000 | 10,000 overall; child programme 10,000; postnatal care up to 3,000; breastfeeding equipment 1,000 | Sub-limits of 1,000 each for vaccination, dental exam and medical check-up. YA 2026: any vaccine registered with NPRA. YA 2027 renames it Health and Well-being and moves breastfeeding equipment inside it |
+| Parents or grandparents (medical and care) | 8,000 | 8,000 | 8,000 | Medical, dental, special needs, nursing home; check-up and vaccination sub-limit 1,000. YA 2027: all types of care expense; a carer declaration or work permit and receipts are enough |
 | Supporting equipment for disabled person | 6,000 | 6,000 | 6,000 | Person registered with JKM |
-| Lifestyle | 2,500 | 2,500 | 2,500 | Books, phone, tablet, PC, internet bill, skills courses. YA 2027 adds AI subscriptions, pet adoption from a registered shelter, pet vaccination and neutering fees |
+| Lifestyle | 2,500 | 2,500 | 2,500 | Books, phone, tablet, PC, internet bill, skills courses. YA 2027 moves skills courses to Education and Skills Training Fees and adds AI subscriptions, pet adoption from a registered shelter, pet vaccination and neutering fees |
 | Sports (additional lifestyle) | 1,000 | 1,000 | 1,000 | Equipment, facility fees, competition fees, gym. YA 2027: sports shoes up to 300 within the cap |
-| EV charging, food waste composter, home CCTV | 2,500 (EV charging, composter) | 2,500 (CCTV added) | 2,500 | Claimable once within the YA 2026 to YA 2027 period |
-| Domestic tourism | Not available | 1,000 | Not announced (confirm) | Entrance fees to local attractions; art and cultural programmes |
-| Life insurance and EPF | 7,000 combined | 7,000 combined | 7,000 combined | One shared cap of 7,000: up to 4,000 for mandatory EPF (or an approved scheme) and up to 3,000 for life insurance, family takaful and additional voluntary EPF (LHDN, YA 2023 to YA 2025; carried forward for YA 2026 and YA 2027, needs confirmation; decision 5). Budget 2026 proposed extending insurance relief to children (confirm) |
+| EV charging, food waste composter or grinder, home CCTV | 2,500 (EV charging, composter) | 2,500 (grinder and CCTV added) | 2,500 | One shared cap. EV charging each year to YA 2027. The composter is claimed once in YA 2025, 2026 or 2027; the grinder and the CCTV once in YA 2026 or 2027 |
+| Domestic tourism | Not available | 1,000 | 1,000 (extended for YA 2027) | Entrance fees to local attractions; art and cultural programmes. YA 2026 in the Finance Act 2025; YA 2027 extension announced in Budget 2027 |
+| Life insurance and EPF | 7,000 combined | 7,000 combined | 7,000 combined | One shared cap of 7,000: up to 4,000 for mandatory EPF (or an approved scheme) and up to 3,000 for life insurance, family takaful and additional voluntary EPF (LHDN, YA 2023 to YA 2025; carried forward for YA 2026 and YA 2027, needs confirmation; decision 5). From YA 2026 a life policy on the individual's child also counts (Finance Act 2025) |
 | PRS and deferred annuity | 3,000 | 3,000 | 3,000 | PRS relief extended to YA 2030 |
-| Education and medical insurance | 4,000 (LHDN, Confirmed) | 4,000 (carried forward, needs confirmation) | 4,000 (carried forward, needs confirmation) | Premiums for self, spouse, child. LHDN gives 4,000 for YA 2025 (3,000 for YA 2018 to YA 2024); YA 2026 and YA 2027 are not printed yet. See decision 4 |
-| SOCSO and EIS | 350 | 350 | 350 plus 150 | YA 2027: covers mandatory Lindung Kendiri; extra 150 for voluntary Lindung 24 Jam or Lindung Kendiri |
+| Education and medical insurance | 4,000 (LHDN, Confirmed) | 4,000 (LHDN, Confirmed) | 4,000 (unchanged by Budget 2027) | Premiums for self, spouse, child. LHDN gives 4,000 from YA 2025 (3,000 for YA 2018 to YA 2024), confirmed for YA 2026 in Public Ruling 5/2026. See decision 4 |
+| SOCSO and EIS | 350 | 350 | 350 plus 150 | YA 2027: the 350 also covers mandatory Lindung Kendiri (passenger transport, goods or food transport, hawkers); extra 150 for voluntary Lindung 24 Jam or the other Lindung Kendiri sectors |
 | SSPN net savings | 8,000 | 8,000 | 8,000 | Deposits minus withdrawals in the year |
 | Child under 18 | 2,000 per child | 2,000 per child | 2,000 per child | Unmarried |
 | Child 18 and above, full-time education | 2,000 or 8,000 | 2,000 or 8,000 | 2,000 or 8,000 | 8,000 for diploma and above in Malaysia or degree and above overseas |
 | Disabled child | 8,000 | 8,000 | 8,000 | Unmarried; extra 8,000 if 18 and above in higher education |
-| Childcare or kindergarten fees | 3,000 (child up to 6) | 3,000 (child up to 12) | 3,000 (child up to 12) | Registered centre; permanent from YA 2026 |
-| Breastfeeding equipment | 1,000 | 1,000 | 1,000 | Child aged 2 and below; once every 2 YAs |
+| Childcare or kindergarten fees | 3,000 (child up to 6) | 3,000 (child up to 6; up to 12 at a care centre) | 3,000 (child up to 6; up to 12 at a care centre) | Registered TASKA or TADIKA for a child aged 6 and below; from YA 2026 also a care centre registered under the Care Centres Act 1993 for a child aged 12 and below |
+| Breastfeeding equipment | 1,000 | 1,000 | Inside medical (1,000) | Child aged 2 and below; once every 2 YAs; working mothers. YA 2027 moves it inside Health and Well-being, claimable by self or spouse |
 
 **Tax deductions** (reduce aggregate income, not chargeable income): approved donations, generally capped at 10% of aggregate income; professional body subscriptions at actual cost with no cap.
 
@@ -113,7 +114,7 @@ This is the seed data for the rules table, with one column per YA. YA 2027 value
 
 No change to deductions or rebates was announced for YA 2026 or YA 2027 in the sources read, so both carry forward unchanged.
 
-Sources: [RinggitPlus, YA 2025 relief list](https://ringgitplus.com/en/blog/tax/everything-you-can-claim-as-income-tax-relief-in-malaysia-2026-filing-for-ya-2025.html); [BrioHR, YA 2026 relief updates](https://support.briohr.com/knowledge/payroll-malaysia-key-tax-relief-updates-for-the-year-2026); [RinggitPlus, Budget 2027](https://ringgitplus.com/en/blog/budget-2027/budget-2027-what-changes-for-your-money-in-2027.html).
+Sources: [Finance Act 2025, Act 874](https://www.hasil.gov.my/wp-content/uploads/Akta-Kewangan-2025-Akta-874.pdf); [LHDN Public Ruling No. 5/2026](https://www.hasil.gov.my/wp-content/uploads/20261104-PR-5_Taxation-Of-A-Resident-Individualpart-I-Gifts-Or-Contributions-And-Allowable-Deductions.pdf); [LHDN rebates](https://www.hasil.gov.my/en/individu/rebat/); [Ministry of Finance, Budget 2027 tax measures](https://belanjawan.mof.gov.my/pdf/belanjawan2027/ucapan/tax-measures.pdf). Earlier secondary sources: [RinggitPlus, YA 2025 relief list](https://ringgitplus.com/en/blog/tax/everything-you-can-claim-as-income-tax-relief-in-malaysia-2026-filing-for-ya-2025.html); [BrioHR, YA 2026 relief updates](https://support.briohr.com/knowledge/payroll-malaysia-key-tax-relief-updates-for-the-year-2026). Every row checked on 23/11/2026 (RES-002).
 
 ### 2.4 Filing and record rules
 
@@ -129,10 +130,10 @@ R1 ships with all three rule sets complete, so the calculator, catalogue and das
 | Rule set | Used for | Status in the system | What an admin confirms before publishing |
 | --- | --- | --- | --- |
 | YA 2025 | Reference and year comparison (return filed in 2026) | Confirmed after verification | Bands and caps in sections 2.2 and 2.3 |
-| YA 2026 | Current year: relief planning now and filing in 2027 | In force; Confirmed after verification | Domestic tourism relief, medical and childcare scope changes, insurance relief for children, filing deadline |
-| YA 2027 | Planning 2027 spending and filing in 2028 | Announced (Budget 2027); becomes Gazetted when the Finance Act passes | Individual relief 12,000, the 18% and 24% bands, the 30% band above 1,000,000, each scope change, whether domestic tourism continues |
+| YA 2026 | Current year: relief planning now and filing in 2027 | In force: Gazetted (Finance Act 2025) and Confirmed by LHDN (Public Ruling 5/2026), checked 23/11/2026 | The filing deadline, when LHDN publishes it |
+| YA 2027 | Planning 2027 spending and filing in 2028 | Announced (Budget 2027; Finance Bill 2026, first reading 16/11/2026); becomes Gazetted when the Finance Act 2026 is gazetted | Every YA 2027 change against the gazetted Finance Act 2026: individual relief 12,000, the 18%, 24% and 30% bands, each scope change |
 
-**Verification note.** These figures come from secondary sources that cite LHDN and the Ministry of Finance. Before launch, an admin must confirm each value against LHDN's YA relief table and the [Budget 2027 tax-measures document](https://belanjawan.mof.gov.my/pdf/belanjawan2027/ucapan/tax-measures.pdf), and record the confirmation date on the rule.
+**Verification note.** On 23/11/2026 every figure was checked against the Finance Act 2025, LHDN and the [Budget 2027 tax-measures document](https://belanjawan.mof.gov.my/pdf/belanjawan2027/ucapan/tax-measures.pdf) (RES-002). An admin still records the confirmation date on each rule when loading it, and re-checks YA 2027 when the Finance Act 2026 is gazetted.
 
 ## 3. Core features (must-have)
 
@@ -475,11 +476,13 @@ These changes come from the URS and SRS documents. They are **proposals, not par
 | 17, 25 | Section 3 | Feature blocks for F0 profile and F5 account and security (FR-0 and FR-5) | Waiting for owner approval |
 | 20, 21 | Section 5 | Account fields and tables (Credential, Session, ConsentRecord, Invitation, DataRequest, SecurityEvent) | Waiting for owner approval |
 | 22, 23, 24 | Section 7, NFR-6, NFR-7 | Sign-in values, export format, deletion grace period, consent purposes, two-factor method | Waiting for owner approval |
+| 28 | Section 5, SubLimit | Eligibility test and claim frequency on a sub-limit, for item-level rules (DA-25, OI-F2-04) | Waiting for owner approval |
 
 ### Sources
 
 Pages opened for this document; all figures were read on 7 November 2026.
 
+- [Finance Act 2025, Act 874](https://www.hasil.gov.my/wp-content/uploads/Akta-Kewangan-2025-Akta-874.pdf), [LHDN Public Ruling No. 5/2026](https://www.hasil.gov.my/wp-content/uploads/20261104-PR-5_Taxation-Of-A-Resident-Individualpart-I-Gifts-Or-Contributions-And-Allowable-Deductions.pdf), [LHDN tax rate page](https://www.hasil.gov.my/en/individu/kadar-cukai/) and [Budget 2027 tax measures](https://belanjawan.mof.gov.my/pdf/belanjawan2027/ucapan/tax-measures.pdf), read on 23 November 2026 (RES-002, F-063)
 - [LHDN, tax reliefs](https://www.hasil.gov.my/en/individual/individual-life-cycle/income-declaration/tax-reliefs/?pg=) and [LHDN, Maximise your tax relief leaflet](https://www.hasil.gov.my/wp-content/uploads/T2026_maximise-your-tax-relief.pdf), read on 12 November 2026 for decisions 4 and 5 (F-029)
 - [3E Accounting, Malaysia Personal Income Tax Rate](https://www.3ecpa.com.my/resources/malaysia-taxation/individual-income-tax/malaysia-personal-income-tax-rate/)
 - [RinggitPlus, Everything You Can Claim As Income Tax Relief (YA 2025)](https://ringgitplus.com/en/blog/tax/everything-you-can-claim-as-income-tax-relief-in-malaysia-2026-filing-for-ya-2025.html)
