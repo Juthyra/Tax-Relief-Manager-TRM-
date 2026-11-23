@@ -12,7 +12,7 @@
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052) |
+| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -34,7 +34,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 | F2 | [URS_SRS_F2_Relief_Categories.md](../specs/URS_SRS_F2_Relief_Categories.md) | Relief categories and ranges | 0.6 | 2026-11-13 | Draft for owner review | 12 | 17 | 7 | 0 | 24 | 9 | 3 | 652 |
 | F3 | [URS_SRS_F3_Spending_Records.md](../specs/URS_SRS_F3_Spending_Records.md) | Spending records | 0.6 | 2026-11-13 | Draft for owner review | 15 | 18 | 8 | 1 | 23 | 4 | 4 | 728 |
 | F4 | [URS_SRS_F4_Dashboard.md](../specs/URS_SRS_F4_Dashboard.md) | Dashboard | 0.6 | 2026-11-13 | Draft for owner review | 13 | 16 | 7 | 1 | 19 | 7 | 2 | 678 |
-| F5 | [URS_SRS_F5_Account_Security.md](../specs/URS_SRS_F5_Account_Security.md) | Account and security | 0.4 | 2026-11-13 | Draft for owner review | 14 | 21 | 13 | 2 | 29 | 19 | 7 | 990 |
+| F5 | [URS_SRS_F5_Account_Security.md](../specs/URS_SRS_F5_Account_Security.md) | Account and security | 0.5 | 2026-11-13 | Draft for owner review | 14 | 21 | 13 | 2 | 29 | 19 | 7 | 990 |
 | | Total | | | | | 85 | 115 | 51 | 6 | 143 | 63 | 24 | |
 
 Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
@@ -95,6 +95,7 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-050 | 2026-11-22 | AGENTS.md, REG_04_Prompt_Rules.md, CODEOWNERS | AGENTS.md section 5 (review requests); REG-04 RULE-52 (new); `.github/CODEOWNERS` | Review requests on pull requests | Added | CODEOWNERS covered only docs/prd, docs/decisions, docs/registers and AGENTS.md, so a pull request that touched other paths asked nobody for a review | CODEOWNERS starts with `*` (every path) for the owner, with a note on how to add developers; GitHub asks the code owners for a review on every pull request and notifies them. REG-04 at version 0.10. No requirement document changed | The owner asked for a notice when a pull request is opened, so that the owner and later developers see it (option B) | Prompt P-34 |
 | CHG-051 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5, ADR-000 to ADR-005, RES-001, REG-01 to REG-04, AGENTS.md, README, docs-check workflow | File names, title line and header of every document; section 0 shared blocks (document set, FD-00, terms); F5 A1, B3.1, B3.6, SD-F5-17 and every row that said Phase 1 or Phase 2; SRS-F0-01; IF-20; AGENTS.md sections 2, 3 and 6 (new); REG-04 RULE-53 to RULE-59 (new) | The SRS, URS, TC and SD listed in the ID register as "wording changed in 0.4" or "0.6" | Changed | Each type of document had its own file name style (PRD_..., URS_SRS_..., ADR-001-..., HISTORY_LOG.md) and header; F1 and F2 had titles that differ from the PRD headings; "Phase" meant the PRD roadmap, the two parts of F5 and the stages; rule IDs R-nn and research R-001 looked like releases R1 to R4 and relief codes R01 to R24 | One standard (AGENTS.md section 6): file names `<type>_<ID>_<Short_Name>.md` (PRD_TRM, URS_SRS_F0 to F5, ADR_001, RES_001, REG_01 to REG_04); first line `# <Document ID>: <Title>`; the same header rows in every document; the PRD is the master for names and IDs, so F1 is "Tax calculator for any year" and F2 "Relief categories and ranges"; "Phase" means only a PRD roadmap phase; F5 Phase 1 and Phase 2 renamed basic account (R1) and launch account (before public launch), meaning unchanged; stages in AGENTS.md section 3; rule IDs RULE-nn; research RES-001; a new check docs/tools/check_standard.py runs in the workflow. PRD to revision 48 (header and file name only, no requirement changed); F0 to 0.4, F1 to F4 to 0.6, F5 to 0.4 (the shared blocks changed); REG-04 to 0.11 | The owner asked for one standard for every document, with names that follow the PRD IDs and the PRD winning when there is a conflict, so the work can be managed and tracked during development | Prompts P-37 and P-38 |
 | CHG-052 | 2026-11-23 | PRD | Section 2.3 (education and medical insurance; life insurance and EPF), section 9.1 (phase 1, phase 4, public launch gate), section 9.3 decisions 4 and 5, section 9.4 (new), Sources | Pending sync items 11, 12, 26 and 27 | Synced | Revision 48: education and medical insurance "4,000 (confirm)" for every YA; EPF and life insurance sub-limits "as published on LHDN's site"; decisions 4 and 5 kept in view; section 9.1 had no account and security parts; no list of the items waiting for approval | Revision 49: RM 4,000 for YA 2025 from LHDN, carried forward for YA 2026 and YA 2027 with needs confirmation; EPF up to 4,000 and life insurance, family takaful and additional voluntary EPF up to 3,000 inside 7,000; decisions 4 and 5 answered with the LHDN source; phase 1 holds the basic account, phase 4 (R3) the export, old-record deletion, security screens and session controls, and the public launch gate the launch account; F-058 named as open; section 9.4 lists the 19 items still waiting for owner approval | The owner said "update the PRD" for the items that have approval; the others wait and are marked (OI-F2-01, OI-F2-02 answered from LHDN on 12/11/2026; SD-F5-17 approved 14/11/2026; SD-F5-19 approved 22/11/2026) | Prompt P-38 |
+| CHG-053 | 2026-11-23 | F5, ADR-006 | A6 item 6, OI-F5-06, header; new docs/decisions/ADR_006_Email_Service.md | OI-F5-06 | Changed | OI-F5-06: the email service is chosen at development | OI-F5-06 is held by the owner (no domain yet) and decided with the stack in ADR-006, which lists the emails of the basic account and the launch account and what the choice needs (domain with SPF, DKIM and DMARC; provider region and data terms under the PDPA). F5 to 0.5. The YA 2026 and YA 2027 rule check is written in RES-002; no rule value in the documents is changed (F-063 waits for the owner) | Owner answer of 23/11/2026: "not yet, not sure which one to use. can we hold this for moment. can remarks for next stack" | Prompt P-41 |
 
 ## Pending PRD sync
 
@@ -154,6 +155,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-22 | After the review requests rule (CHG-050): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 | 2026-11-23 | After the document standard (CHG-051): build, change log, acronym check and the new document standard check (check_standard.py) over every document under docs/ | 0 errors; acronym check passed; standard check 0 errors |
 | 2026-11-23 | After the PRD sync (CHG-052): build, change log, acronym check and standard check; Pending PRD sync has 19 rows, each with the status Waiting for owner approval, and PRD section 9.4 lists the same 19 items | 0 errors; acronym check passed; standard check 0 errors; 19 of 19 |
+| 2026-11-23 | After the phase 0 answers (CHG-053): build, change log, acronym check and standard check; RES-002 tax bands above RM 400,000 re-read on the LHDN rate page | 0 errors; acronym check passed; standard check 0 errors; LHDN table matches RES-002 |
 
 ## ID register
 
@@ -529,37 +531,37 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 
 | ID | Type | Short description | Added in | Status |
 | --- | --- | --- | --- | --- |
-| URS-F5-01 | URS | Create an account with an invitation, an email and a password (launch account: and prove the email is mine before I use ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| URS-F5-01 | URS | Create an account with an invitation, an email and a password (launch account: and prove the email is mine before I use ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | URS-F5-02 | URS | Read the data consent before I use the app, accept it, see later what I accepted and when, and be asked again if the ... | 0.1 (CHG-028) | Draft |
-| URS-F5-03 | URS | Sign in and out and be signed out after a period of no use (launch account: stay signed in on my own device) | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| URS-F5-04 | URS | Get back into my account when I forget my password: in the basic account an administrator sends me a temporary link; in ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| URS-F5-05 | URS | (launch account) Turn two-factor login on and off with an authenticator app, keep recovery codes, and recover if I lose ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| URS-F5-03 | URS | Sign in and out and be signed out after a period of no use (launch account: stay signed in on my own device) | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| URS-F5-04 | URS | Get back into my account when I forget my password: in the basic account an administrator sends me a temporary link; in ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| URS-F5-05 | URS | (launch account) Turn two-factor login on and off with an authenticator app, keep recovery codes, and recover if I lose ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | URS-F5-06 | URS | Change my password and my email (R3: see where I am signed in and sign out another device) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | URS-F5-07 | URS | (R3) See the security events on my account: sign-ins, failed attempts, changes and actions by an administrator | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | URS-F5-08 | URS | (R3) Export all my data in a file I can keep | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
-| URS-F5-09 | URS | (launch account) Delete my account and all my data, after a clear warning about the 7-year record rule, with time to ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| URS-F5-09 | URS | (launch account) Delete my account and all my data, after a clear warning about the 7-year record rule, with time to ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | URS-F5-10 | URS | Use the app offline, and be safe if a device is shared, lost or kept offline for a long time | 0.1 (CHG-028) | Draft |
 | URS-F5-11 | URS | Be sure that an administrator can never see my tax data or change my email or password | 0.1 (CHG-028) | Draft |
 | URS-F5-12 | URS | (Admin) Invite people, see the status of accounts, disable or enable an account and send a password reset email, ... | 0.1 (CHG-028) | Draft |
 | URS-F5-13 | URS | Find language, security, privacy, export and deletion in one Settings screen | 0.1 (CHG-028) | Draft |
 | URS-F5-14 | URS | (R3) Be told when the records of a year are older than 7 years, and delete them myself when I choose; never before the ... | 0.2 (CHG-041) | Draft, changed in 0.3 (CHG-049) |
-| SRS-F5-01 | SRS | Sign-up (by invitation) | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-02 | SRS | Password rules | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-03 | SRS | Email verification | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-04 | SRS | Consent | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-05 | SRS | Sign-in | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-06 | SRS | Two-factor login (admins and taxpayers) | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-07 | SRS | Recovery codes and a lost authenticator | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-08 | SRS | Sessions | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-09 | SRS | Offline use, expiry and sign-out | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-10 | SRS | Forgot password | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-11 | SRS | Change password and change email | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-12 | SRS | Security events | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-13 | SRS | Settings screen | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| SRS-F5-01 | SRS | Sign-up (by invitation) | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-02 | SRS | Password rules | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-03 | SRS | Email verification | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-04 | SRS | Consent | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-05 | SRS | Sign-in | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-06 | SRS | Two-factor login (admins and taxpayers) | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-07 | SRS | Recovery codes and a lost authenticator | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-08 | SRS | Sessions | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-09 | SRS | Offline use, expiry and sign-out | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-10 | SRS | Forgot password | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-11 | SRS | Change password and change email | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-12 | SRS | Security events | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-13 | SRS | Settings screen | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | SRS-F5-14 | SRS | Data export (IF-19) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
-| SRS-F5-15 | SRS | Account deletion request | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-16 | SRS | Erase run (IF-20) | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SRS-F5-17 | SRS | Admin account tools (IF-21) | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| SRS-F5-15 | SRS | Account deletion request | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-16 | SRS | Erase run (IF-20) | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SRS-F5-17 | SRS | Admin account tools (IF-21) | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | SRS-F5-18 | SRS | Serving identity and events (IF-18, EV-07, EV-08) | 0.1 (CHG-028) | Draft |
 | SRS-F5-19 | SRS | Transport, storage and logs | 0.1 (CHG-028) | Draft |
 | SRS-F5-20 | SRS | Layout, language, accessibility, performance | 0.1 (CHG-028) | Draft |
@@ -567,27 +569,27 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F5-01 | TC | A valid invitation; email Aisyah@Example.com; password "correct horse battery 7"; ... | 0.1 (CHG-028) | Draft |
 | TC-F5-02 | TC | (a) no code; (b) a used code; (c) a code made 8 days ago; (d) a valid code with an email ... | 0.1 (CHG-028) | Draft |
 | TC-F5-03 | TC | Passwords: "short1"; "aisyah@example.com"; "password1234"; a 128-character password; a ... | 0.1 (CHG-028) | Draft |
-| TC-F5-04 | TC | (launch account) Verification link opened at 23 h 59 min; another account's link at 24 h ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| TC-F5-04 | TC | (launch account) Verification link opened at 23 h 59 min; another account's link at 24 h ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | TC-F5-05 | TC | Consent version 1 accepted; version 2 is published; Aisyah signs in; (a) she accepts; (b) ... | 0.1 (CHG-028) | Draft |
 | TC-F5-06 | TC | Settings, Privacy: try to withdraw the core consent | 0.1 (CHG-028) | Draft |
 | TC-F5-07 | TC | Sign in with the right password; then with a wrong password; then with an unknown email | 0.1 (CHG-028) | Draft |
-| TC-F5-08 | TC | (launch account) Five wrong passwords, the 5th at 10:00:00; the right password at 10:05; ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| TC-F5-08 | TC | (launch account) Five wrong passwords, the 5th at 10:00:00; the right password at 10:05; ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | TC-F5-09 | TC | Two-factor is on. Right password, then (a) a wrong code, (b) the right code, (c) the same ... | 0.1 (CHG-028) | Draft |
-| TC-F5-10 | TC | (launch account) Turn on two-factor: after 11 minutes since sign-in; then with a fresh ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| TC-F5-11 | TC | (launch account) Turn off two-factor as Aisyah (password and a current code); then as an ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| TC-F5-12 | TC | (launch account) Sign in with a recovery code; use it again; use 8 codes in all; make new ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| TC-F5-10 | TC | (launch account) Turn on two-factor: after 11 minutes since sign-in; then with a fresh ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| TC-F5-11 | TC | (launch account) Turn off two-factor as Aisyah (password and a current code); then as an ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| TC-F5-12 | TC | (launch account) Sign in with a recovery code; use it again; use 8 codes in all; make new ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | TC-F5-13 | TC | Own device: last server contact 13/11/2026 09:00; contact again 20/11/2026 09:00. Shared ... | 0.1 (CHG-028) | Draft |
 | TC-F5-14 | TC | (R3) Aisyah is signed in on a phone and a laptop; on the laptop she taps "Sign out all ... | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-15 | TC | Phone offline 10 days (own device); then offline 15 days after the last contact; then she ... | 0.1 (CHG-028) | Draft |
 | TC-F5-16 | TC | Sign out with 3 unsent changes; choose Wait; later sign out again and choose Sign out and ... | 0.1 (CHG-028) | Draft |
-| TC-F5-17 | TC | (launch account) Forgot password for aisyah@example.com and for nobody@example.com; open ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| TC-F5-17 | TC | (launch account) Forgot password for aisyah@example.com and for nobody@example.com; open ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | TC-F5-18 | TC | Change password: new equals old; then a new one. Change email to bilal@example.com. An ... | 0.1 (CHG-028) | Draft |
 | TC-F5-19 | TC | (R3) After TC-F5-07 and TC-F5-08, open Settings, Security events | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-20 | TC | Open Settings online, then offline; change the language to English | 0.1 (CHG-028) | Draft |
 | TC-F5-21 | TC | (R3) Export: request after 11 minutes since sign-in; a second request while the first is ... | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
 | TC-F5-22 | TC | (R3) Export of Aisyah's data (three YAs, the F3 data of TC-F3-23) | 0.1 (CHG-028) | Draft, changed in 0.3 (CHG-049) |
-| TC-F5-23 | TC | (launch account) Delete account: on 13/11/2026 Aisyah taps Delete my account; on ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| TC-F5-24 | TC | (launch account) Due date 19/01/2035 reached. Case 1: F0, F1 and F3 all confirm. Case 2: ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| TC-F5-23 | TC | (launch account) Delete account: on 13/11/2026 Aisyah taps Delete my account; on ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| TC-F5-24 | TC | (launch account) Due date 19/01/2035 reached. Case 1: F0, F1 and F3 all confirm. Case 2: ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | TC-F5-25 | TC | An admin (two-factor on) opens Accounts; creates an invitation; disables Aisyah with the ... | 0.1 (CHG-028) | Draft |
 | TC-F5-26 | TC | An admin tries: setting a password; changing an email; turning two-factor off; reading ... | 0.1 (CHG-028) | Draft |
 | TC-F5-27 | TC | Run sign-in, add an expense of RM 120.00 at "Klinik Sihat", request an export; then ... | 0.1 (CHG-028) | Draft |
@@ -595,19 +597,19 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | TC-F5-29 | TC | (R3) Aisyah's data as in B3.4. Today is 05/01/2033. She opens the app offline, then ... | 0.2 (CHG-041) | Draft, changed in 0.3 (CHG-049) |
 | SD-F5-01 | SD | In R1, sign-up needs a single-use invitation code made by an admin (valid 7 days). Public sign-up opens after the ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-02 | SD | Passwords are 12 to 128 characters, any characters, checked against a list of common passwords; no composition rules, ... | 0.1 (CHG-028) | Needs owner decision |
-| SD-F5-03 | SD | (launch account) The email must be verified before first use of the app (link valid 24 hours); an account not verified ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SD-F5-04 | SD | (launch account, except the 1-hour life of the admin-sent link, which is in the basic account) 5 failed sign-ins in 15 ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SD-F5-05 | SD | (launch account) Two-factor uses an authenticator app only (no SMS). It is optional for taxpayers and required for ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SD-F5-06 | SD | A session lasts 14 days after the last server contact for a taxpayer and 30 minutes for an admin (basic account). The ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SD-F5-07 | SD | (launch account) A lost authenticator is recovered by an emailed link, a 24-hour wait, notices at both ends and a ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
-| SD-F5-08 | SD | (The grace period is in the launch account; the 35-day backup purge is in the basic account) Deletion has a 14-day ... | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| SD-F5-03 | SD | (launch account) The email must be verified before first use of the app (link valid 24 hours); an account not verified ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SD-F5-04 | SD | (launch account, except the 1-hour life of the admin-sent link, which is in the basic account) 5 failed sign-ins in 15 ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SD-F5-05 | SD | (launch account) Two-factor uses an authenticator app only (no SMS). It is optional for taxpayers and required for ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SD-F5-06 | SD | A session lasts 14 days after the last server contact for a taxpayer and 30 minutes for an admin (basic account). The ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SD-F5-07 | SD | (launch account) A lost authenticator is recovered by an emailed link, a 24-hour wait, notices at both ends and a ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
+| SD-F5-08 | SD | (The grace period is in the launch account; the 35-day backup purge is in the basic account) Deletion has a 14-day ... | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | SD-F5-09 | SD | The user can delete the records of a YA, or the account, only after the 7-year period has ended: 31 December of the YA ... | 0.1 (CHG-028) | Approved by the owner 14/11/2026, confirmed 22/11/2026 (CHG-049) |
 | SD-F5-10 | SD | Approved by the owner on 14/11/2026 ("for admin only; as taxpayer they can change the email"; the admin helps with a ... | 0.1 (CHG-028) | Approved by the owner 14/11/2026 (CHG-040) |
 | SD-F5-11 | SD | In R1 the owner sets the role in the data; there is no screen for roles. An admin account cannot be deleted in R1 | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-12 | SD | R1 has one consent purpose, CORE. The text is a draft with the headings of B3.5 until the PDPA adviser writes the final ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-13 | SD | F0 owns the name and the language; F5 owns the email, password, role and status. F5 creates the User row with the ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-14 | SD | The export is a ZIP with CSV files, one JSON file and the original receipts; ready within 24 hours; the link works 7 ... | 0.1 (CHG-028) | Needs owner decision |
-| SD-F5-15 | SD | (launch account) Security events are kept 12 months; IP addresses are kept 30 days; the user can read the last 50 | 0.1 (CHG-028) | Draft, wording changed in 0.4 (CHG-051) |
+| SD-F5-15 | SD | (launch account) Security events are kept 12 months; IP addresses are kept 30 days; the user can read the last 50 | 0.1 (CHG-028) | Draft, wording changed in 0.5 (CHG-051) |
 | SD-F5-16 | SD | Sign-out with unsent changes offers Wait or Sign out and discard; another user cannot sign in on a device that holds ... | 0.1 (CHG-028) | Needs owner decision |
 | SD-F5-17 | SD | (Named Phase 1 and Phase 2 until 23/11/2026; renamed basic account and launch account by the owner on 23/11/2026, ... | 0.2 (CHG-039) | Approved by the owner 14/11/2026, changed 22/11/2026 (CHG-049) |
 | SD-F5-18 | SD | In the basic account a taxpayer changes the own email in Settings with the current password and it takes effect at ... | 0.2 (CHG-040) | Approved by the owner 14/11/2026 (CHG-040) |
@@ -617,5 +619,5 @@ Every URS, SRS, test case, specification decision and open item. "Added in" is t
 | OI-F5-03 | OI | How long may security events and IP addresses be kept? | 0.1 (CHG-028) | Open |
 | OI-F5-04 | OI | What time limit applies to answering an export or deletion request, and to purging backups? | 0.1 (CHG-028) | Open |
 | OI-F5-05 | OI | F2 and F4 get no SRS row of their own for the role check in IF-18. Is a short row needed there (F2 admin screens; F4 ... | 0.1 (CHG-028) | Open |
-| OI-F5-06 | OI | Which service sends the emails (verification, reset, notices), and from which address? | 0.1 (CHG-028) | Open |
+| OI-F5-06 | OI | Which service sends the emails (verification, reset, notices), and from which address? | 0.1 (CHG-028) | Held by the owner 23/11/2026, decided with the stack in ADR-006 (CHG-053) |
 | OI-F5-07 | OI | Should two-factor become required for every taxpayer at public launch? | 0.1 (CHG-028) | Open |

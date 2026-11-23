@@ -46,7 +46,7 @@ added_p16 = {"URS-F0-15":("0.3","CHG-036"),"SD-F0-14":("0.3","CHG-036"),"TC-F0-2
  "URS-F5-14":("0.2","CHG-041"),"SRS-F5-21":("0.2","CHG-041"),"TC-F5-29":("0.2","CHG-041"),
  "SD-F5-17":("0.2","CHG-039"),"SD-F5-18":("0.2","CHG-040")}
 firstchg = {"F0":"CHG-018","F1":"CHG-001","F2":"CHG-002","F3":"CHG-003","F4":"CHG-004","F5":"CHG-028"}
-version = {"F0":"0.4","F1":"0.6","F2":"0.6","F3":"0.6","F4":"0.6","F5":"0.4"}
+version = {"F0":"0.4","F1":"0.6","F2":"0.6","F3":"0.6","F4":"0.6","F5":"0.5"}
 # changed in prompt P-34 (22/11/2026): F5 version 0.3, CHG-049
 changed_p34 = {i: "CHG-049" for i in ("URS-F5-06 URS-F5-07 URS-F5-08 URS-F5-14 SRS-F5-08 SRS-F5-12 SRS-F5-14 SRS-F5-16 SRS-F5-21 "
     "TC-F5-14 TC-F5-19 TC-F5-21 TC-F5-22 TC-F5-29").split()}
@@ -80,6 +80,7 @@ for k, f in files.items():
         status = {"URS": "Draft", "SRS": "Draft", "TC": "Draft", "SD": "Needs owner decision", "OI": "Open"}[typ]
         if "**Answered" in cells[1]: status = answered[id_]
         elif id_ in approved_p34: status = approved_p34[id_]
+        elif id_ == "OI-F5-06": status = "Held by the owner 23/11/2026, decided with the stack in ADR-006 (CHG-053)"
         elif id_ in changed_p38: status = f"Draft, wording changed in {version[k]} ({changed_p38[id_]})"
         elif id_ in changed_p34: status = f"Draft, changed in 0.3 ({changed_p34[id_]})"
         elif id_ in approved16: status = f"Approved by the owner 14/11/2026 ({approved16[id_]})"
@@ -112,7 +113,7 @@ A("""# REG-02: URS and SRS change log
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052) |
+| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -192,6 +193,7 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-050 | 2026-11-22 | AGENTS.md, REG_04_Prompt_Rules.md, CODEOWNERS | AGENTS.md section 5 (review requests); REG-04 RULE-52 (new); `.github/CODEOWNERS` | Review requests on pull requests | Added | CODEOWNERS covered only docs/prd, docs/decisions, docs/registers and AGENTS.md, so a pull request that touched other paths asked nobody for a review | CODEOWNERS starts with `*` (every path) for the owner, with a note on how to add developers; GitHub asks the code owners for a review on every pull request and notifies them. REG-04 at version 0.10. No requirement document changed | The owner asked for a notice when a pull request is opened, so that the owner and later developers see it (option B) | Prompt P-34 |
 | CHG-051 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5, ADR-000 to ADR-005, RES-001, REG-01 to REG-04, AGENTS.md, README, docs-check workflow | File names, title line and header of every document; section 0 shared blocks (document set, FD-00, terms); F5 A1, B3.1, B3.6, SD-F5-17 and every row that said Phase 1 or Phase 2; SRS-F0-01; IF-20; AGENTS.md sections 2, 3 and 6 (new); REG-04 RULE-53 to RULE-59 (new) | The SRS, URS, TC and SD listed in the ID register as "wording changed in 0.4" or "0.6" | Changed | Each type of document had its own file name style (PRD_..., URS_SRS_..., ADR-001-..., HISTORY_LOG.md) and header; F1 and F2 had titles that differ from the PRD headings; "Phase" meant the PRD roadmap, the two parts of F5 and the stages; rule IDs R-nn and research R-001 looked like releases R1 to R4 and relief codes R01 to R24 | One standard (AGENTS.md section 6): file names `<type>_<ID>_<Short_Name>.md` (PRD_TRM, URS_SRS_F0 to F5, ADR_001, RES_001, REG_01 to REG_04); first line `# <Document ID>: <Title>`; the same header rows in every document; the PRD is the master for names and IDs, so F1 is "Tax calculator for any year" and F2 "Relief categories and ranges"; "Phase" means only a PRD roadmap phase; F5 Phase 1 and Phase 2 renamed basic account (R1) and launch account (before public launch), meaning unchanged; stages in AGENTS.md section 3; rule IDs RULE-nn; research RES-001; a new check docs/tools/check_standard.py runs in the workflow. PRD to revision 48 (header and file name only, no requirement changed); F0 to 0.4, F1 to F4 to 0.6, F5 to 0.4 (the shared blocks changed); REG-04 to 0.11 | The owner asked for one standard for every document, with names that follow the PRD IDs and the PRD winning when there is a conflict, so the work can be managed and tracked during development | Prompts P-37 and P-38 |
 | CHG-052 | 2026-11-23 | PRD | Section 2.3 (education and medical insurance; life insurance and EPF), section 9.1 (phase 1, phase 4, public launch gate), section 9.3 decisions 4 and 5, section 9.4 (new), Sources | Pending sync items 11, 12, 26 and 27 | Synced | Revision 48: education and medical insurance "4,000 (confirm)" for every YA; EPF and life insurance sub-limits "as published on LHDN's site"; decisions 4 and 5 kept in view; section 9.1 had no account and security parts; no list of the items waiting for approval | Revision 49: RM 4,000 for YA 2025 from LHDN, carried forward for YA 2026 and YA 2027 with needs confirmation; EPF up to 4,000 and life insurance, family takaful and additional voluntary EPF up to 3,000 inside 7,000; decisions 4 and 5 answered with the LHDN source; phase 1 holds the basic account, phase 4 (R3) the export, old-record deletion, security screens and session controls, and the public launch gate the launch account; F-058 named as open; section 9.4 lists the 19 items still waiting for owner approval | The owner said "update the PRD" for the items that have approval; the others wait and are marked (OI-F2-01, OI-F2-02 answered from LHDN on 12/11/2026; SD-F5-17 approved 14/11/2026; SD-F5-19 approved 22/11/2026) | Prompt P-38 |
+| CHG-053 | 2026-11-23 | F5, ADR-006 | A6 item 6, OI-F5-06, header; new docs/decisions/ADR_006_Email_Service.md | OI-F5-06 | Changed | OI-F5-06: the email service is chosen at development | OI-F5-06 is held by the owner (no domain yet) and decided with the stack in ADR-006, which lists the emails of the basic account and the launch account and what the choice needs (domain with SPF, DKIM and DMARC; provider region and data terms under the PDPA). F5 to 0.5. The YA 2026 and YA 2027 rule check is written in RES-002; no rule value in the documents is changed (F-063 waits for the owner) | Owner answer of 23/11/2026: "not yet, not sure which one to use. can we hold this for moment. can remarks for next stack" | Prompt P-41 |
 
 ## Pending PRD sync
 
@@ -251,6 +253,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-22 | After the review requests rule (CHG-050): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 | 2026-11-23 | After the document standard (CHG-051): build, change log, acronym check and the new document standard check (check_standard.py) over every document under docs/ | 0 errors; acronym check passed; standard check 0 errors |
 | 2026-11-23 | After the PRD sync (CHG-052): build, change log, acronym check and standard check; Pending PRD sync has 19 rows, each with the status Waiting for owner approval, and PRD section 9.4 lists the same 19 items | 0 errors; acronym check passed; standard check 0 errors; 19 of 19 |
+| 2026-11-23 | After the phase 0 answers (CHG-053): build, change log, acronym check and standard check; RES-002 tax bands above RM 400,000 re-read on the LHDN rate page | 0 errors; acronym check passed; standard check 0 errors; LHDN table matches RES-002 |
 
 ## ID register
 

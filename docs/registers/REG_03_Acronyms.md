@@ -24,12 +24,19 @@ This file lists every acronym and abbreviation used in the PRD, the six URS and 
 4. **Automatic check.** The script `src/check_acronyms.py` scans all documents for capital-letter short forms and fails if one is not listed here. Run it before finishing any change.
 5. **Status:** Active (used now), Retired (no longer used), Proposed (used in a draft, waiting for owner confirmation).
 
-Counts: 60 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code values (section 5), 7 collisions (section 6).
+Counts: 72 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code values (section 5), 7 collisions (section 6).
 
 ## 1. Malaysian tax and government terms
 
 | Short form | Stands for | Meaning in this project | Used in | Status |
 | --- | --- | --- | --- | --- |
+| LINDUNG 24, LINDUNG KENDIRI | SOCSO scheme names (not short forms) | LINDUNG 24 is the non-employment injury scheme; LINDUNG KENDIRI is the self-employment social security scheme. Both count in the SOCSO relief from YA 2027 | RES-002 | Active |
+| LLP | Limited liability partnership | From YA 2026 an LLP's profit paid to an individual partner above RM 100,000 is taxed at 2%; out of scope for TRM v1 | RES-002 | Active |
+| NPRA | National Pharmaceutical Regulatory Agency | From YA 2026 any vaccine it registers counts for the vaccination relief | RES-002 | Active |
+| REIT | Real estate investment trust | Budget 2027 withholding tax for non-residents; out of scope | RES-002 | Active |
+| TADIKA | Taman Didikan Kanak-kanak (kindergarten) | Childcare relief for a child aged 6 and below | RES-002, REG-01 | Active |
+| TASKA | Taman Asuhan Kanak-kanak (registered childcare centre) | Childcare relief for a child aged 6 and below | RES-002, REG-01 | Active |
+| TVET | Technical and Vocational Education and Training | YA 2027 upskilling sub-limit of RM 3,000 for self or spouse | RES-002, REG-01 | Active |
 | BE | Form BE | The income tax return for resident individuals with no business income. The product helps the user prepare to file it. | PRD | Active |
 | B | Form B | The return for individuals with business income. Out of scope in v1. | PRD | Active |
 | CCTV | Closed-circuit television | Home CCTV, a lifestyle relief item added in YA 2026 and YA 2027 | PRD, F2 | Active |
@@ -71,6 +78,11 @@ Counts: 60 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code value
 
 | Short form | Stands for | Meaning in this project | Used in | Status |
 | --- | --- | --- | --- | --- |
+| DKIM | DomainKeys Identified Mail | A signature on sent email that proves it came from the domain | ADR-006 | Active |
+| DMARC | Domain-based Message Authentication, Reporting and Conformance | The domain's rule for mail that fails SPF or DKIM | ADR-006 | Active |
+| KPMG | KPMG (a tax and audit firm; a name) | Its Finance Bill 2026 summary was a secondary source in RES-002 | RES-002 | Active |
+| SMTP | Simple Mail Transfer Protocol | The standard way a server sends email | ADR-006 | Active |
+| SPF | Sender Policy Framework | The domain's list of servers allowed to send its email | ADR-006 | Active |
 | AA | Level AA (of WCAG) | The accessibility level the PWA must meet | PRD, F4 | Active |
 | ADR | Architecture decision record | One short file per technical decision in docs/decisions | README, decision records | Active |
 | AI | Artificial intelligence | A YA 2027 lifestyle item (AI subscriptions) in the PRD; also the AI agents that work on the repository | PRD, AGENTS.md | Active |
@@ -192,3 +204,4 @@ Read the context before you assume a meaning.
 | 2026-11-14 | Added | ADR, MCP, PR (section 3); ERRORS (section 5); AI row extended | README, AGENTS.md and the decision records use them | Prompt P-18 |
 | 2026-11-14 | Added | HTML, PHP (section 3) | The front-end findings file RES-001 uses them | Prompt P-22 |
 | 2026-11-23 | Added and changed | RULE, RES, REG, document IDs (PRD-TRM, URS-SRS-Fn, ADR-nnn, RES-nnn, REG-nn); R3 added to the releases row; F1 and F2 names follow the PRD | Document standard: rule IDs R-nn became RULE-nn and research R-001 became RES-001 so they no longer look like releases or relief codes | Prompt P-38, CHG-051 |
+| 2026-11-23 | Added | LINDUNG, KENDIRI, LLP, NPRA, REIT, TADIKA, TASKA, TVET (section 1); DKIM, DMARC, KPMG, SMTP, SPF (section 3) | RES-002 (YA 2026 and YA 2027 check) and ADR-006 (email service) use them | Prompt P-41, CHG-053 |
