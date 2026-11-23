@@ -1,0 +1,35 @@
+/* BACKUP: direction B "Friendly Blue". Not in use. Kept by the owner's decision of 23/11/2026 (P-83).
+   To try it, load this file after tokens.css and components.css. It changes the tokens and the shape of the components.
+   Contrast was checked by script: the green accent is #047857 (5.48:1 on white); the skill's #059669 gives only 3.77:1. */
+:root {
+  --font-head: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --color-bg: #F3F7FF;
+  --color-fg: #0B1B3F;
+  --color-muted: #4B5A78;
+  --color-line: #DCE6F8;
+  --color-bar: #1E40AF;
+  --color-primary: #1E40AF;
+  --color-accent: #047857;
+  --color-ok: #16A34A;
+  --color-warn: #9A3412;
+  --color-warn-bg: #FFEDD5;
+  --color-info: #1E40AF;
+  --color-info-bg: #E3ECFF;
+  --color-chip: #DBEAFE;
+  --color-on-chip: #1E3A8A;
+  --color-track: #DCE6F8;
+  --color-status-bg: #E3ECFF;
+  --color-ring: #1E40AF;
+  --radius: 18px;
+  --radius-s: 14px;
+}
+.appbar { border-radius: 0 0 22px 22px; padding-bottom: 18px; }
+.card, .group { box-shadow: 0 2px 0 #DCE6F8; }
+.bar { height: 12px; }
+.sec { text-transform: none; letter-spacing: 0; font-size: 16px; color: var(--color-fg); font-weight: 800; }
+.btn-primary { box-shadow: 0 3px 0 #15296B; }
+.chip { font-weight: 600; }
+.tabbar { border-radius: 22px 22px 0 0; box-shadow: 0 -4px 14px rgba(30, 64, 175, .10); border-top: 0; }
+.tabbar a.on { background: #E3ECFF; border-radius: 16px; margin: 6px; }
+.ya select { border-radius: 99px; }

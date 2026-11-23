@@ -46,7 +46,7 @@ A stage is where the work happens. It is not a phase: "phase" means only a phase
 
 | Branch | Name | Use |
 | --- | --- | --- |
-| Documentation | `docs/<ID>-short-name` | Documentation work only: PRD, URS/SRS, registers, ADRs, rules. `<ID>` is the document (F0 to F5, PRD) or the change number (CHG-046). No code in a docs branch. This covers the documentation of PRD phase 1 and of each later PRD phase, planned separately per phase. |
+| Documentation | `docs/<ID>-short-name` | Documentation work only: PRD, URS/SRS, registers, ADRs, rules. `<ID>` is the document (F0 to F5, PRD) or the change number (CHG-046). No application code in a docs branch (static design pages in `docs/design/` are not application code). This covers the documentation of PRD phase 1 and of each later PRD phase, planned separately per phase. |
 | Feature | `feature/<ID>-short-name` | New development work. `<ID>` is the requirement ID (for example SRS-F1-04). |
 | Bug fixing | `bug-fixing/<ID>-short-name` | Fixing a defect. `<ID>` is the bug or finding number (for example F-054) or the requirement ID. |
 | Decision | `decision/<topic>` | An ADR or open decision. |
@@ -69,7 +69,7 @@ A stage is where the work happens. It is not a phase: "phase" means only a phase
 
 ## 6. Document standard (from 23/11/2026)
 
-Every document follows the same names and the same header, so each one can be found and tracked during development. Full rules: RULE-53 to RULE-59 in `docs/registers/REG_04_Prompt_Rules.md`.
+Every document follows the same names and the same header, so each one can be found and tracked during development. Full rules: RULE-53 to RULE-60 in `docs/registers/REG_04_Prompt_Rules.md`.
 
 1. **The PRD is the master.** Feature IDs and names (F1 to F4 follow PRD sections 3.1 to 3.4), requirement IDs (FR, BR, NFR), releases (R1 to R4) and phases come from the PRD (`PRD-TRM`). When another document disagrees with the PRD, the PRD wins: change the other document, or, when the PRD looks wrong, write a finding and a Pending PRD sync item and wait for the owner.
 2. **File names:** `<type>_<ID>_<Short_Name>.md`, with underscores and each word of the short name starting with a capital.
@@ -81,8 +81,11 @@ Every document follows the same names and the same header, so each one can be fo
    | `ADR` | `001`, `002` ... | `ADR_001_Language_And_Framework.md` | ADR-001 |
    | `RES` (research note) | `001`, `002` ... | `RES_001_Frontend_Frameworks.md` | RES-001 |
    | `REG` (register) | `01` to `04` | `REG_01_History_Log.md` | REG-01 |
+   | `DES` (design) | `000` for the design system, `F0` to `F5` for the screens of a feature | `DES_F0_User_Profile_Screens.md` | DES-F0 |
 
    Kept as they are, because tools need these names: `README.md`, `AGENTS.md`, `CLAUDE.md`, `.github/`, and the build inputs `docs/tools/source/f0.md` to `f5.md` (built into `URS_SRS_F0` to `F5`).
+
+   **Design files** live in `docs/design/`, in a folder per phase and feature (`phase-1_R1/F0_User_Profile/`). A `DES` document is Markdown and follows this section. The mockups next to it are static HTML pages with test data and the screenshots are PNG files. They are design files, not application code: "no code in a docs branch" (section 5) does not apply to them, and they never go into `src/`.
 3. **Title:** the first line is `# <Document ID>: <Title>`. A feature title uses the PRD heading.
 4. **Header table** right under the title, rows in this order: Document ID, Document type, Product, Version, Status, Date, Owner, PRD reference, Source, Change tracking. Extra rows (for example Decided by, Scope) come after them.
    - Version: the PRD counts revisions (Revision 48); other documents use 0.1, 0.2 while draft and 1.0 when the owner approves; a log says it is a running log.

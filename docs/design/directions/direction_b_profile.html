@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRM design direction B: F0 profile screen (SRS-F0-05), test data only</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap">
+<style>
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.app{max-width:420px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;display:flex;flex-direction:column}main{flex:1}
+button,select{font:inherit}
+.appbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--bar);color:var(--onbar)}
+.brand{display:flex;align-items:center;gap:10px}.logo{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.06em;padding:4px 8px;border-radius:var(--r-s);background:var(--onbar);color:var(--bar)}
+.title{font-family:var(--head);font-weight:600;font-size:18px}
+.ya{display:flex;align-items:center;gap:8px}.ya select{min-height:44px;padding:0 10px;border-radius:var(--r-s);border:1px solid var(--onbar);background:transparent;color:var(--onbar);font-weight:600}
+.ya select option{color:#000}
+.badge{font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--onbar);color:var(--bar)}
+.status{display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:13px;color:var(--muted);background:var(--statusbg);border-bottom:1px solid var(--line)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+main{padding:16px}
+h2,h3{font-family:var(--head);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.ctop{display:flex;justify-content:space-between;align-items:center;gap:8px}.ctop h2{font-size:18px}
+.pill{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px}.pill.incomplete{background:var(--warnbg);color:var(--warn)}
+.count{margin:8px 0 8px;font-weight:600}
+.bar{height:8px;border-radius:99px;background:var(--track);overflow:hidden}.bar span{display:block;height:100%;background:var(--primary)}
+.hint{font-size:14px;color:var(--muted);margin:10px 0 14px}
+.primary{width:100%;min-height:48px;border:0;border-radius:var(--r-s);background:var(--primary);color:var(--onprimary);font-weight:700;cursor:pointer}
+.secondary{width:100%;min-height:48px;margin-top:10px;border-radius:var(--r-s);background:transparent;color:var(--primary);border:1.5px solid var(--primary);font-weight:700;display:flex;gap:8px;align-items:center;justify-content:center;cursor:pointer}
+.notice{margin:14px 0 4px;padding:12px 14px;border-radius:var(--r-s);background:var(--infobg);color:var(--info);font-size:14px;border-left:4px solid var(--info)}
+.sec{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.rows,.deps{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.row{display:flex;gap:8px;align-items:flex-start;padding:12px 8px 12px 14px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}
+.rowmain{flex:1;min-width:0}.q{display:block;font-size:14px;color:var(--muted)}
+.ans{display:block;font-weight:600;font-size:16px}.ans.open{color:var(--warn)}.ans.open::before{content:"! ";font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--onchip)}
+.edit{width:44px;height:44px;border:0;background:transparent;color:var(--primary);border-radius:var(--r-s);cursor:pointer;display:grid;place-items:center}
+.dep{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}.dep:last-child{border-bottom:0}
+.dep b{display:block}.dep span{font-size:14px;color:var(--muted)}.dep .chip{color:var(--onchip);font-size:12px}
+.line{font-size:14px;margin:10px 2px}.line.warn{color:var(--warn);font-weight:600}
+.links{margin:22px 0 0;display:flex;flex-direction:column}.links a{display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;color:var(--primary);font-weight:600;text-decoration:none;border-bottom:1px solid var(--line)}
+.tabbar{position:sticky;bottom:0;width:100%;display:flex;background:var(--tab);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar a{flex:1;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:600;color:var(--muted);text-decoration:none}
+.tabbar a.on{color:var(--primary)}
+:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+
+:root{--head:"Plus Jakarta Sans",system-ui,sans-serif;--body:"Plus Jakarta Sans",system-ui,sans-serif;
+--bg:#F3F7FF;--fg:#0B1B3F;--muted:#4B5A78;--line:#DCE6F8;--card:#FFFFFF;--bar:#1E40AF;--onbar:#FFFFFF;
+--primary:#1E40AF;--onprimary:#FFFFFF;--accent:#047857;--ok:#16A34A;--warn:#9A3412;--warnbg:#FFEDD5;--info:#1E40AF;--infobg:#E3ECFF;
+--chip:#DBEAFE;--onchip:#1E3A8A;--track:#DCE6F8;--statusbg:#E3ECFF;--tab:#FFFFFF;--ring:#1E40AF;--r:18px;--r-s:14px}
+.card{box-shadow:0 2px 0 #DCE6F8}.appbar{border-radius:0 0 22px 22px;padding-bottom:18px}.status{border-radius:0}
+.pill.incomplete{background:#FFEDD5}.bar{height:12px}.bar span{background:var(--accent)}
+.sec{text-transform:none;letter-spacing:0;font-size:16px;color:var(--fg);font-weight:800}
+.primary{box-shadow:0 3px 0 #15296B}.chip{font-weight:600}.tabbar{border-radius:22px 22px 0 0;box-shadow:0 -4px 14px rgba(30,64,175,.10);border-top:0}
+.tabbar a.on{background:#E3ECFF;border-radius:16px;margin:6px}
+.ya select{border-radius:99px}
+</style></head><body><div class="app">
+<header class="appbar">
+  <div class="brand"><span class="logo">TRM</span><span class="title">Profile</span></div>
+  <label class="ya"><span class="sr">Year of Assessment</span><select><option>YA 2026</option><option>YA 2025</option></select><span class="badge draft">Draft</span></label>
+</header>
+<div class="status" role="status"><span class="dot"></span>Works offline · Synced 2 min ago</div>
+<main>
+  <section class="card complete" aria-labelledby="c1">
+    <div class="ctop"><h2 id="c1">Profile for YA 2026</h2><span class="pill incomplete">Incomplete</span></div>
+    <p class="count">3 of 7 answered, 42%</p>
+    <div class="bar" role="progressbar" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"><span style="width:42%"></span></div>
+    <p class="hint">Reliefs, the calculator and the dashboard stay locked for YA 2026 until every question is answered.</p>
+    <button class="primary">Answer the next question</button>
+  </section>
+  <div class="notice" role="note"><b>Copied from YA 2025.</b> Check each answer and confirm your dependants.</div>
+  <h3 class="sec">About you</h3>
+  <ul class="rows">
+    <li class="row"><div class="rowmain"><span class="q">Residency</span><span class="ans">Resident</span><div class="chips"><span class="chip">R01 Individual</span></div></div><button class="edit" aria-label="Edit Residency"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg></button></li>
+    <li class="row"><div class="rowmain"><span class="q">Marital status</span><span class="ans">Married</span><div class="chips"><span class="chip">R03 Spouse or alimony</span><span class="chip">Spouse rebate</span></div></div><button class="edit" aria-label="Edit Marital status"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg></button></li>
+    <li class="row"><div class="rowmain"><span class="q">Spouse has income</span><span class="ans open">Not answered</span><div class="chips"><span class="chip">R03 Spouse or alimony</span></div></div><button class="edit" aria-label="Edit Spouse has income"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg></button></li>
+    <li class="row"><div class="rowmain"><span class="q">Own disability</span><span class="ans">No</span><div class="chips"><span class="chip">R02 Disabled individual</span></div></div><button class="edit" aria-label="Edit Own disability"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg></button></li>
+    <li class="row"><div class="rowmain"><span class="q">Public servant on the pension scheme</span><span class="ans open">Not answered</span><div class="chips"><span class="chip">R14 Employee EPF</span></div></div><button class="edit" aria-label="Edit Public servant on the pension scheme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg></button></li>
+  </ul>
+  <h3 class="sec">Dependants</h3>
+  <ul class="deps">
+    <li class="dep"><div><b>Nur</b><span>Child · 6 years at YA end</span></div><span class="chip">R20 Child under 18</span></li>
+    <li class="dep"><div><b>Adam</b><span>Child · 3 years at YA end</span></div><span class="chip">R20 Child under 18</span></li>
+  </ul>
+  <button class="secondary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add dependant</button>
+  <p class="line warn">Dependants list: not confirmed yet</p>
+  <h3 class="sec">First home</h3>
+  <ul class="rows"><li class="row"><div class="rowmain"><span class="q">Has a first-home loan</span><span class="ans open">Not answered</span><div class="chips"><span class="chip">R06 First-home loan interest</span></div></div><button class="edit" aria-label="Edit Has a first-home loan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg></button></li></ul>
+  <nav class="links" aria-label="Profile links"><a href="#">Tax-year history <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><a href="#">Change history <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a><a href="#">Compare years <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></nav>
+</main>
+<nav class="tabbar" aria-label="Main">
+  <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Dashboard</span></a>
+  <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12h0M8 16h2M12 16h2M16 16h0"/></svg><span>Calculator</span></a>
+  <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M4 6h0M4 12h0M4 18h0"/></svg><span>Reliefs</span></a>
+  <a href="#"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h15a1 1 0 011 1v11a1 1 0 01-1 1H5a2 2 0 01-2-2V6a2 2 0 012-2h12"/><path d="M16 14h2"/></svg><span>Spending</span></a>
+  <a href="#" class="on" aria-current="page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profile</span></a>
+</nav></div></body></html>

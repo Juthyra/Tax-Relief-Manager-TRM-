@@ -12,7 +12,7 @@
 | PRD reference | All of PRD-TRM |
 | Source | A scan of every document; checked by docs/tools/check_acronyms.py |
 | Change tracking | [REG_01_History_Log.md](REG_01_History_Log.md) (main log), [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md) (detail log for the documents) |
-| Last updated | 2026-11-23 (LTS and UTC added, CHG-061); 2026-11-23 (RULE, RES, REG prefixes and document IDs, CHG-051); 2026-11-18 (CLI added) |
+| Last updated | 2026-11-23 (DES, SVG, CSS and TT added, CHG-065); 2026-11-23 (LTS and UTC added, CHG-061); 2026-11-23 (RULE, RES, REG prefixes and document IDs, CHG-051); 2026-11-18 (CLI added) |
 
 This file lists every acronym and abbreviation used in the PRD, the six URS and SRS documents and the two logs. It is the single place to look up what a short form means.
 
@@ -63,6 +63,7 @@ Counts: 75 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code value
 | STEM | Science, Technology, Engineering and Mathematics | Children's tuition in STEM subjects is part of the education relief wording | PRD | Active |
 | TP1 | Form TP1 | The form an employee gives the employer to declare reliefs, which changes the PCB | PRD | Active |
 | YA | Year of Assessment | The tax year. YA 2026 covers income and spending dated 1 January to 31 December 2026. | All | Active |
+| TT | Tahun Taksiran | The Bahasa Malaysia name of the Year of Assessment, used on the Bahasa Malaysia screens (YA in English) | DES-000 | Active |
 
 ## 2. Product, document and delivery terms
 
@@ -121,6 +122,8 @@ Counts: 75 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code value
 | TOTP | Time-based one-time password | The 6-digit code an authenticator app makes every 30 seconds | F5 | Active |
 | UUID | Universally unique identifier (version 7) | The id the app creates on the phone before it reaches the server | F0 to F4 | Active |
 | WCAG | Web Content Accessibility Guidelines | The accessibility standard the PWA follows | PRD, F4 | Active |
+| SVG | Scalable Vector Graphics | The image format of the line icons in the design | DES-000 | Active |
+| CSS | Cascading Style Sheets | The files that hold the colours, fonts and shapes of the design | DES-000 | Active |
 | YYYY | Four-digit year | Date format DD/MM/YYYY | PRD, F0 to F4 | Active |
 | ZIP | ZIP archive | The single file that holds a data export | F5 | Active |
 
@@ -132,6 +135,7 @@ These are not acronyms in the usual sense, but they are the short forms readers 
 | --- | --- | --- | --- | --- |
 | BR | Business rule | PRD rule ID, for example BR-11 | PRD | Active |
 | CHG | Change | One detail change in the URS and SRS change log, for example CHG-017 | REG-02 | Active |
+| DES | Design | Prefix of a design document, DES-000 for the design system and DES-F0 to DES-F5 for the screens of a feature | docs/design | Active |
 | DA | Data addition | A field or table the specification needs that the PRD data model lacks, for example DA-05. Proposed until the owner approves. | F0 to F4, Part B2 | Active |
 | EV | Event | A message that tells other features to refresh, for example EV-03 ProfileChanged | F0 to F4, section A5 | Active |
 | F-nnn | Finding | A finding in REG_01_History_Log.md, for example F-030 | REG-01 | Active |
@@ -215,3 +219,4 @@ Read the context before you assume a meaning.
 | 2026-11-23 | Added | COMPOSTER, GRINDER (section 5) | New R12 sub-limit codes from the rule corrections | Prompt P-42, CHG-054 |
 | 2026-11-23 | Added | CP38, CP39, TP3 (section 1) | RES-003 (PCB 2026 check) uses them | CHG-056 |
 | 2026-11-23 | Added | LTS, UTC (section 3) | ADR-001 and ADR-004 use them | CHG-061 |
+| 2026-11-23 | Added | DES (section 4), SVG and CSS (section 3), TT (section 1) | The design documents DES-000 and DES-F0 use them | CHG-065 |
