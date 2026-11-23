@@ -5,12 +5,12 @@
 | Document ID | PRD-TRM |
 | Document type | PRD (product requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | Revision 51 |
+| Version | Revision 52 |
 | Status | Active (the owner's document; changed only when the owner says so, RULE-20) |
 | Date | 2026-11-23 (first written 2026-11-07) |
 | Owner | Champs (product owner) |
 | PRD reference | This document. It is the master for feature names, IDs, releases and phases (AGENTS.md section 6) |
-| Source | Owner prompts P-01 to P-06, P-16, P-38, P-42 and P-44. The Claude Doc is a copy, last synced at revision 47; revisions 48 to 51 are in Git only |
+| Source | Owner prompts P-01 to P-06, P-16, P-38, P-42, P-44 and P-46. The Claude Doc is a copy, last synced at revision 47; revisions 48 to 52 are in Git only |
 | Change tracking | Synced entries in [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md) |
 
 ## 1. Product overview
@@ -86,10 +86,10 @@ This is the seed data for the rules table, with one column per YA. YA 2026 value
 | --- | --- | --- | --- | --- |
 | Individual and dependent relatives | 9,000 | 9,000 | 12,000 | Automatic for every resident |
 | Disabled individual | 7,000 | 7,000 | 7,000 | Certified by Department of Social Welfare (JKM) |
-| Spouse or alimony | 4,000 | 4,000 | 4,000 | Spouse has no income, or joint assessment |
+| Spouse or alimony | 4,000 | 4,000 | 4,000 | Spouse has no income, or joint assessment. Not allowed when a non-disabled spouse has income from outside Malaysia above 4,000 |
 | Disabled spouse | 6,000 | 6,000 | 6,000 | Spouse certified disabled |
 | Education fees (self) | 7,000 (upskilling sub-limit 2,000) | 7,000 (upskilling sub-limit 2,000) | 7,000 (TVET upskilling 3,000; other courses and children's classes 2,000) | Recognised institution. YA 2027 renames it Education and Skills Training Fees: any field from certificate to doctorate; TVET upskilling for self or spouse up to 3,000; non-employment courses for self or spouse and children's STEM, arts, language or religion classes share 2,000 |
-| First-home loan interest | 7,000 or 5,000 | 7,000 or 5,000 | 7,000 or 5,000 | 7,000 for a home up to 500,000; 5,000 for 500,001 to 750,000. Interest only; SPA signed 1 Jan 2025 to 31 Dec 2027; up to 3 consecutive YAs |
+| First-home loan interest | 7,000 or 5,000 | 7,000 or 5,000 | 7,000 or 5,000 | 7,000 for a home up to 500,000; 5,000 for 500,001 to 750,000. Interest only; SPA signed 1 Jan 2025 to 31 Dec 2027; up to 3 consecutive YAs; one unit only, not earning income |
 | Medical (self, spouse, child) | 10,000 overall; child learning-disability programme 6,000 | 10,000 overall; child programme 10,000 | 10,000 overall; child programme 10,000; postnatal care up to 3,000; breastfeeding equipment 1,000 | Sub-limits of 1,000 each for vaccination, dental exam and medical check-up. YA 2026: any vaccine registered with NPRA. YA 2027 renames it Health and Well-being and moves breastfeeding equipment inside it |
 | Parents or grandparents (medical and care) | 8,000 | 8,000 | 8,000 | Medical, dental, special needs, nursing home; check-up and vaccination sub-limit 1,000. YA 2027: all types of care expense; a carer declaration or work permit and receipts are enough |
 | Supporting equipment for disabled person | 6,000 | 6,000 | 6,000 | Person registered with JKM |
@@ -97,12 +97,12 @@ This is the seed data for the rules table, with one column per YA. YA 2026 value
 | Sports (additional lifestyle) | 1,000 | 1,000 | 1,000 | Equipment, facility fees, competition fees, gym. YA 2027: sports shoes up to 300 within the cap |
 | EV charging, food waste composter or grinder, home CCTV | 2,500 (EV charging, composter) | 2,500 (grinder and CCTV added) | 2,500 | One shared cap. EV charging each year to YA 2027. The composter is claimed once in YA 2025, 2026 or 2027; the grinder and the CCTV once in YA 2026 or 2027 |
 | Domestic tourism | Not available | 1,000 | 1,000 (extended for YA 2027) | Entrance fees to local attractions; art and cultural programmes. YA 2026 in the Finance Act 2025; YA 2027 extension announced in Budget 2027 |
-| Life insurance and EPF | 7,000 combined | 7,000 combined | 7,000 combined | One shared cap of 7,000: up to 4,000 for mandatory EPF (or an approved scheme) and up to 3,000 for life insurance, family takaful and additional voluntary EPF (LHDN, YA 2023 to YA 2025; carried forward for YA 2026 and YA 2027, needs confirmation; decision 5). From YA 2026 a life policy on the individual's child also counts (Finance Act 2025) |
+| Life insurance and EPF | 7,000 combined | 7,000 combined | 7,000 combined | One shared cap of 7,000: up to 4,000 for mandatory EPF (or an approved scheme) and up to 3,000 for life insurance, family takaful and additional voluntary EPF (LHDN, YA 2023 to YA 2025; carried forward for YA 2026 and YA 2027, needs confirmation; decision 5). From YA 2026 a life policy on the individual's child also counts (Finance Act 2025) A pensionable public servant claims only the 3,000 insurance part |
 | PRS and deferred annuity | 3,000 | 3,000 | 3,000 | PRS relief extended to YA 2030 |
 | Education and medical insurance | 4,000 (LHDN, Confirmed) | 4,000 (LHDN, Confirmed) | 4,000 (unchanged by Budget 2027) | Premiums for self, spouse, child. LHDN gives 4,000 from YA 2025 (3,000 for YA 2018 to YA 2024), confirmed for YA 2026 in Public Ruling 5/2026. See decision 4 |
 | SOCSO and EIS | 350 | 350 | 350 plus 150 | YA 2027: the 350 also covers mandatory Lindung Kendiri (passenger transport, goods or food transport, hawkers); extra 150 for voluntary Lindung 24 Jam or the other Lindung Kendiri sectors |
 | SSPN net savings | 8,000 | 8,000 | 8,000 | Deposits minus withdrawals in the year |
-| Child under 18 | 2,000 per child | 2,000 per child | 2,000 per child | Unmarried |
+| Child under 18 | 2,000 per child | 2,000 per child | 2,000 per child | Unmarried. For every child relief: shared 50/50 between people who are not a couple living together; none for a child whose own income is above the relief |
 | Child 18 and above, full-time education | 2,000 or 8,000 | 2,000 or 8,000 | 2,000 or 8,000 | 8,000 for diploma and above in Malaysia or degree and above overseas |
 | Disabled child | 8,000 | 8,000 | 8,000 | Unmarried; extra 8,000 if 18 and above in higher education |
 | Childcare or kindergarten fees | 3,000 (child up to 6) | 3,000 (child up to 6; up to 12 at a care centre) | 3,000 (child up to 6; up to 12 at a care centre) | Registered TASKA or TADIKA for a child aged 6 and below; from YA 2026 also a care centre registered under the Care Centres Act 1993 for a child aged 12 and below |
@@ -118,7 +118,7 @@ Sources: [Finance Act 2025, Act 874](https://www.hasil.gov.my/wp-content/uploads
 
 ### 2.4 Filing and record rules
 
-- Employees without business income file **Form BE** through MyTax. For YA 2025 the e-Filing deadline was 15 May 2026. The system stores each YA's deadline as data. The YA 2026 deadline was not in the sources read; the YA 2025 pattern (due 30 April, e-Filing accepted to 15 May) is only a guide until LHDN publishes it.
+- Employees without business income file **Form BE** through MyTax. For YA 2025 the return was due 30 April 2026 and e-Filing was accepted to 15 May 2026 ([LHDN filing programme for 2026](https://www.hasil.gov.my/wp-content/uploads/rf-filing-programme-for-2026.pdf)). The system stores each YA's deadline as data. The YA 2026 deadline was not in the sources read; the YA 2025 pattern (due 30 April, e-Filing accepted to 15 May) is only a guide until LHDN publishes it.
 - Receipts must be kept for 7 years from the end of the YA.
 - The same expense cannot be claimed under two categories.
 - Employers use form PCB TP1 (1/2026) to collect an employee's relief declarations for monthly deductions.
@@ -154,7 +154,7 @@ Four features make up the minimum product, and every requirement below is **Must
 | FR-1.7 | What-if mode: enter extra spending in a category and see the tax saved. |
 | FR-1.8 | **PCB records:** record the PCB deducted each month from the payslip. PCB on a bonus or other additional pay is kept as a separate line. |
 | FR-1.9 | **Annual PCB projection:** projected PCB for the year = PCB recorded so far + latest monthly PCB x months remaining + PCB on bonuses already recorded. The user can override any future month. |
-| FR-1.10 | **PCB against tax:** show projected annual PCB beside estimated tax payable, with the expected balance to pay or refund, updated whenever reliefs change. |
+| FR-1.10 | **PCB against tax:** show projected annual PCB beside estimated tax payable, with the expected balance to pay or refund, updated whenever reliefs change. The PCB on a bonus is entered apart from the regular PCB and counted once, as in LHDN's PCB 2026 specification. |
 | FR-1.11 | **(R2) PCB estimate from salary:** estimate the monthly PCB from salary and relief declarations using LHDN's published PCB calculation method, to compare with the payslip. The method must be verified against LHDN's specification before it is built. |
 
 **Acceptance criteria**
@@ -265,10 +265,10 @@ One row's updated\_at and updated\_by show only its latest change. To keep **eve
 | Entity | Key fields | Versioned | Notes |
 | --- | --- | --- | --- |
 | User | id, name, email, role (user, admin or system), status | Yes | The reserved SYSTEM row is the default created\_by and updated\_by |
-| TaxpayerProfile | user\_id, year, copied\_from\_year, state (draft or active), residency\_status, marital\_status, spouse\_has\_income, joint\_assessment, is\_disabled, has\_first\_home, first\_home\_spa\_date, first\_home\_price, dependants\_confirmed | Yes | One per user per YA, copied forward from the previous YA so a later change never rewrites an earlier year; drives applicable reliefs. Every visible question is mandatory: null only while a question is open or not shown |
+| TaxpayerProfile | user\_id, year, copied\_from\_year, state (draft or active), residency\_status, marital\_status, spouse\_has\_income, joint\_assessment, is\_disabled, has\_first\_home, first\_home\_spa\_date, first\_home\_price, dependants\_confirmed, spouse\_foreign\_income\_above\_limit, is\_pensionable\_public\_servant, first\_home\_earns\_income | Yes | One per user per YA, copied forward from the previous YA so a later change never rewrites an earlier year; drives applicable reliefs. Every visible question is mandatory: null only while a question is open or not shown |
 | HouseholdLink | user\_id, linked\_user\_id, relationship, joint\_assessment, link\_status | Yes | R1 holds the table and test data; screens and calculation come in R2 |
-| Dependant | profile\_id, type (child or parent), date\_of\_birth, is\_disabled, is\_unmarried, education\_level | Yes | Eligibility follows the LHDN condition on each relief rule |
-| TaxYear | year, period\_start, period\_end, filing\_deadline, status (open or filed) | Yes | YA 2027 exists as announced |
+| Dependant | profile\_id, type (child or parent), date\_of\_birth, is\_disabled, is\_unmarried, education\_level, relief\_shared, own\_income\_above\_relief | Yes | Eligibility follows the LHDN condition on each relief rule |
+| TaxYear | year, period\_start, period\_end, filing\_deadline, efiling\_deadline, status (open or filed) | Yes | YA 2027 exists as announced |
 | TaxBand | year, income\_from, income\_to, rate, status, source\_url, confirmed\_on | Yes | Ordered rows per YA |
 | ReliefCategory | id, code, name, group | Yes | Stable across years |
 | ReliefRule | category\_id, year, cap, shared\_cap\_group, claim\_frequency, eligibility, required\_documents, status, source\_url, confirmed\_on | Yes | One row per category per YA |
