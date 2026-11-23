@@ -5,14 +5,14 @@
 | Document ID | ADR-003 |
 | Document type | ADR (architecture decision record) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.4 |
-| Status | Proposed (the owner decided Docker-only development on 23/11/2026; the choice between Sail and our own file is open) |
+| Version | 1.0 |
+| Status | Approved on 23/11/2026 (Sail or our own compose file stays open until the project is created) |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7 (technology direction: portable parts, containers) |
-| Source | Owner prompts P-68 to P-75; stack choice of the owner on 23/11/2026 |
+| Source | Owner prompts P-68 to P-78; stack choice of the owner on 23/11/2026 |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md) |
-| Decided by | Owner: Docker only for development (23/11/2026, P-72 to P-75); Sail or our own file not decided |
+| Decided by | Owner: Docker only for development (23/11/2026, P-72 to P-75); approved as a record 23/11/2026 (P-77, P-78); Sail or our own file not decided |
 
 ## Question
 
@@ -28,7 +28,7 @@ Are environments built with containers?
 
 ## Decision and reason
 
-**Decided by the owner on 23/11/2026 (P-72 to P-75): 100% on Docker for development.** No PHP, Composer, Node or PostgreSQL is installed on a laptop. Every command runs in a container: `composer`, `artisan`, `npm` or `vite`, the tests and the database. Only Docker and Git are needed on a laptop. The document tools (the Python scripts that build the documents, the change log and the checks) are included in this decision.
+**Decided by the owner on 23/11/2026 (P-72 to P-75): 100% on Docker for development. The record and its rules are approved (P-77, P-78).** No PHP, Composer, Node or PostgreSQL is installed on a laptop. Every command runs in a container: `composer`, `artisan`, `npm` or `vite`, the tests and the database. Only Docker and Git are needed on a laptop. The document tools (the Python scripts that build the documents, the change log and the checks) are included in this decision.
 
 **Not decided:** Sail (option A) or our own `compose.yaml` (option B). The owner asked to keep talking about the stack and not start the project yet (P-73), so this is decided when the project is created, by checking Sail against the rules below. If Sail fails one, option B is used.
 
