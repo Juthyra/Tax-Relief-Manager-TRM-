@@ -12,7 +12,7 @@
 | PRD reference | All of PRD-TRM |
 | Source | A scan of every document; checked by docs/tools/check_acronyms.py |
 | Change tracking | [REG_01_History_Log.md](REG_01_History_Log.md) (main log), [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md) (detail log for the documents) |
-| Last updated | 2026-11-23 (RULE, RES, REG prefixes and document IDs, CHG-051); 2026-11-18 (CLI added) |
+| Last updated | 2026-11-23 (LTS and UTC added, CHG-061); 2026-11-23 (RULE, RES, REG prefixes and document IDs, CHG-051); 2026-11-18 (CLI added) |
 
 This file lists every acronym and abbreviation used in the PRD, the six URS and SRS documents and the two logs. It is the single place to look up what a short form means.
 
@@ -85,6 +85,8 @@ Counts: 75 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code value
 | DMARC | Domain-based Message Authentication, Reporting and Conformance | The domain's rule for mail that fails SPF or DKIM | ADR-006 | Active |
 | KPMG | KPMG (a tax and audit firm; a name) | Its Finance Bill 2026 summary was a secondary source in RES-002 | RES-002 | Active |
 | SMTP | Simple Mail Transfer Protocol | The standard way a server sends email | ADR-006 | Active |
+| LTS | Long-term support | A Node.js release line that gets fixes for a long time; used to build the front end | ADR-001 | Active |
+| UTC | Coordinated Universal Time | The one time zone the database stores times in | ADR-004 | Active |
 | SPF | Sender Policy Framework | The domain's list of servers allowed to send its email | ADR-006 | Active |
 | AA | Level AA (of WCAG) | The accessibility level the PWA must meet | PRD, F4 | Active |
 | ADR | Architecture decision record | One short file per technical decision in docs/decisions | README, decision records | Active |
@@ -212,3 +214,4 @@ Read the context before you assume a meaning.
 | 2026-11-23 | Added | LINDUNG, KENDIRI, LLP, NPRA, REIT, TADIKA, TASKA, TVET (section 1); DKIM, DMARC, KPMG, SMTP, SPF (section 3) | RES-002 (YA 2026 and YA 2027 check) and ADR-006 (email service) use them | Prompt P-41, CHG-053 |
 | 2026-11-23 | Added | COMPOSTER, GRINDER (section 5) | New R12 sub-limit codes from the rule corrections | Prompt P-42, CHG-054 |
 | 2026-11-23 | Added | CP38, CP39, TP3 (section 1) | RES-003 (PCB 2026 check) uses them | CHG-056 |
+| 2026-11-23 | Added | LTS, UTC (section 3) | ADR-001 and ADR-004 use them | CHG-061 |

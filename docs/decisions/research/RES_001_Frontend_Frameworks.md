@@ -5,8 +5,8 @@
 | Document ID | RES-001 |
 | Document type | Research note (findings only) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.2 |
-| Status | Draft. Findings only. Nothing is decided. The decision stays open in [ADR-001](../ADR_001_Language_And_Framework.md). |
+| Version | 0.3 |
+| Status | Draft. Findings only. The owner's stack (Laravel, Inertia, Vue 3, TypeScript) is recorded in [ADR-001](../ADR_001_Language_And_Framework.md), still Proposed. |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7 (PWA requirements: offline, install, sync) |
