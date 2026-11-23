@@ -1,0 +1,94 @@
+erDiagram
+    User ||--o{ TaxpayerProfile : "has, one current row per year"
+    TaxpayerProfile ||--o{ Dependant : "has, by profile_id"
+    User ||--o{ HouseholdLink : "user_id"
+    User ||--o{ HouseholdLink : "linked_user_id"
+    User ||--o{ UserTaxYear : "has"
+    TaxpayerProfile }o..o| UserTaxYear : "lock read by user_id and year"
+    TaxpayerProfile ||--o{ TaxEstimate : "profile_id and profile_version_no"
+
+    User {
+        uuid id PK "F5 owns"
+        text email "F5 owns, F0 reads"
+        text role "F5 owns, user or admin"
+        text status "F5 owns"
+        text name "F0 writes"
+        text language "F0 writes, en or ms"
+    }
+
+    TaxpayerProfile {
+        uuid id PK "UUID v5 of user and year"
+        integer version_no PK
+        uuid user_id FK
+        integer year "YA, DA-16"
+        integer copied_from_year "nullable"
+        text state "draft or active"
+        text residency_status "nullable"
+        text marital_status "single, married, divorced, widowed"
+        boolean spouse_has_income "nullable"
+        boolean spouse_is_disabled "nullable"
+        boolean pays_alimony "nullable"
+        boolean is_disabled "nullable"
+        boolean joint_assessment "R2 hook"
+        boolean has_first_home "nullable"
+        date first_home_spa_date "nullable"
+        bigint first_home_price_sen "nullable"
+        boolean dependants_confirmed
+        boolean spouse_foreign_income_above_limit "nullable"
+        boolean is_pensionable_public_servant "nullable"
+        boolean first_home_earns_income "nullable"
+        boolean is_current
+        timestamptz deleted_at "nullable"
+        uuid deleted_by "nullable"
+        timestamptz created_at
+        uuid created_by FK
+        timestamptz updated_at
+        uuid updated_by FK
+    }
+
+    Dependant {
+        uuid id PK "UUID v5 for a copy, v7 when added"
+        integer version_no PK
+        uuid profile_id "logical link to TaxpayerProfile.id"
+        uuid person_key "same across years"
+        text display_name "nickname, 1 to 50"
+        text type "child or parent"
+        date date_of_birth
+        boolean is_disabled
+        boolean is_unmarried "child only"
+        text education_level "SD-F0-10"
+        boolean relief_shared
+        boolean own_income_above_relief
+        boolean is_current
+        timestamptz deleted_at "nullable"
+        uuid deleted_by "nullable"
+        timestamptz created_at
+        uuid created_by FK
+        timestamptz updated_at
+        uuid updated_by FK
+    }
+
+    HouseholdLink {
+        uuid user_id FK
+        uuid linked_user_id FK
+        text relationship
+        boolean joint_assessment
+        text link_status "table and test data only in R1"
+    }
+
+    UserTaxYear {
+        uuid user_id FK "F1 owns"
+        integer year "F1 owns"
+        text status "open or filed"
+        date filed_on "nullable"
+    }
+
+    TaxEstimate {
+        uuid id PK "F1 owns, insert only"
+        uuid user_id FK
+        integer year
+        text trigger "user, filed or system"
+        timestamptz computed_at
+        uuid profile_id "logical link to TaxpayerProfile.id"
+        integer profile_version_no
+    }
