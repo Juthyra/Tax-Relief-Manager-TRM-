@@ -5,14 +5,14 @@
 | Document ID | DES-F0 |
 | Document type | DES (design: look, screens and how they behave) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.1 |
-| Status | Proposed (waits for review by the other developer and approval by the owner) |
+| Version | 1.0 |
+| Status | Approved on 23/11/2026 (the findings in section 3 are open) |
 | Date | 2026-11-23 (first written 2026-11-23) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 3.5, FR-0.1 to FR-0.8 |
-| Source | URS-SRS-F0 B4 screen behaviour and SRS-F0-01 to SRS-F0-18; DES-000; owner prompts P-80 to P-83 |
+| Source | URS-SRS-F0 B4 screen behaviour and SRS-F0-01 to SRS-F0-18; DES-000; owner prompts P-80 to P-86 |
 | Change tracking | [REG-01 History log](../../../registers/REG_01_History_Log.md); detail in [REG-02](../../../registers/REG_02_URS_SRS_Change_Log.md) |
-| Decided by | Owner chose direction A on 23/11/2026 (P-83); the rest waits for the owner |
+| Decided by | Owner approved this document on 23/11/2026 (P-85, P-86) |
 
 ## 1. What this is
 
@@ -133,4 +133,4 @@ These come from drawing the screens. **The F0 specification is not changed.** Th
 
 ## 4. Review
 
-The other developer reviews this in the pull request, like any document, and the owner approves it. Until then the status is Proposed. The Bahasa Malaysia text is a draft ([DES-000](../../DES_000_Design_System.md) rule D3).
+The owner approved this document on 23/11/2026 (P-85, P-86). The other developer can still review it in the pull request. The findings above are not decided: the owner has not said which become specification changes. The Bahasa Malaysia text is a draft ([DES-000](../../DES_000_Design_System.md) rule D3). The screens of F1 to F5 are not designed, by the owner's decision (P-84).

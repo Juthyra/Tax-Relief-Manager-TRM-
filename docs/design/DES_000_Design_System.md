@@ -5,14 +5,14 @@
 | Document ID | DES-000 |
 | Document type | DES (design: look, screens and how they behave) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.1 |
-| Status | Proposed (direction A is chosen by the owner; this document waits for approval) |
+| Version | 1.0 |
+| Status | Approved on 23/11/2026 (the Bahasa Malaysia review and the font hosting stay open, section 7) |
 | Date | 2026-11-23 (first written 2026-11-23) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7: NFR-11 (language), NFR-12 (accessibility), NFR-1 (PWA) |
-| Source | Owner prompts P-80 to P-83; the ui-ux-pro-max design skill; URS-SRS-F0 SRS-F0-18 |
+| Source | Owner prompts P-80 to P-86; the ui-ux-pro-max design skill; URS-SRS-F0 SRS-F0-18 |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md); detail in [REG-02](../registers/REG_02_URS_SRS_Change_Log.md) |
-| Decided by | Owner chose direction A on 23/11/2026 (P-83); the rest waits for the owner |
+| Decided by | Owner chose direction A on 23/11/2026 (P-83) and approved this document on 23/11/2026 (P-85, P-86) |
 
 ## 1. Decision
 
@@ -111,5 +111,5 @@ A new feature or phase gets its own folder in the same way, for example `phase-1
 
 - How the tokens enter the Vue application (CSS variables as they are, or a Tailwind theme) is decided when the project is created ([ADR-001](../decisions/ADR_001_Language_And_Framework.md)). The Laravel starter kit for Vue may bring its own component library; this is not checked yet.
 - The font files, with their licences, are added to the repository when the project is created.
-- The design of screens for features F1 to F5 and for later phases is not done.
+- The design of screens for features F1 to F5 and for later phases is **not done, by the owner's decision of 23/11/2026 (P-84)**: F0 is enough for now. It is done when the owner asks.
 - A review of the Bahasa Malaysia text by a native speaker (D3).
