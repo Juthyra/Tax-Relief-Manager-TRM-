@@ -33,7 +33,7 @@ for f in files:
         txt, fn, anc = m.group(1), m.group(2), m.group(3)
         return f"[{txt}](#{anc})" if fn == os.path.basename(f) else txt
     t = re.sub(r'\[([^\]]+)\]\((URS_SRS_F\d_[A-Za-z_]+\.md)#([^)]+)\)', lk, t)
-    t = re.sub(r'\[([^\]]+)\]\((?:\.\./registers/)?(?:HISTORY_LOG|URS_SRS_CHANGE_LOG|ACRONYMS)\.md\)', r'\1', t)
+    t = re.sub(r'\[([^\]]+)\]\((?:\.\./registers/)?(?:REG_01_History_Log|REG_02_URS_SRS_Change_Log|REG_03_Acronyms)\.md\)', r'\1', t)
     open(f"{P}/{base}.md","w").write(t)
     h = f"{P}/{base}.html"
     r = subprocess.run(["pandoc",f"{P}/{base}.md","-f","gfm","-t","html5","-s","--metadata",f"title={base.replace('_',' ')}","-c",f"{P}/s.css","--embed-resources","-o",h],capture_output=True,text=True)

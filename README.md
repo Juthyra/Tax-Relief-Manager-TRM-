@@ -6,7 +6,7 @@ Owner: Champs (product owner)
 
 ## Where things are
 
-| Folder or file | What it holds | Phase |
+| Folder or file | What it holds | Stage |
 | --- | --- | --- |
 | `docs/prd/` | The product requirements (PRD). Git is the master from 14/11/2026 | Documentation |
 | `docs/specs/` | URS and SRS for F0 profile, F1 tax calculator, F2 relief categories, F3 spending records, F4 dashboard, F5 account and security. These files are **built**; do not edit them by hand | Documentation |
@@ -21,16 +21,17 @@ Owner: Champs (product owner)
 
 ## Start here
 
-1. Read `AGENTS.md` (the rules for people and AI agents) and `docs/registers/PROMPT_RULES.md`.
+1. Read `AGENTS.md` (the rules for people and AI agents) and `docs/registers/REG_04_Prompt_Rules.md`.
 2. To change a specification, edit the file in `docs/tools/source/` (or `docs/tools/shared.py` for the shared blocks), then run:
 
 ```
 python3 docs/tools/build.py
 python3 docs/tools/changelog.py
 python3 docs/tools/check_acronyms.py
+python3 docs/tools/check_standard.py
 ```
 
-The build must end with `ERRORS: 0`. Then update the change log entries and `docs/registers/HISTORY_LOG.md` as `AGENTS.md` says.
+The build must end with `ERRORS: 0`. Every document follows the standard in `AGENTS.md` section 6 (names, title, header). Then update the change log entries and `docs/registers/REG_01_History_Log.md` as `AGENTS.md` says.
 
 ## Open technical decisions
 

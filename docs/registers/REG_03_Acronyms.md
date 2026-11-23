@@ -1,21 +1,30 @@
-# Acronym Register: Malaysia Tax Relief System (PWA)
+# REG-03: Acronym register
+
+| Item | Value |
+| --- | --- |
+| Document ID | REG-03 |
+| Document type | Register (acronyms, ID prefixes and code values) |
+| Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
+| Version | Running register; changes are listed in the Acronym change log at the bottom |
+| Status | Active |
+| Date | 2026-11-23 (started 2026-11-13) |
+| Owner | Champs (product owner) |
+| PRD reference | All of PRD-TRM |
+| Source | A scan of every document; checked by docs/tools/check_acronyms.py |
+| Change tracking | [REG_01_History_Log.md](REG_01_History_Log.md) (main log), [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md) (detail log for the documents) |
+| Last updated | 2026-11-23 (RULE, RES, REG prefixes and document IDs, CHG-051); 2026-11-18 (CLI added) |
 
 This file lists every acronym and abbreviation used in the PRD, the six URS and SRS documents and the two logs. It is the single place to look up what a short form means.
 
-Owner: Champs (product owner)
-Started: 2026-11-13
-Last updated: 2026-11-18 (CLI added)
-Related logs: [HISTORY_LOG.md](HISTORY_LOG.md) (main log), [URS_SRS_CHANGE_LOG.md](URS_SRS_CHANGE_LOG.md) (detail log for the documents)
-
 ## How this file works
 
-1. **When to update.** Whenever a document uses a new acronym, or an acronym changes its meaning, this file is updated in the same piece of work. The change is also noted in the Acronym change log at the bottom, and in the process log of HISTORY_LOG.md.
+1. **When to update.** Whenever a document uses a new acronym, or an acronym changes its meaning, this file is updated in the same piece of work. The change is also noted in the Acronym change log at the bottom, and in the process log of REG_01_History_Log.md.
 2. **One row per short form.** If one short form has two meanings, it gets two rows and is also listed in section 6 (Collisions), so readers know to check the context.
 3. **Nothing is deleted.** A short form that is no longer used stays in the table with status Retired.
 4. **Automatic check.** The script `src/check_acronyms.py` scans all documents for capital-letter short forms and fails if one is not listed here. Run it before finishing any change.
 5. **Status:** Active (used now), Retired (no longer used), Proposed (used in a draft, waiting for owner confirmation).
 
-Counts: 60 acronyms (sections 1 to 3), 21 ID prefixes (section 4), 21 code values (section 5), 7 collisions (section 6).
+Counts: 60 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code values (section 5), 7 collisions (section 6).
 
 ## 1. Malaysian tax and government terms
 
@@ -50,10 +59,10 @@ Counts: 60 acronyms (sections 1 to 3), 21 ID prefixes (section 4), 21 code value
 | Short form | Stands for | Meaning in this project | Used in | Status |
 | --- | --- | --- | --- | --- |
 | CI | Chargeable income | Income after reliefs, the amount tax is worked out on. Used in the PRD tax formula. | PRD, F1 | Active |
-| MD | Markdown | The plain-text file format used for all documents and logs | HISTORY_LOG | Active |
+| MD | Markdown | The plain-text file format used for all documents and logs | REG-01 | Active |
 | MVP | Minimum viable product | Release 1 of the product | PRD, F1 to F4 | Active |
-| PRD | Product Requirements Document | The product document the URS and SRS documents come from (revision 37) | All | Active |
-| R1, R2, R4 | Release 1, 2, 4 | R1 is the first build (four core features plus profile), R2 spouse and family sharing, R4 receipt scanning and non-salary income. Not the same as category codes R01 to R24 (see section 6). | PRD | Active |
+| PRD | Product Requirements Document | The product document the URS and SRS documents come from; document PRD-TRM, the master for names and IDs (revision 48) | All | Active |
+| R1, R2, R3, R4 | Release 1, 2, 3, 4 | The releases of PRD section 9.1: R1 is the first build (four core features plus profile, built in PRD phase 1), R2 spouse and family sharing (phase 3), R3 bank import and MyTax assisted entry (phase 4), R4 receipt scanning and non-salary income (phase 5). Not the same as category codes R01 to R24 or rule IDs RULE-nn (see section 6). | PRD | Active |
 | SRS | System Requirements Specification | Part B of each feature document: exactly how the application behaves | All | Active |
 | TRM | Tax Relief Manager | The working name of the product | PRD, F1 | Active |
 | URS | User Requirements Specification | Part A of each feature document: what the user must be able to do | All | Active |
@@ -86,8 +95,8 @@ Counts: 60 acronyms (sections 1 to 3), 21 ID prefixes (section 4), 21 code value
 | PDF | Portable Document Format | Export format of the documents and the user summary | All | Active |
 | PHP | PHP: Hypertext Preprocessor | The language Laravel is written in | Front-end findings | Active |
 | PNG | Portable Network Graphics | Receipt image format | F3 | Active |
-| PR | Pull request | A proposed change on GitHub that is reviewed and checked before it is merged | README, AGENTS.md, HISTORY_LOG | Active |
-| CLI | Command line interface | A program used by typing commands in the terminal, such as `gh` (GitHub CLI) | AGENTS.md, PROMPT_RULES, HISTORY_LOG | Active |
+| PR | Pull request | A proposed change on GitHub that is reviewed and checked before it is merged | README, AGENTS.md, REG-01 | Active |
+| CLI | Command line interface | A program used by typing commands in the terminal, such as `gh` (GitHub CLI) | AGENTS.md, REG-04, REG-01 | Active |
 | PWA | Progressive Web App | The kind of application being built: a web app that installs and works offline | All | Active |
 | QR | Quick response (code) | The square code the authenticator app scans to set up two-factor login | F5 | Active |
 | REST | Representational State Transfer | The style of the server interface | PRD | Active |
@@ -105,19 +114,23 @@ These are not acronyms in the usual sense, but they are the short forms readers 
 | Prefix | Stands for | Meaning | Defined in | Status |
 | --- | --- | --- | --- | --- |
 | BR | Business rule | PRD rule ID, for example BR-11 | PRD | Active |
-| CHG | Change | One detail change in the URS and SRS change log, for example CHG-017 | URS_SRS_CHANGE_LOG | Active |
+| CHG | Change | One detail change in the URS and SRS change log, for example CHG-017 | REG-02 | Active |
 | DA | Data addition | A field or table the specification needs that the PRD data model lacks, for example DA-05. Proposed until the owner approves. | F0 to F4, Part B2 | Active |
 | EV | Event | A message that tells other features to refresh, for example EV-03 ProfileChanged | F0 to F4, section A5 | Active |
-| F-nnn | Finding | A finding in HISTORY_LOG.md, for example F-030 | HISTORY_LOG | Active |
-| F0 to F5 | Feature 0 to 5 | F0 User profile and tax-year history, F1 Tax calculator, F2 Relief categories, F3 Spending records, F4 Dashboard, F5 Account and security | All | Active |
+| F-nnn | Finding | A finding in REG_01_History_Log.md, for example F-030 | REG-01 | Active |
+| F0 to F5 | Feature 0 to 5 | F0 User profile and tax-year history, F1 Tax calculator for any year, F2 Relief categories and ranges, F3 Spending records, F4 Dashboard, F5 Account and security (F1 to F4 follow PRD sections 3.1 to 3.4) | All | Active |
 | FD | Flow diagram | A diagram in Part A that an SRS row works from, for example FD-F1-02 | F0 to F4 | Active |
 | FR | Functional requirement | PRD requirement ID, for example FR-1.3 | PRD | Active |
 | GRP | Group | Prefix of a shared-cap group code, for example GRP-INS-EPF | F2, F3 | Active |
 | IF | Interface | Data one feature passes to another, for example IF-04 | F0 to F4, section A5 | Active |
 | NFR | Non-functional requirement | PRD requirement on quality, for example NFR-11 | PRD | Active |
 | OI | Open item | An unresolved question, for example OI-F2-01 | F0 to F4 | Active |
-| P-nn | Prompt | One owner prompt in the prompt register of HISTORY_LOG.md | HISTORY_LOG | Active |
+| P-nn | Prompt | One owner prompt in the prompt register of REG_01_History_Log.md | REG-01 | Active |
 | Rnn | Relief category code | R01 to R24, for example R14 (EPF) | F0 to F4, Part B2 | Active |
+| PRD-TRM, URS-SRS-Fn, ADR-nnn, RES-nnn, REG-nn | Document ID | The ID on the first line and in the header of every document, for example URS-SRS-F1; the file name is the same with underscores (AGENTS.md section 6) | AGENTS.md | Active |
+| REG | Register | A running register: REG-01 History log, REG-02 URS and SRS change log, REG-03 Acronyms, REG-04 Prompt and working rules | AGENTS.md, registers | Active |
+| RES | Research note | Findings only, no decision, for example RES-001 (front-end frameworks); was R-001 until 23/11/2026 | docs/decisions/research | Active |
+| RULE | Working rule | A rule in REG-04, for example RULE-50; was R-nn until 23/11/2026 | REG-04, AGENTS.md | Active |
 | Dnn | Deduction category code | D01 and D02, for example D01 (donations) | F0 to F4, Part B2 | Active |
 | SD | Specification decision | A detail the PRD does not state, filled in by me, needing the owner's yes or no, for example SD-F1-07 | F0 to F4 | Active |
 | SQ | Sequence diagram | A diagram that shows one behaviour across features, for example SQ-F1-01 | F1, F3, F4 | Active |
@@ -162,7 +175,7 @@ Read the context before you assume a meaning.
 | Short form | Meaning 1 | Meaning 2 | How to tell them apart |
 | --- | --- | --- | --- |
 | EV | Event ID prefix (EV-03) | Electric vehicle, in the YA 2026 "EV charging" relief item | With a hyphen and number it is an event |
-| R1 and R01 | Release 1 | Relief category code R01 (individual) | R01 to R24 have two digits; releases have one |
+| R1 and R01 | Release 1 | Relief category code R01 (individual) | R01 to R24 have two digits; releases have one; working rules are RULE-nn and research notes RES-nnn |
 | F1 and F-001 | Feature 1 | Finding number 1 in the history log | Findings have a hyphen and three digits |
 | CI | Chargeable income (tax formula) | Continuous integration (automatic checks in the proposed Git repository) | Tax formula or Git discussion |
 | SD | Specification decision | none yet | Listed so a second meaning is caught early |
@@ -177,4 +190,5 @@ Read the context before you assume a meaning.
 | 2026-11-13 | Changed | "Used in" columns now say F0 to F4 where the profile document uses the short form; F1 to F4 in the feature row became F0 to F4 | Document F0 (user profile) added; no new acronym was needed | Prompt P-13 |
 | 2026-11-13 | Added | CSV, HTTP, IP, QR, SMS, TOTP, ZIP (section 3); CORE, DELETE, README (section 5) | Document F5 (account and security) uses them; the row "F0 to F4" became "F0 to F5" | Prompt P-15 |
 | 2026-11-14 | Added | ADR, MCP, PR (section 3); ERRORS (section 5); AI row extended | README, AGENTS.md and the decision records use them | Prompt P-18 |
-| 2026-11-14 | Added | HTML, PHP (section 3) | The front-end findings file R-001 uses them | Prompt P-22 |
+| 2026-11-14 | Added | HTML, PHP (section 3) | The front-end findings file RES-001 uses them | Prompt P-22 |
+| 2026-11-23 | Added and changed | RULE, RES, REG, document IDs (PRD-TRM, URS-SRS-Fn, ADR-nnn, RES-nnn, REG-nn); R3 added to the releases row; F1 and F2 names follow the PRD | Document standard: rule IDs R-nn became RULE-nn and research R-001 became RES-001 so they no longer look like releases or relief codes | Prompt P-38, CHG-051 |

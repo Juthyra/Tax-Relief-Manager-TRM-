@@ -1,9 +1,18 @@
-# R-001: Front-end framework findings (with Laravel)
+# RES-001: Front-end framework findings (with Laravel)
 
-Status: Findings only. Nothing is decided. The decision stays open in [ADR-001](../ADR-001-language-and-framework.md).
-Date: 2026-11-14
-Asked by: Owner (Champs)
-Scope: Which front-end option fits a Laravel back end for the offline-first PWA (Tax Relief Manager).
+| Item | Value |
+| --- | --- |
+| Document ID | RES-001 |
+| Document type | Research note (findings only) |
+| Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
+| Version | 0.2 |
+| Status | Draft. Findings only. Nothing is decided. The decision stays open in [ADR-001](../ADR_001_Language_And_Framework.md). |
+| Date | 2026-11-23 (first written 2026-11-14) |
+| Owner | Champs (product owner) |
+| PRD reference | PRD-TRM section 7 (PWA requirements: offline, install, sync) |
+| Source | Owner prompt P-22; asked by Owner (Champs) |
+| Change tracking | [REG-01 History log](../../registers/REG_01_History_Log.md) |
+| Scope | Which front-end option fits a Laravel back end for the offline-first PWA (Tax Relief Manager). |
 
 ## 1. The six options
 

@@ -17,5 +17,7 @@ jobs:
         run: python3 docs/tools/changelog.py
       - name: Acronym check
         run: python3 docs/tools/check_acronyms.py
+      - name: Document standard check
+        run: python3 docs/tools/check_standard.py
       - name: Built files must be committed
         run: git diff --exit-code docs/specs docs/registers

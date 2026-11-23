@@ -1,6 +1,17 @@
-# PRD: Malaysia Tax Relief System (PWA)
+# PRD-TRM: Malaysia Tax Relief System (PWA)
 
-Nov 7, 2026 · Champs
+| Item | Value |
+| --- | --- |
+| Document ID | PRD-TRM |
+| Document type | PRD (product requirements) |
+| Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
+| Version | Revision 48 |
+| Status | Active (the owner's document; changed only when the owner says so, RULE-20) |
+| Date | 2026-11-23 (first written 2026-11-07) |
+| Owner | Champs (product owner) |
+| PRD reference | This document. It is the master for feature names, IDs, releases and phases (AGENTS.md section 6) |
+| Source | Owner prompts P-01 to P-06, P-16 and P-38. The Claude Doc is a copy, last synced at revision 47 |
+| Change tracking | Synced entries in [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md) |
 
 ## 1. Product overview
 
