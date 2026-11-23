@@ -1,29 +1,32 @@
-# URS and SRS: F1 Tax Calculator and PCB
+# URS-SRS-F1: Tax calculator for any year
 
 | Item | Value |
 | --- | --- |
+| Document ID | URS-SRS-F1 |
+| Document type | URS and SRS (user and system requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Feature | F1 Tax calculator and PCB (PRD section 3.1, FR-1.1 to FR-1.11) |
-| Document version | 0.5 (draft, for owner review) |
-| Date | 2026-11-14 (first written 2026-11-13) |
-| Source | PRD revision 37; owner prompt P-16 |
+| Version | 0.6 |
+| Status | Draft (for owner review) |
+| Date | 2026-11-23 (first written 2026-11-13) |
 | Owner | Champs (product owner) |
-| Change tracking | [URS_SRS_CHANGE_LOG.md](../registers/URS_SRS_CHANGE_LOG.md); work history in [HISTORY_LOG.md](../registers/HISTORY_LOG.md) |
+| PRD reference | PRD-TRM section 3.1 "Tax calculator for any year", FR-1.1 to FR-1.11 (includes PCB) |
+| Source | PRD-TRM (written from revision 37; names checked against revision 48); owner prompts P-16 and P-38 |
+| Change tracking | [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md); short forms in [REG-03 Acronyms](../registers/REG_03_Acronyms.md) |
 
 ## 0. Conventions shared by all six documents
 
 ### 0.1 The document set
 
-| Doc | File | Feature | PRD requirements covered |
+| Doc | File | Feature (name from the PRD) | PRD requirements covered |
 | --- | --- | --- | --- |
 | F0 | [URS_SRS_F0_User_Profile.md](URS_SRS_F0_User_Profile.md) | User profile and tax-year history | PRD sections 5, 7, 8; FR-2.3 depends on it (no FR block yet, F-032) |
-| F1 | [URS_SRS_F1_Tax_Calculator.md](URS_SRS_F1_Tax_Calculator.md) | Tax calculator and PCB | FR-1.1 to FR-1.11 |
-| F2 | [URS_SRS_F2_Relief_Categories.md](URS_SRS_F2_Relief_Categories.md) | Relief categories, ranges and rule sets | FR-2.1 to FR-2.7 |
-| F3 | [URS_SRS_F3_Spending_Records.md](URS_SRS_F3_Spending_Records.md) | Spending records | FR-3.1 to FR-3.7 |
-| F4 | [URS_SRS_F4_Dashboard.md](URS_SRS_F4_Dashboard.md) | Dashboard | FR-4.1 to FR-4.8 |
+| F1 | [URS_SRS_F1_Tax_Calculator.md](URS_SRS_F1_Tax_Calculator.md) | Tax calculator for any year (PRD section 3.1, includes PCB) | FR-1.1 to FR-1.11 |
+| F2 | [URS_SRS_F2_Relief_Categories.md](URS_SRS_F2_Relief_Categories.md) | Relief categories and ranges (PRD section 3.2, includes the rule sets and the rules admin) | FR-2.1 to FR-2.7 |
+| F3 | [URS_SRS_F3_Spending_Records.md](URS_SRS_F3_Spending_Records.md) | Spending records (PRD section 3.3) | FR-3.1 to FR-3.7 |
+| F4 | [URS_SRS_F4_Dashboard.md](URS_SRS_F4_Dashboard.md) | Dashboard (PRD section 3.4) | FR-4.1 to FR-4.8 |
 | F5 | [URS_SRS_F5_Account_Security.md](URS_SRS_F5_Account_Security.md) | Account and security | NFR-6, NFR-7, NFR-8; PRD sections 7 and 8 (sign in, settings, roles); no FR block yet |
 
-Source: the PRD "Malaysia Tax Relief System (PWA)", revision 37. Logs: [HISTORY_LOG.md](../registers/HISTORY_LOG.md) is the main log of our work; [URS_SRS_CHANGE_LOG.md](../registers/URS_SRS_CHANGE_LOG.md) records every detail change to these six documents.
+Source: PRD-TRM, the PRD "Malaysia Tax Relief System (PWA)" ([PRD_TRM_Malaysia_Tax_Relief_System.md](../prd/PRD_TRM_Malaysia_Tax_Relief_System.md)), written from revision 37 and checked against revision 48. The PRD is the master for feature names and IDs (AGENTS.md section 6); F0 and F5 have no PRD feature section yet. Logs: [REG_01_History_Log.md](../registers/REG_01_History_Log.md) is the main log of our work; [REG_02_URS_SRS_Change_Log.md](../registers/REG_02_URS_SRS_Change_Log.md) records every detail change to these six documents.
 
 ### 0.2 How to read the IDs
 
@@ -69,7 +72,10 @@ Every SRS row has a **Basis** column: the PRD ID it comes from, or SD, DA or OI 
 | Fresh sign-in | A sign-in within the last 10 minutes. It is asked for again before a sensitive action such as a password change, an export or a deletion ([SD-F5-06](URS_SRS_F5_Account_Security.md#sd-f5-06)). |
 | Grace period | The 14 days between a deletion request and the erase. The user can cancel in this time ([SD-F5-08](URS_SRS_F5_Account_Security.md#sd-f5-08)). |
 | Retention period | 7 years from the end of the YA (NFR-8), the time the taxpayer should keep records. |
-| Release | R1 is the MVP for the product owner's personal use. R2 items are reserved here only where R1 must leave a hook. |
+| Release | R1 to R4, the releases of PRD section 9.1: R1 is built in PRD phase 1, R2 in phase 3, R3 in phase 4, R4 in phase 5. R1 is the MVP for the product owner's personal use. R2 items are reserved here only where R1 must leave a hook. |
+| Phase | Only a phase of the PRD roadmap (section 9.1): phase 0 Discovery, 1 R1 build, 2 Personal use, 3 R2, 4 R3, 5 R4, then the public launch gate. |
+| Basic account | The part of F5 built in R1: the simple account ([SD-F5-17](URS_SRS_F5_Account_Security.md#sd-f5-17)). Called Phase 1 until 23/11/2026. |
+| Launch account | The part of F5 held until before the public launch: lockout, emailed links, staying signed in, two-factor login, deletion of the whole account ([SD-F5-17](URS_SRS_F5_Account_Security.md#sd-f5-17)). Called Phase 2 until 23/11/2026. |
 
 
 ---
@@ -144,7 +150,7 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-  F2["F2 rule sets and<br/>evaluated rules"] -->|"IF-01"| F1(("F1 Tax calculator<br/>and PCB"))
+  F2["F2 rule sets and<br/>evaluated rules"] -->|"IF-01"| F1(("F1 Tax calculator<br/>for any year"))
   PR["F0 User profile"] -->|"IF-12"| F1
   F1 -->|"IF-16 YA summary"| PR
   F1 -.->|"EV-06 YearStatusChanged"| PR
@@ -309,9 +315,9 @@ flowchart LR
   A["Admin<br/>rules manager"]
   F0["F0 User profile<br/>and tax-year history"]
   AS["Admin<br/>support"]
-  F2["F2 Relief categories<br/>and rule sets"]
+  F2["F2 Relief categories<br/>and ranges"]
   F3["F3 Spending records"]
-  F1["F1 Tax calculator<br/>and PCB"]
+  F1["F1 Tax calculator<br/>for any year"]
   F4["F4 Dashboard"]
   F5["F5 Account<br/>and security"]
   A -->|"publish rules"| F2
@@ -376,7 +382,7 @@ Reading the map: a solid arrow is data a feature reads or receives; a dashed arr
 | IF-17 | F0 | F1, F3, F4 | Open a feature for a chosen YA, with an optional filter (F3: receipt status) | User taps an action on a tax year | [SRS-F0-12](URS_SRS_F0_User_Profile.md#srs-f0-12) | [SRS-F1-01](URS_SRS_F1_Tax_Calculator.md#srs-f1-01), [SRS-F3-15](URS_SRS_F3_Spending_Records.md#srs-f3-15), [SRS-F4-01](URS_SRS_F4_Dashboard.md#srs-f4-01) |
 | IF-18 | F5 | F0, F1, F3 (F2 and F4 read the role only, [OI-F5-05](URS_SRS_F5_Account_Security.md#oi-f5-05)) | Signed-in identity: user id, role (user or admin), language, session expiry, device id, whether two-factor login is on | App start; sign-in; session refresh; EV-07; EV-08 | [SRS-F5-18](URS_SRS_F5_Account_Security.md#srs-f5-18) | [SRS-F0-19](URS_SRS_F0_User_Profile.md#srs-f0-19), [SRS-F1-24](URS_SRS_F1_Tax_Calculator.md#srs-f1-24), [SRS-F3-18](URS_SRS_F3_Spending_Records.md#srs-f3-18) |
 | IF-19 | F0, F1, F3 | F5 | Export part: every row the feature owns for the user, all versions, as records, plus the list of files (F3) | The export job runs ([SRS-F5-14](URS_SRS_F5_Account_Security.md#srs-f5-14)) | [SRS-F0-19](URS_SRS_F0_User_Profile.md#srs-f0-19), [SRS-F1-24](URS_SRS_F1_Tax_Calculator.md#srs-f1-24), [SRS-F3-18](URS_SRS_F3_Spending_Records.md#srs-f3-18) | [SRS-F5-14](URS_SRS_F5_Account_Security.md#srs-f5-14) |
-| IF-20 | F5 | F0, F1, F3 | Erase request: delete every row and file of the user, or, when the request names a YA, only the rows and files of that YA, and answer with the counts | The user confirms the deletion of a YA past its 7 years ([SRS-F5-21](URS_SRS_F5_Account_Security.md#srs-f5-21)); in Phase 2 also when the grace period ends ([SRS-F5-16](URS_SRS_F5_Account_Security.md#srs-f5-16)) | [SRS-F5-16](URS_SRS_F5_Account_Security.md#srs-f5-16), [SRS-F5-21](URS_SRS_F5_Account_Security.md#srs-f5-21) | [SRS-F0-19](URS_SRS_F0_User_Profile.md#srs-f0-19), [SRS-F1-24](URS_SRS_F1_Tax_Calculator.md#srs-f1-24), [SRS-F3-18](URS_SRS_F3_Spending_Records.md#srs-f3-18) |
+| IF-20 | F5 | F0, F1, F3 | Erase request: delete every row and file of the user, or, when the request names a YA, only the rows and files of that YA, and answer with the counts | The user confirms the deletion of a YA past its 7 years ([SRS-F5-21](URS_SRS_F5_Account_Security.md#srs-f5-21)); in the launch account also when the grace period ends ([SRS-F5-16](URS_SRS_F5_Account_Security.md#srs-f5-16)) | [SRS-F5-16](URS_SRS_F5_Account_Security.md#srs-f5-16), [SRS-F5-21](URS_SRS_F5_Account_Security.md#srs-f5-21) | [SRS-F0-19](URS_SRS_F0_User_Profile.md#srs-f0-19), [SRS-F1-24](URS_SRS_F1_Tax_Calculator.md#srs-f1-24), [SRS-F3-18](URS_SRS_F3_Spending_Records.md#srs-f3-18) |
 | IF-21 | F5 | F0 | User list for support: user id, name, email, status, role, two-factor flag, last sign-in date; no tax data | An admin opens the user list | [SRS-F5-17](URS_SRS_F5_Account_Security.md#srs-f5-17) | [SRS-F0-16](URS_SRS_F0_User_Profile.md#srs-f0-16) |
 
 **Events**

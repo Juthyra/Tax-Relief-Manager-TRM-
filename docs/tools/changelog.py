@@ -5,7 +5,7 @@ OUT = os.path.join(REPO, "docs", "specs")
 REG = os.path.join(REPO, "docs", "registers")
 files = {"F0": "URS_SRS_F0_User_Profile.md", "F1": "URS_SRS_F1_Tax_Calculator.md", "F2": "URS_SRS_F2_Relief_Categories.md",
          "F3": "URS_SRS_F3_Spending_Records.md", "F4": "URS_SRS_F4_Dashboard.md", "F5": "URS_SRS_F5_Account_Security.md"}
-names = {"F0": "User profile and tax-year history", "F1": "Tax calculator and PCB", "F2": "Relief categories and rule sets", "F3": "Spending records", "F4": "Dashboard", "F5": "Account and security"}
+names = {"F0": "User profile and tax-year history", "F1": "Tax calculator for any year", "F2": "Relief categories and ranges", "F3": "Spending records", "F4": "Dashboard", "F5": "Account and security"}
 def clean(x):
     x = re.sub(r'<a id="[^"]*"></a>', '', x)
     x = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', x)
@@ -46,7 +46,7 @@ added_p16 = {"URS-F0-15":("0.3","CHG-036"),"SD-F0-14":("0.3","CHG-036"),"TC-F0-2
  "URS-F5-14":("0.2","CHG-041"),"SRS-F5-21":("0.2","CHG-041"),"TC-F5-29":("0.2","CHG-041"),
  "SD-F5-17":("0.2","CHG-039"),"SD-F5-18":("0.2","CHG-040")}
 firstchg = {"F0":"CHG-018","F1":"CHG-001","F2":"CHG-002","F3":"CHG-003","F4":"CHG-004","F5":"CHG-028"}
-version = {"F0":"0.3","F1":"0.5","F2":"0.5","F3":"0.5","F4":"0.5","F5":"0.3"}
+version = {"F0":"0.4","F1":"0.6","F2":"0.6","F3":"0.6","F4":"0.6","F5":"0.4"}
 # changed in prompt P-34 (22/11/2026): F5 version 0.3, CHG-049
 changed_p34 = {i: "CHG-049" for i in ("URS-F5-06 URS-F5-07 URS-F5-08 URS-F5-14 SRS-F5-08 SRS-F5-12 SRS-F5-14 SRS-F5-16 SRS-F5-21 "
     "TC-F5-14 TC-F5-19 TC-F5-21 TC-F5-22 TC-F5-29").split()}
@@ -54,6 +54,11 @@ approved_p34 = {"SD-F5-09": "Approved by the owner 14/11/2026, confirmed 22/11/2
     "SD-F5-17": "Approved by the owner 14/11/2026, changed 22/11/2026 (CHG-049)",
     "SD-F5-19": "Approved by the owner 22/11/2026 (CHG-049)"}
 added_p16["SD-F5-19"] = ("0.3", "CHG-049")
+# changed in prompt P-38 (23/11/2026): wording only, Phase 1 and Phase 2 renamed basic account and launch account (CHG-051)
+changed_p38 = {i: "CHG-051" for i in ("SRS-F0-01 URS-F5-01 URS-F5-03 URS-F5-04 URS-F5-05 URS-F5-09 SRS-F5-01 SRS-F5-02 SRS-F5-03 "
+    "SRS-F5-04 SRS-F5-05 SRS-F5-06 SRS-F5-07 SRS-F5-08 SRS-F5-09 SRS-F5-10 SRS-F5-11 SRS-F5-12 SRS-F5-13 SRS-F5-15 SRS-F5-16 "
+    "SRS-F5-17 TC-F5-04 TC-F5-08 TC-F5-10 TC-F5-11 TC-F5-12 TC-F5-17 TC-F5-23 TC-F5-24 SD-F5-03 SD-F5-04 SD-F5-05 SD-F5-06 "
+    "SD-F5-07 SD-F5-08 SD-F5-15").split()}
 reg = {}
 counts = {}
 for k, f in files.items():
@@ -75,6 +80,7 @@ for k, f in files.items():
         status = {"URS": "Draft", "SRS": "Draft", "TC": "Draft", "SD": "Needs owner decision", "OI": "Open"}[typ]
         if "**Answered" in cells[1]: status = answered[id_]
         elif id_ in approved_p34: status = approved_p34[id_]
+        elif id_ in changed_p38: status = f"Draft, wording changed in {version[k]} ({changed_p38[id_]})"
         elif id_ in changed_p34: status = f"Draft, changed in 0.3 ({changed_p34[id_]})"
         elif id_ in approved16: status = f"Approved by the owner 14/11/2026 ({approved16[id_]})"
         elif id_ in added_p16: status = "Draft, new"
@@ -92,13 +98,23 @@ for k, f in files.items():
 tot = {p: sum(counts[k][p] for k in files) for p in ("URS", "SRS", "TC", "SD", "OI", "FD", "SQ")}
 L = []
 A = L.append
-A("""# URS and SRS Change Log: Malaysia Tax Relief System (PWA)
+A("""# REG-02: URS and SRS change log
 
-This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [HISTORY_LOG.md](../registers/HISTORY_LOG.md); this log is the detail log for the documents only.
+| Item | Value |
+| --- | --- |
+| Document ID | REG-02 |
+| Document type | Register (detail change log of the URS and SRS documents) |
+| Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
+| Version | Running log; every entry is dated. Built by docs/tools/changelog.py |
+| Status | Active |
+| Date | 2026-11-23 (started 2026-11-12) |
+| Owner | Champs (product owner) |
+| PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
+| Source | The six URS and SRS documents and the owner prompts (P-nn) |
+| Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
+| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052) |
 
-Owner: Champs (product owner)
-Started: 2026-11-12
-Last updated: 2026-11-22 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at version 0.3)
+This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
 ## How this log works
 
@@ -115,7 +131,7 @@ Last updated: 2026-11-22 (F0 at version 0.3, F1 to F4 at version 0.5, F5 at vers
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |""")
 for k, f in files.items():
     c = counts[k]
-    A(f"| {k} | [{f}]({f}) | {names[k]} | {version[k]} | 2026-11-13 | Draft for owner review | {c['URS']} | {c['SRS']} | {c['FD']} | {c['SQ']} | {c['TC']} | {c['SD']} | {c['OI']} | {c['lines']} |")
+    A(f"| {k} | [{f}](../specs/{f}) | {names[k]} | {version[k]} | 2026-11-13 | Draft for owner review | {c['URS']} | {c['SRS']} | {c['FD']} | {c['SQ']} | {c['TC']} | {c['SD']} | {c['OI']} | {c['lines']} |")
 A(f"| | Total | | | | | {tot['URS']} | {tot['SRS']} | {tot['FD']} | {tot['SQ']} | {tot['TC']} | {tot['SD']} | {tot['OI']} | |")
 A("""
 Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
@@ -168,42 +184,40 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-042 | 2026-11-14 | F0, F1, F3 | SRS-F0-19, SRS-F1-24, SRS-F3-18, SRS-F0-01 | same | Changed | Erase deleted everything of the user | Erase can name one YA and then deletes only that YA's rows and files; the first sign-in trigger of F0 follows sign-up (Phase 1) or verification (Phase 2) | Applies CHG-041 | Prompt P-16 |
 | CHG-043 | 2026-11-14 | F0, F1, F2, F3, F4, F5 | Header | Document version | Changed | F0 at 0.2; F1 to F4 at 0.4; F5 at 0.1 | F0 at 0.3; F1 to F4 at 0.5; F5 at 0.2 | CHG-036 to CHG-042 | Prompt P-16 |
 | CHG-044 | 2026-11-14 | PRD | Section 3.2 FR-2.3, section 4 (admin support tools), section 5 (TaxpayerProfile), NFR-7, NFR-8, section 8 (roles and admin support paragraph) | Pending sync items 13, 16, 18 and 19 | Synced | The PRD (revision 37) had one profile per user, no mandatory rule, an admin who managed the account on the user's behalf, and records "offered for deletion" after 7 years | PRD revision 47: TaxpayerProfile is one per user per YA with year, copied_from_year, state, has_first_home, first_home_price and dependants_confirmed, and every visible question is mandatory with the calculator, relief categories, spending records and dashboard locked until it is complete; an admin cannot change the email or the password and sends a temporary reset link; an admin sees a Filed flag only; records are kept 7 years and the taxpayer is told when a YA can be deleted | Owner approvals of 13/11/2026 and 14/11/2026 (SD-F0-01, DA-16, DA-19, DA-20, SD-F0-14, SD-F5-10, SD-F5-09) | Prompt P-16 |
-| CHG-045 | 2026-11-14 | F0, F1, F2, F3, F4, F5 | Links to the registers | Links to HISTORY_LOG.md, URS_SRS_CHANGE_LOG.md and ACRONYMS.md | Clarified | Links pointed to files in the same folder | Links point to ../registers/ because the files moved into the repository layout (docs/specs, docs/registers, docs/tools). No requirement changed, so the document versions stay at 0.3 and 0.5 and 0.2 | The owner asked for one repository from documentation to production | Prompt P-18 |
-| CHG-046 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md, PR template | AGENTS.md sections 1 and 5; PROMPT_RULES R-01, R-16, R-40, R-49, R-50; pull request checklist | Rules for how I respond, for review and for the repository | Added | R-01 covered only questions and decisions; no review rule; R-40 said the repository was local only; R-16 said files are sent to the owner; R-49 pushed automatically with no condition | R-01 covers every prompt (information first); R-50: every pull request into main is reviewed, the owner may bypass while alone, and with a second developer 1 review by someone other than the author is needed; R-49 applies only after "update"; R-40 and R-16 brought up to date; PR template has a review line. PROMPT_RULES at version 0.6. No requirement document changed, so F0 to F5 keep their versions | The owner asked for a review rule on merge requests and for information first on every prompt | Prompts P-24 to P-26 |
-| CHG-047 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md | AGENTS.md section 5 (automatic commit and push); PROMPT_RULES R-49 | Automatic commit and push rule | Clarified | R-49 ended at commit and push; the owner opened the pull request by hand | R-49 continues: after the push the agent opens a pull request with `gh pr create` and stops; the agent never merges. PROMPT_RULES at version 0.7. No requirement document changed | The owner installed the GitHub CLI (`gh`) and asked for the agent to open pull requests | Prompts P-27 and P-28 |
-| CHG-048 | 2026-11-18 | AGENTS.md, PROMPT_RULES.md | AGENTS.md section 5 (review before merge); PROMPT_RULES R-50 and new R-51 | Protection of the main branch | Added | The review rule was written only; GitHub did not enforce it and `main` was not protected | GitHub ruleset `protect-main` is active: no direct push, no force push, no deletion on `main`, pull request with 1 approval required; owner bypass for pull requests only. PROMPT_RULES at version 0.8. No requirement document changed | The owner asked to protect `main` so that changes go only through a pull request | Prompts P-29 and P-30 |
+| CHG-045 | 2026-11-14 | F0, F1, F2, F3, F4, F5 | Links to the registers | Links to REG_01_History_Log.md, REG_02_URS_SRS_Change_Log.md and REG_03_Acronyms.md | Clarified | Links pointed to files in the same folder | Links point to ../registers/ because the files moved into the repository layout (docs/specs, docs/registers, docs/tools). No requirement changed, so the document versions stay at 0.3 and 0.5 and 0.2 | The owner asked for one repository from documentation to production | Prompt P-18 |
+| CHG-046 | 2026-11-18 | AGENTS.md, REG_04_Prompt_Rules.md, PR template | AGENTS.md sections 1 and 5; REG-04 RULE-01, RULE-16, RULE-40, RULE-49, RULE-50; pull request checklist | Rules for how I respond, for review and for the repository | Added | RULE-01 covered only questions and decisions; no review rule; RULE-40 said the repository was local only; RULE-16 said files are sent to the owner; RULE-49 pushed automatically with no condition | RULE-01 covers every prompt (information first); RULE-50: every pull request into main is reviewed, the owner may bypass while alone, and with a second developer 1 review by someone other than the author is needed; RULE-49 applies only after "update"; RULE-40 and RULE-16 brought up to date; PR template has a review line. REG-04 at version 0.6. No requirement document changed, so F0 to F5 keep their versions | The owner asked for a review rule on merge requests and for information first on every prompt | Prompts P-24 to P-26 |
+| CHG-047 | 2026-11-18 | AGENTS.md, REG_04_Prompt_Rules.md | AGENTS.md section 5 (automatic commit and push); REG-04 RULE-49 | Automatic commit and push rule | Clarified | RULE-49 ended at commit and push; the owner opened the pull request by hand | RULE-49 continues: after the push the agent opens a pull request with `gh pr create` and stops; the agent never merges. REG-04 at version 0.7. No requirement document changed | The owner installed the GitHub CLI (`gh`) and asked for the agent to open pull requests | Prompts P-27 and P-28 |
+| CHG-048 | 2026-11-18 | AGENTS.md, REG_04_Prompt_Rules.md | AGENTS.md section 5 (review before merge); REG-04 RULE-50 and new RULE-51 | Protection of the main branch | Added | The review rule was written only; GitHub did not enforce it and `main` was not protected | GitHub ruleset `protect-main` is active: no direct push, no force push, no deletion on `main`, pull request with 1 approval required; owner bypass for pull requests only. REG-04 at version 0.8. No requirement document changed | The owner asked to protect `main` so that changes go only through a pull request | Prompts P-29 and P-30 |
 | CHG-049 | 2026-11-22 | F5 | Header, A1, A2, A3, FD-F5-09 and FD-F5-13 titles, A5.4, A6 items 7 and 8, SRS-F5-08, SRS-F5-12, SRS-F5-14, SRS-F5-16, SRS-F5-21, B3.6, B4, B7, SD-F5-09, SD-F5-17, SD-F5-19 (new) | SD-F5-19 added; URS-F5-06, URS-F5-07, URS-F5-08, URS-F5-14, the SRS listed and TC-F5-14, TC-F5-19, TC-F5-21, TC-F5-22, TC-F5-29 changed | Changed | Phase 1 held data export and the deletion of a YA's records past 7 years; Phase 2 held the security events screen, the new-device notice and the list of devices; B3.6 had two columns; A6 item 8 said only that the owner accepted the risk | Data export, deletion of a YA's records past 7 years (with its notice and the one-YA erase run), the security events screen, the new-device notice and the session controls are built with R3, phase 4 of the PRD roadmap (SD-F5-19); B3.6 has a third column for R3; A6 item 8 records that Phase 1 is used only by the owner and invited people; SD-F5-09 confirmed: deletion is optional after the period and never before. F5 at version 0.3 | Owner answers of 22/11/2026 to F-049 and F-051: "yes for me and invited only"; "move it to phase 4 (r3)"; "deletio is optional after 7 years. strictly no delete before 7 years of YA" | Prompts P-33 and P-34 |
-| CHG-050 | 2026-11-22 | AGENTS.md, PROMPT_RULES.md, CODEOWNERS | AGENTS.md section 5 (review requests); PROMPT_RULES R-52 (new); `.github/CODEOWNERS` | Review requests on pull requests | Added | CODEOWNERS covered only docs/prd, docs/decisions, docs/registers and AGENTS.md, so a pull request that touched other paths asked nobody for a review | CODEOWNERS starts with `*` (every path) for the owner, with a note on how to add developers; GitHub asks the code owners for a review on every pull request and notifies them. PROMPT_RULES at version 0.10. No requirement document changed | The owner asked for a notice when a pull request is opened, so that the owner and later developers see it (option B) | Prompt P-34 |
+| CHG-050 | 2026-11-22 | AGENTS.md, REG_04_Prompt_Rules.md, CODEOWNERS | AGENTS.md section 5 (review requests); REG-04 RULE-52 (new); `.github/CODEOWNERS` | Review requests on pull requests | Added | CODEOWNERS covered only docs/prd, docs/decisions, docs/registers and AGENTS.md, so a pull request that touched other paths asked nobody for a review | CODEOWNERS starts with `*` (every path) for the owner, with a note on how to add developers; GitHub asks the code owners for a review on every pull request and notifies them. REG-04 at version 0.10. No requirement document changed | The owner asked for a notice when a pull request is opened, so that the owner and later developers see it (option B) | Prompt P-34 |
+| CHG-051 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5, ADR-000 to ADR-005, RES-001, REG-01 to REG-04, AGENTS.md, README, docs-check workflow | File names, title line and header of every document; section 0 shared blocks (document set, FD-00, terms); F5 A1, B3.1, B3.6, SD-F5-17 and every row that said Phase 1 or Phase 2; SRS-F0-01; IF-20; AGENTS.md sections 2, 3 and 6 (new); REG-04 RULE-53 to RULE-59 (new) | The SRS, URS, TC and SD listed in the ID register as "wording changed in 0.4" or "0.6" | Changed | Each type of document had its own file name style (PRD_..., URS_SRS_..., ADR-001-..., HISTORY_LOG.md) and header; F1 and F2 had titles that differ from the PRD headings; "Phase" meant the PRD roadmap, the two parts of F5 and the stages; rule IDs R-nn and research R-001 looked like releases R1 to R4 and relief codes R01 to R24 | One standard (AGENTS.md section 6): file names `<type>_<ID>_<Short_Name>.md` (PRD_TRM, URS_SRS_F0 to F5, ADR_001, RES_001, REG_01 to REG_04); first line `# <Document ID>: <Title>`; the same header rows in every document; the PRD is the master for names and IDs, so F1 is "Tax calculator for any year" and F2 "Relief categories and ranges"; "Phase" means only a PRD roadmap phase; F5 Phase 1 and Phase 2 renamed basic account (R1) and launch account (before public launch), meaning unchanged; stages in AGENTS.md section 3; rule IDs RULE-nn; research RES-001; a new check docs/tools/check_standard.py runs in the workflow. PRD to revision 48 (header and file name only, no requirement changed); F0 to 0.4, F1 to F4 to 0.6, F5 to 0.4 (the shared blocks changed); REG-04 to 0.11 | The owner asked for one standard for every document, with names that follow the PRD IDs and the PRD winning when there is a conflict, so the work can be managed and tracked during development | Prompts P-37 and P-38 |
+| CHG-052 | 2026-11-23 | PRD | Section 2.3 (education and medical insurance; life insurance and EPF), section 9.1 (phase 1, phase 4, public launch gate), section 9.3 decisions 4 and 5, section 9.4 (new), Sources | Pending sync items 11, 12, 26 and 27 | Synced | Revision 48: education and medical insurance "4,000 (confirm)" for every YA; EPF and life insurance sub-limits "as published on LHDN's site"; decisions 4 and 5 kept in view; section 9.1 had no account and security parts; no list of the items waiting for approval | Revision 49: RM 4,000 for YA 2025 from LHDN, carried forward for YA 2026 and YA 2027 with needs confirmation; EPF up to 4,000 and life insurance, family takaful and additional voluntary EPF up to 3,000 inside 7,000; decisions 4 and 5 answered with the LHDN source; phase 1 holds the basic account, phase 4 (R3) the export, old-record deletion, security screens and session controls, and the public launch gate the launch account; F-058 named as open; section 9.4 lists the 19 items still waiting for owner approval | The owner said "update the PRD" for the items that have approval; the others wait and are marked (OI-F2-01, OI-F2-02 answered from LHDN on 12/11/2026; SD-F5-17 approved 14/11/2026; SD-F5-19 approved 22/11/2026) | Prompt P-38 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044); their numbers are not reused. 23 items are still pending. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), and items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052); their numbers are not reused. 19 items are still pending. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
 
-| # | PRD place | Change | Matching IDs |
-| --- | --- | --- | --- |
-| 1 | Section 5, data model | Add DA-01 to DA-15 (new fields, RuleTier, UserTaxYear) | DA-01 to DA-15 |
-| 2 | Section 5, TaxYear | Remove status open or filed (moves to UserTaxYear) | DA-12 |
-| 3 | FR-1.9 | State that PCB on bonus is counted once | SRS-F1-12, OI-F1-02 |
-| 4 | FR-1.1 and FR-1.9 | State that income of months with no record is projected, and how | SD-F1-02 |
-| 5 | FR-4.4 | Replace "using the current marginal rate" with the tax difference from scenario | SD-F4-04 |
-| 6 | Section 2.2 and 5 | Bands store the lower threshold | SD-F1-09 |
-| 7 | BR-9 | Define "closed" | OI-F1-03 |
-| 8 | Section 8 roles | Say what "download" means for an admin | OI-F3-01 |
-| 9 | BR-10 | State the rounding rule | SD-F1-05 |
-| 10 | Section 4 | Rule change log R1 per-rule history, R2 consolidated | SD-F2-08 |
-| 11 | Section 2.3 and decision 4 | Education and medical insurance: RM 4,000 for YA 2025 per LHDN (RM 3,000 for YA 2018 to YA 2024); remove "(confirm)" for YA 2025 | OI-F2-01 |
-| 12 | Section 2.3 and decision 5 | EPF limit RM 4,000 and life insurance limit RM 3,000 inside RM 7,000; additional voluntary EPF counts in the RM 3,000 | OI-F2-02 |
-| 14 | Section 5, Dependant | Add person_key and display_name | DA-17 |
-| 15 | Section 5, TaxEstimate | Add profile_id and profile_version_no | DA-18 |
-| 17 | Section 3 (features) | Add the profile and tax-year history feature F0 with its own FR block (proposed FR-0.1 to FR-0.8) and screens | URS-F0-01 to URS-F0-15 |
-| 20 | Section 5, User | Add status, email_verified_at, deletion_requested_at, deletion_due_on, last_sign_in_at | DA-21 |
-| 21 | Section 5 | Add Credential, Session, ConsentRecord, Invitation, DataRequest and SecurityEvent | DA-22 to DA-24 |
-| 22 | Section 7, Sign in and onboarding | Sign-up by invitation and password rules (Phase 1); email verified before use, session lengths and sign-in lockout (Phase 2, SD-F5-17) | SD-F5-01 to SD-F5-04, SD-F5-06 |
-| 23 | Section 7 Settings, NFR-7, NFR-8 | Export as a ZIP; deletion of the whole account with a 14-day grace period (Phase 2); consent purposes and text headings. The 7-year rule is already in the PRD (CHG-044) | SD-F5-08, SD-F5-09, SD-F5-12, SD-F5-14 |
-| 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (Phase 2) | SD-F5-05, SD-F5-07 |
-| 25 | Section 3 (features) | Add the account and security feature F5 with its own FR block (proposed FR-5.1 to FR-5.9) and screens | URS-F5-01 to URS-F5-14 |
-| 26 | Section 9.1 (phases) | Account and security is built in two phases: Phase 1 the simple account, Phase 2 the held features (SD-F5-17) | SD-F5-17 |
-| 27 | Section 9.1, phase 4 (R3) | Add data export, deletion of a YA's records after 7 years, the security events screen, the new-device notice and the session controls to the R3 scope; settle the order against the public launch gate, which lists user export (F-058) | SD-F5-19 |
+| # | PRD place | Change | Matching IDs | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Section 5, data model | Add DA-01 to DA-15 (new fields, RuleTier, UserTaxYear) | DA-01 to DA-15 | Waiting for owner approval |
+| 2 | Section 5, TaxYear | Remove status open or filed (moves to UserTaxYear) | DA-12 | Waiting for owner approval |
+| 3 | FR-1.9 | State that PCB on bonus is counted once | SRS-F1-12, OI-F1-02 | Waiting for owner approval |
+| 4 | FR-1.1 and FR-1.9 | State that income of months with no record is projected, and how | SD-F1-02 | Waiting for owner approval |
+| 5 | FR-4.4 | Replace "using the current marginal rate" with the tax difference from scenario | SD-F4-04 | Waiting for owner approval |
+| 6 | Section 2.2 and 5 | Bands store the lower threshold | SD-F1-09 | Waiting for owner approval |
+| 7 | BR-9 | Define "closed" | OI-F1-03 | Waiting for owner approval |
+| 8 | Section 8 roles | Say what "download" means for an admin | OI-F3-01 | Waiting for owner approval |
+| 9 | BR-10 | State the rounding rule | SD-F1-05 | Waiting for owner approval |
+| 10 | Section 4 | Rule change log R1 per-rule history, R2 consolidated | SD-F2-08 | Waiting for owner approval |
+| 14 | Section 5, Dependant | Add person_key and display_name | DA-17 | Waiting for owner approval |
+| 15 | Section 5, TaxEstimate | Add profile_id and profile_version_no | DA-18 | Waiting for owner approval |
+| 17 | Section 3 (features) | Add the profile and tax-year history feature F0 with its own FR block (proposed FR-0.1 to FR-0.8) and screens | URS-F0-01 to URS-F0-15 | Waiting for owner approval |
+| 20 | Section 5, User | Add status, email_verified_at, deletion_requested_at, deletion_due_on, last_sign_in_at | DA-21 | Waiting for owner approval |
+| 21 | Section 5 | Add Credential, Session, ConsentRecord, Invitation, DataRequest and SecurityEvent | DA-22 to DA-24 | Waiting for owner approval |
+| 22 | Section 7, Sign in and onboarding | Sign-up by invitation and password rules (basic account); email verified before use, session lengths and sign-in lockout (launch account, SD-F5-17) | SD-F5-01 to SD-F5-04, SD-F5-06 | Waiting for owner approval |
+| 23 | Section 7 Settings, NFR-7, NFR-8 | Export as a ZIP; deletion of the whole account with a 14-day grace period (launch account); consent purposes and text headings. The 7-year rule is already in the PRD (CHG-044) | SD-F5-08, SD-F5-09, SD-F5-12, SD-F5-14 | Waiting for owner approval |
+| 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (launch account) | SD-F5-05, SD-F5-07 | Waiting for owner approval |
+| 25 | Section 3 (features) | Add the account and security feature F5 with its own FR block (proposed FR-5.1 to FR-5.9) and screens | URS-F5-01 to URS-F5-14 | Waiting for owner approval |
 
 ## Consistency checks
 
@@ -235,6 +249,8 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-18 | After the protected main rule (CHG-048): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 | 2026-11-22 | After the R3 move in F5 (CHG-049): build, change log and acronym check repeated over six documents; only F5 changed | 0 errors; acronym check passed |
 | 2026-11-22 | After the review requests rule (CHG-050): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
+| 2026-11-23 | After the document standard (CHG-051): build, change log, acronym check and the new document standard check (check_standard.py) over every document under docs/ | 0 errors; acronym check passed; standard check 0 errors |
+| 2026-11-23 | After the PRD sync (CHG-052): build, change log, acronym check and standard check; Pending PRD sync has 19 rows, each with the status Waiting for owner approval, and PRD section 9.4 lists the same 19 items | 0 errors; acronym check passed; standard check 0 errors; 19 of 19 |
 
 ## ID register
 
@@ -246,5 +262,5 @@ for k, f in files.items():
     A("| --- | --- | --- | --- | --- |")
     for id_, typ, d, st in reg[k]:
         A(f"| {id_} | {typ} | {d} | {('0.3 (' + added03[id_] + ')') if id_ in added03 else (added_p15[id_][0] + ' (' + added_p15[id_][1] + ')') if id_ in added_p15 else (added_p16[id_][0] + ' (' + added_p16[id_][1] + ')') if id_ in added_p16 else ('0.1 (' + firstchg[k] + ')')} | {st} |")
-open(f"{REG}/URS_SRS_CHANGE_LOG.md", "w").write("\n".join(L) + "\n")
+open(f"{REG}/REG_02_URS_SRS_Change_Log.md", "w").write("\n".join(L) + "\n")
 print(json.dumps(counts), tot)

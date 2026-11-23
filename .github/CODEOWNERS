@@ -1,4 +1,4 @@
-# Code owners (R-52). GitHub asks the code owners for a review on every pull
+# Code owners (RULE-52). GitHub asks the code owners for a review on every pull
 # request and sends them a notification. The last matching line wins, so the
 # paths below also keep the owner on them.
 # When a developer joins, the owner adds their GitHub username to each line,

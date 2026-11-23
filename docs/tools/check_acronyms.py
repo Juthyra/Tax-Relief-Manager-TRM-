@@ -1,8 +1,8 @@
-"""Fail if a capital-letter short form is used in the documents but not listed in ACRONYMS.md.
+"""Fail if a capital-letter short form is used in the documents but not listed in REG_03_Acronyms.md.
 Usage: python3 docs/tools/check_acronyms.py   (works from any folder)"""
 import re, sys, glob, os
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-reg = open(os.path.join(REPO, 'docs', 'registers', 'ACRONYMS.md')).read()
+reg = open(os.path.join(REPO, 'docs', 'registers', 'REG_03_Acronyms.md')).read()
 known = set()
 for line in reg.splitlines():
     if line.startswith('|') and not line.startswith('| ---'):
@@ -11,7 +11,7 @@ for line in reg.splitlines():
 # tokens inside the Stands-for/Meaning text of section 6 and ID prefixes such as SRS-F1-04
 known.update(['SRS', 'URS', 'FD', 'SQ', 'TC', 'SD', 'OI', 'IF', 'EV', 'DA', 'CHG', 'FR', 'BR', 'NFR', 'GRP'])
 docs = [f for f in glob.glob(os.path.join(REPO, 'docs', '**', '*.md'), recursive=True) + glob.glob(os.path.join(REPO, '*.md'))
-        if os.path.basename(f) != 'ACRONYMS.md' and '/tools/source/' not in f]
+        if os.path.basename(f) != 'REG_03_Acronyms.md' and '/tools/source/' not in f]
 missing = {}
 for f in docs:
     t = open(f).read()
@@ -23,7 +23,7 @@ for f in docs:
             continue
         missing.setdefault(tok, set()).add(f)
 if missing:
-    print('Acronyms used but not in ACRONYMS.md:')
+    print('Acronyms used but not in REG_03_Acronyms.md:')
     for k, v in sorted(missing.items()):
         print(' ', k, sorted(v))
     sys.exit(1)
