@@ -5,14 +5,14 @@
 | Document ID | ADR-002 |
 | Document type | ADR (architecture decision record) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.3 |
-| Status | Proposed |
+| Version | 1.0 |
+| Status | Approved on 23/11/2026 |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7 (non-functional and PWA requirements); section 3 (features F0 to F5) |
-| Source | Owner prompts P-68 to P-71; stack choice of the owner on 23/11/2026 |
+| Source | Owner prompts P-68 to P-78; stack choice of the owner on 23/11/2026 |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md) |
-| Decided by | Owner (not decided yet; proposal below) |
+| Decided by | Owner, 23/11/2026 (P-77, P-78) |
 
 ## Question
 
@@ -28,7 +28,7 @@ Is the application one deployable unit with a module per feature (F0 to F5), or 
 
 ## Decision and reason
 
-Proposed: **option A**. The owner has not decided yet; the stack is the owner's.
+**Approved by the owner on 23/11/2026 (P-77, P-78): option A**, a modular monolith. The module names are a starting point and can change by a new version of this record.
 
 | Part | Proposal |
 | --- | --- |

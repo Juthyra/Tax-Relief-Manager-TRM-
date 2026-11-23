@@ -5,14 +5,14 @@
 | Document ID | ADR-004 |
 | Document type | ADR (architecture decision record) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.3 |
-| Status | Proposed (the database is the owner's choice; the version and design points are proposals) |
+| Version | 1.0 |
+| Status | Approved on 23/11/2026 |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 5 (data model) and section 7 |
-| Source | Owner prompts P-68 to P-71; stack choice of the owner on 23/11/2026 |
+| Source | Owner prompts P-68 to P-78; stack choice of the owner on 23/11/2026 |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md) |
-| Decided by | Owner stated the stack on 23/11/2026; this record stays Proposed until the owner approves it |
+| Decided by | Owner, 23/11/2026 (P-77, P-78) |
 
 ## Question
 
@@ -37,7 +37,7 @@ Which database holds the data model (PRD section 5, DA-01 to DA-27), including v
 
 ## Decision and reason
 
-PostgreSQL is the owner's choice (P-69). Proposals for the rest:
+PostgreSQL is the owner's choice (P-69). **Approved by the owner on 23/11/2026 (P-77, P-78)** for PostgreSQL 18 and the design points below:
 
 | # | Proposal | Reason |
 | --- | --- | --- |

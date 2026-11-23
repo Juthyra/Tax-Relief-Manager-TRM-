@@ -5,14 +5,14 @@
 | Document ID | ADR-001 |
 | Document type | ADR (architecture decision record) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.4 |
-| Status | Proposed (the owner's stack is recorded; the offline approach is open) |
+| Version | 1.0 |
+| Status | Approved on 23/11/2026 (the offline approach stays open, OI-F1-05) |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7 (non-functional and PWA requirements) |
-| Source | Owner prompts P-68 to P-75; stack choice of the owner on 23/11/2026 |
+| Source | Owner prompts P-68 to P-78; stack choice of the owner on 23/11/2026 |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md) |
-| Decided by | Owner stated the stack on 23/11/2026; this record stays Proposed until the owner approves it |
+| Decided by | Owner, 23/11/2026 (P-77, P-78) |
 
 ## Question
 
@@ -51,9 +51,9 @@ Front-end findings (Blade, Livewire, Vue 3, React, Angular, Svelte, with Laravel
 
 ## Decision and reason
 
-Proposed, not approved by the owner yet. The proposals below follow the owner's stack and answers.
+**Approved by the owner on 23/11/2026 (P-77, P-78)**, including the versions and the rules below. The offline approach (decision 5) stays open. If a check at project creation shows a problem, this record is changed with a new version.
 
-| # | Proposal | Reason | Date and source |
+| # | Decision | Reason | Date and source |
 | --- | --- | --- | --- |
 | 1 | Laravel 13 on PHP 8.5; Vue 3.5; Inertia (version 3 unless the starter kit needs 2, to be checked when the project is created); TypeScript in strict mode; Node 26 LTS for the build. The PHP and Node versions come from the container images, because all development runs in Docker ([ADR-003](ADR_003_Docker.md)) | Newest Laravel line with the longest support; versions are pinned in the lock files and the container images | Owner 23/11/2026 (stack); versions are my proposal |
 | 2 | **The tax engine is one pure TypeScript function that runs only in the browser.** The server stores and processes data, applies access rules and never calculates tax | One engine, one set of tests. A second engine in PHP could disagree with the first, and a wrong tax figure is the worst fault this product can have | **Owner 23/11/2026 (P-69, P-70)** |
