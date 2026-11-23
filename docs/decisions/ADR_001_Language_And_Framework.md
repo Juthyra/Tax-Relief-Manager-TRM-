@@ -5,12 +5,12 @@
 | Document ID | ADR-001 |
 | Document type | ADR (architecture decision record) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.3 |
+| Version | 0.4 |
 | Status | Proposed (the owner's stack is recorded; the offline approach is open) |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7 (non-functional and PWA requirements) |
-| Source | Owner prompts P-68 to P-71; stack choice of the owner on 23/11/2026 |
+| Source | Owner prompts P-68 to P-75; stack choice of the owner on 23/11/2026 |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md) |
 | Decided by | Owner stated the stack on 23/11/2026; this record stays Proposed until the owner approves it |
 
@@ -26,7 +26,7 @@ Which language and framework build the application (offline-first PWA, sync, tax
 | Back end | Laravel (PHP) |
 | Database | PostgreSQL ([ADR-004](ADR_004_Database.md)) |
 | Team | The owner and one other developer |
-| Environment | Local machine for development; the later environments are decided later ([ADR-005](ADR_005_Hosting.md)) |
+| Environment | Local machine for development, 100% in Docker ([ADR-003](ADR_003_Docker.md)); the later environments are decided later ([ADR-005](ADR_005_Hosting.md)) |
 
 ## Options
 
@@ -55,7 +55,7 @@ Proposed, not approved by the owner yet. The proposals below follow the owner's 
 
 | # | Proposal | Reason | Date and source |
 | --- | --- | --- | --- |
-| 1 | Laravel 13 on PHP 8.5; Vue 3.5; Inertia (version 3 unless the starter kit needs 2, to be checked when the project is created); TypeScript in strict mode; Node 26 LTS for the build | Newest Laravel line with the longest support; versions are pinned in the lock files and the container images | Owner 23/11/2026 (stack); versions are my proposal |
+| 1 | Laravel 13 on PHP 8.5; Vue 3.5; Inertia (version 3 unless the starter kit needs 2, to be checked when the project is created); TypeScript in strict mode; Node 26 LTS for the build. The PHP and Node versions come from the container images, because all development runs in Docker ([ADR-003](ADR_003_Docker.md)) | Newest Laravel line with the longest support; versions are pinned in the lock files and the container images | Owner 23/11/2026 (stack); versions are my proposal |
 | 2 | **The tax engine is one pure TypeScript function that runs only in the browser.** The server stores and processes data, applies access rules and never calculates tax | One engine, one set of tests. A second engine in PHP could disagree with the first, and a wrong tax figure is the worst fault this product can have | **Owner 23/11/2026 (P-69, P-70)** |
 | 3 | The rule publish gate runs the calculator tests in the admin's browser; the server stores the passing run with a hash of the draft rows and accepts Publish only for that hash; the same tests run in CI before each deploy (SD-F2-10, DA-27) | The server has no engine to run them. Risk accepted: the server cannot re-check the result; only an admin can publish, and in R1 the admins are the two developers | **Owner 23/11/2026 (P-70, option A)** |
 | 4 | The browser makes the month-end snapshot at the first visit after month-end; nothing is compared with a server figure after sync (SRS-F1-19, SRS-F4-10) | The server cannot calculate. A month with no visit gets no snapshot | **Owner 23/11/2026 (P-70)** |
