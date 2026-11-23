@@ -13,7 +13,7 @@
 | Source | Every owner prompt (P-nn) |
 | Change tracking | This file; detail changes to the URS and SRS in [REG-02](REG_02_URS_SRS_Change_Log.md) |
 | Purpose | Record every finding, decision and process step, so project quality can be tracked and controlled. |
-| Last updated | 2026-11-23 (stack decisions, ADR-001 to ADR-006 written, specs changed for the browser-only engine, CHG-061, CHG-062); 2026-11-23 (remaining PRD items approved, CHG-059; PRD revision 53, CHG-060); 2026-11-23 (owner answers to PRD items 1 to 4 and 7 to 9, no projection, CHG-058; PRD not changed); 2026-11-23 (F-068 confirmed; YA 2026 filing deadline and leaflet kept in view); 2026-11-23 (F-067 applied, PRD revision 52, CHG-057); 2026-11-23 (RES-003 YA 2025 and PCB 2026 check, CHG-056); 2026-11-23 (DA-25 approved, PRD revision 51, YA 2025 and YA 2026 focus, CHG-055); 2026-11-23 (rule corrections from RES-002, PRD revision 50, CHG-054); 2026-11-23 (phase 0 answers, ADR-006 email held, RES-002 YA 2026 and YA 2027 rule check, F5 at 0.5, CHG-053); 2026-11-23 (document standard, AGENTS.md section 6, CHG-051; PRD revision 49 with the approved sync items, CHG-052); 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; REG-04 at 0.9; CODEOWNERS for every path, RULE-52, REG-04 at 0.10); 2026-11-18 (main protected by ruleset, RULE-51, REG-04 at 0.8; agent opens pull requests with gh, RULE-49 extended, REG-04 at 0.7; review rule RULE-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47) |
+| Last updated | 2026-11-23 (Docker-only development decided, CHG-063); 2026-11-23 (stack decisions, ADR-001 to ADR-006 written, specs changed for the browser-only engine, CHG-061, CHG-062); 2026-11-23 (remaining PRD items approved, CHG-059; PRD revision 53, CHG-060); 2026-11-23 (owner answers to PRD items 1 to 4 and 7 to 9, no projection, CHG-058; PRD not changed); 2026-11-23 (F-068 confirmed; YA 2026 filing deadline and leaflet kept in view); 2026-11-23 (F-067 applied, PRD revision 52, CHG-057); 2026-11-23 (RES-003 YA 2025 and PCB 2026 check, CHG-056); 2026-11-23 (DA-25 approved, PRD revision 51, YA 2025 and YA 2026 focus, CHG-055); 2026-11-23 (rule corrections from RES-002, PRD revision 50, CHG-054); 2026-11-23 (phase 0 answers, ADR-006 email held, RES-002 YA 2026 and YA 2027 rule check, F5 at 0.5, CHG-053); 2026-11-23 (document standard, AGENTS.md section 6, CHG-051; PRD revision 49 with the approved sync items, CHG-052); 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; REG-04 at 0.9; CODEOWNERS for every path, RULE-52, REG-04 at 0.10); 2026-11-18 (main protected by ruleset, RULE-51, REG-04 at 0.8; agent opens pull requests with gh, RULE-49 extended, REG-04 at 0.7; review rule RULE-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47) |
 
 This is the **main log** of our work on the project. It was called FINDINGS_LOG.md until 2026-11-12. Detail changes to the URS and SRS documents are **not** kept here. They are kept in [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md). This log points to it.
 
@@ -27,7 +27,7 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 
 | Open | Flagged | Unverified | Resolved or Verified | Total |
 | --- | --- | --- | --- | --- |
-| 16 | 10 | 1 | 49 | 76 |
+| 16 | 11 | 1 | 50 | 78 |
 
 ## Files in the project
 
@@ -40,14 +40,14 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | URS-SRS-F3 | docs/specs/URS_SRS_F3_Spending_Records.md | URS and SRS for F3, spending records | 0.12 draft |
 | URS-SRS-F4 | docs/specs/URS_SRS_F4_Dashboard.md | URS and SRS for F4, dashboard | 0.12 draft |
 | URS-SRS-F5 | docs/specs/URS_SRS_F5_Account_Security.md | URS and SRS for F5, account and security | 0.11 draft |
-| ADR-000 to ADR-006 | docs/decisions/ADR_000_Template.md to ADR_006_Email_Service.md | Template and the six technical decisions | ADR-001 to ADR-005 at 0.3, ADR-006 at 0.2; all Proposed (ADR-005 and ADR-006 held by the owner) |
+| ADR-000 to ADR-006 | docs/decisions/ADR_000_Template.md to ADR_006_Email_Service.md | Template and the six technical decisions | ADR-001 at 0.4, ADR-002 at 0.3, ADR-003 at 0.4, ADR-004 and ADR-005 at 0.3, ADR-006 at 0.2; all Proposed (ADR-005 and ADR-006 held by the owner) |
 | RES-001 | docs/decisions/research/RES_001_Frontend_Frameworks.md | Front-end framework findings | 0.3 draft, findings only |
 | RES-002 | docs/decisions/research/RES_002_YA2026_YA2027_Rule_Check.md | YA 2026 and YA 2027 rules checked against the Finance Act 2025, LHDN and Budget 2027 | 0.1 draft, findings only |
 | RES-003 | docs/decisions/research/RES_003_YA2025_And_PCB_2026_Check.md | YA 2025 rules checked against LHDN; PCB 2026 specification and TP1 (1/2026) checked against F1 | 0.1 draft, findings only |
 | REG-01 | docs/registers/REG_01_History_Log.md | This file, the main log | Running log |
 | REG-02 | docs/registers/REG_02_URS_SRS_Change_Log.md | Detail change log for the six URS and SRS documents and the PRD sync | Running log |
 | REG-03 | docs/registers/REG_03_Acronyms.md | Register of every acronym, ID prefix and code value, checked by docs/tools/check_acronyms.py | Running register |
-| REG-04 | docs/registers/REG_04_Prompt_Rules.md | Standing rules for prompts and for how we work | 0.17 draft |
+| REG-04 | docs/registers/REG_04_Prompt_Rules.md | Standing rules for prompts and for how we work | 0.18 draft |
 
 ## Prompt register
 
@@ -124,6 +124,10 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | P-69 | 2026-11-23 | Problem 2: "do the calculation on the front end, back only cater processing"; problem 1: "local development first, offline later"; Q3: "yes" (PostgreSQL) | Information first: the consequences (publish gate, month-end snapshot, sync check) and the offline rule that phase 1 cannot exit without it |
 | P-70 | 2026-11-23 | q1: "a" (publish gate option A); q2: "yes" (snapshot at the next visit) | Information first: what the ADRs and the specs would say |
 | P-71 | 2026-11-23 | "update and update the specs" | Applied: CHG-061 (ADR-001 to ADR-006, RES-001 status) and CHG-062 (SRS-F1-19, SRS-F2-11, SRS-F4-10, SD-F1-11, SD-F2-10, OI-F1-05, TC-F2-27, DA-27); PRD not changed; F-074 to F-076 |
+| P-72 | 2026-11-23 | "i decide it to use 100% on docker for development" | Information first: my reading (no PHP, Node or PostgreSQL on a laptop), what it would change and what it costs |
+| P-73 | 2026-11-23 | q1: "create the document tools"; q2: "no, the focus just to talk about the stack, not start yet" | Information first: q1 read as the document tools also in a container, offered (a) write the decision only or (b) create the container now; q2 read as no Sail pick |
+| P-74 | 2026-11-23 | "let pick a" | Information first: recorded option (a) |
+| P-75 | 2026-11-23 | "update" | Applied (CHG-063): ADR-003 0.4 and ADR-001 0.4; F-077, F-078; specifications and PRD not changed |
 
 ## Findings
 
@@ -205,6 +209,8 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | F-074 | 2026-11-23 | Decision | Owner stack and answers (P-68 to P-70): Laravel, Inertia, Vue 3, TypeScript, PostgreSQL; the owner and one more developer; local development first, other environments and hosting later; the tax engine runs only in the browser and the server only stores and processes; the publish gate runs in the admin's browser with the passing run stored on the server (option A); the browser makes the month-end snapshot at the next visit; offline is built later | Owner prompts P-68 to P-70 | ADR-001 to ADR-006 written (Proposed); SRS-F1-19, SRS-F2-11 and SRS-F4-10 changed | Resolved | ADRs wait for the owner's approval |
 | F-075 | 2026-11-23 | Flagged | My readings of P-68 to P-71: (a) "portgress sql" is PostgreSQL; (b) "update the specs" covers SRS-F1-19, SRS-F2-11, SRS-F4-10, TC-F1-21, SD-F1-07 and the new SD-F1-11, SD-F2-10, OI-F1-05, TC-F2-27 and DA-27; DA-27 (the table that stores a publish-gate run) is my field list and stays Proposed; (c) the PRD is unchanged: its section 7 still says the engine also runs on the server, so Pending PRD sync item 29 records the difference in REG-02 only, and PRD section 9.4 will list it at the next PRD revision (RULE-58 asks for both; say \"update the PRD\" to add it now); (d) the month-end snapshot keeps the trigger value \"system\" although the signed-in user's browser makes it; (e) in TC-F1-21 the automatic snapshot date moves from 31/10/2026 to 03/11/2026 to match \"first visit after month-end\"; (f) the versions (Laravel 13, PHP 8.5, Vue 3.5, Inertia 3, Node 26, PostgreSQL 18) and the modular-monolith folders are my proposals; (g) ADR-005 and ADR-006 stay held | Owner prompts P-68 to P-71 | A wrong reading means small edits to ADRs and specs | Flagged | Owner: tell me which reading is wrong |
 | F-076 | 2026-11-23 | Open | Not confirmed when the ADRs were written: (1) which Inertia version the Laravel 13 Vue starter kit installs (the 12.x notes say Inertia 2); (2) whether Laravel Sail runs as a non-root user and uses pinned image tags; (3) that the packages work on Node 26; (4) the offline approach (OI-F1-05), which phase 1 cannot exit without; (5) the server cannot re-check a publish-gate result (accepted for R1, two admins) | ADR-001 to ADR-003; Laravel, Inertia and Node pages read 23/11/2026 | Setup choices and the offline design | Open | Check (1) to (3) when the project is created; decide (4) before the offline requirements are built; revisit (5) before the public launch |
+| F-077 | 2026-11-23 | Decision | Owner decision (P-72 to P-75): 100% Docker for development; no PHP, Composer, Node or PostgreSQL on a laptop; the document tools are included; option C (no containers) removed; Sail or our own compose file not decided, decided when the project is created; the project is not started yet | Owner prompts P-72 to P-75 | ADR-003 and ADR-001 updated; no specification change | Resolved | Check Sail against the ADR-003 rules when the project is created |
+| F-078 | 2026-11-23 | Flagged | My readings of P-73 to P-75: (a) \"create the document tools\" means the document tools also run in a container, not that I create it now; (b) q2 \"no\" means do not pick Sail first; (c) \"let pick a\" means write the decision only and create the container for the document tools later; (d) the speed, editor, browser test and hot reload points in ADR-003 are my checks to run at project creation, not tested yet | Owner prompts P-73 to P-75 | A wrong reading means a small edit to ADR-003 | Flagged | Owner: tell me which reading is wrong |
 
 ## Process log
 
@@ -275,6 +281,7 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | 2026-11-23 | Answered P-50 to P-62 (targets, stack, PRD items); on "update" (P-63) branch `docs/CHG-058-prd-items-answers` on top of `docs/CHG-057-f067-apply`; applied the answers to F0 to F5 (sources and shared blocks), rewrote the PCB tests, read the LHDN Form BE 2025 notes for item 9; build 0 errors, acronym and standard checks passed; PRD not changed | CHG-058; P-63 |
 | 2026-11-23 | Answered P-64 to P-66; on "update and update the PRD" (P-67) branch `docs/CHG-059-prd-sync-items` on top of `docs/CHG-058-prd-items-answers`; CHG-059 approvals and FR links, CHG-060 PRD revision 53; build 0 errors, acronym and standard checks passed | CHG-059, CHG-060; P-67 |
 | 2026-11-23 | Answered P-68 to P-70; read the Laravel 13, PHP, PostgreSQL, Node, Vue and Inertia pages for the ADR facts; on "update and update the specs" (P-71) branch `docs/CHG-061-stack-adrs` on top of `docs/CHG-059-prd-sync-items`; wrote ADR-001 to ADR-006, changed the specifications, added LTS and UTC to REG-03; build 0 errors, acronym and standard checks passed; PRD not changed | CHG-061, CHG-062; P-71 |
+| 2026-11-23 | Answered P-72 to P-74; on "update" (P-75) branch `docs/CHG-063-docker-only-development` on top of `docs/CHG-061-stack-adrs`; ADR-003 and ADR-001 updated; build 0 errors, acronym and standard checks passed; specifications and PRD not changed | CHG-063; P-75 |
 | 2026-11-23 | Created branch `docs/CHG-055-sublimit-and-focus` on top of `docs/CHG-054-rule-corrections` (pull requests #8 and #9 not merged yet); DA-25 approved, OI-F2-04 answered; PRD revision 51; F-064 kept in view; F-065 split into F-065 (YA 2025 and YA 2026) and F-066 (YA 2027); REG-04 0.13; build 0 errors, acronym and standard checks passed | CHG-055; P-44 |
 
 ## Where the files live from 23/11/2026
@@ -297,7 +304,7 @@ The full list, with the proposed default for each, is in section B8 of each docu
 2. F-073: my readings of P-64 to P-67 and my wording of FR-0 and FR-5 in the PRD. F-072: LHDN's treatment of sen in chargeable income.
 3. F-007: audit design (versioned rows).
 4. Three PRD items wait, kept by you for the launch account and R3: 22 (launch account part), 23 and 24. Nothing waiting blocks phase 1 coding.
-5. The stack: ADR-001 to ADR-004 wait for your approval; ADR-005 and ADR-006 are held. F-075 lists my readings and F-076 what was not confirmed. OI-F1-05: the offline approach.
+5. The stack: ADR-001 to ADR-004 wait for your approval (ADR-003: Docker only is decided, Sail or our own file is open); ADR-005 and ADR-006 are held. F-075 lists my readings and F-076 what was not confirmed. OI-F1-05: the offline approach.
 6. F-045: the security values of F5 (lock, link, session and retention times); set aside by you on 22/11/2026, to raise again before the launch account is built.
 7. F-050 and F-058: account deletion is later (launch account) and export is in R3, but the public launch gate needs both; decide the order.
 8. PRD section 9.4 lists the 3 waiting items (revision 53).
