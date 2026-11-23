@@ -46,7 +46,7 @@ added_p16 = {"URS-F0-15":("0.3","CHG-036"),"SD-F0-14":("0.3","CHG-036"),"TC-F0-2
  "URS-F5-14":("0.2","CHG-041"),"SRS-F5-21":("0.2","CHG-041"),"TC-F5-29":("0.2","CHG-041"),
  "SD-F5-17":("0.2","CHG-039"),"SD-F5-18":("0.2","CHG-040")}
 firstchg = {"F0":"CHG-018","F1":"CHG-001","F2":"CHG-002","F3":"CHG-003","F4":"CHG-004","F5":"CHG-028"}
-version = {"F0":"0.7","F1":"0.9","F2":"0.9","F3":"0.9","F4":"0.9","F5":"0.8"}
+version = {"F0":"0.8","F1":"0.10","F2":"0.10","F3":"0.10","F4":"0.10","F5":"0.9"}
 # changed in prompt P-34 (22/11/2026): F5 version 0.3, CHG-049
 changed_p34 = {i: "CHG-049" for i in ("URS-F5-06 URS-F5-07 URS-F5-08 URS-F5-14 SRS-F5-08 SRS-F5-12 SRS-F5-14 SRS-F5-16 SRS-F5-21 "
     "TC-F5-14 TC-F5-19 TC-F5-21 TC-F5-22 TC-F5-29").split()}
@@ -65,6 +65,15 @@ changed_p38 = {i: "CHG-051" for i in ("SRS-F0-01 URS-F5-01 URS-F5-03 URS-F5-04 U
     "SRS-F5-04 SRS-F5-05 SRS-F5-06 SRS-F5-07 SRS-F5-08 SRS-F5-09 SRS-F5-10 SRS-F5-11 SRS-F5-12 SRS-F5-13 SRS-F5-15 SRS-F5-16 "
     "SRS-F5-17 TC-F5-04 TC-F5-08 TC-F5-10 TC-F5-11 TC-F5-12 TC-F5-17 TC-F5-23 TC-F5-24 SD-F5-03 SD-F5-04 SD-F5-05 SD-F5-06 "
     "SD-F5-07 SD-F5-08 SD-F5-15").split()}
+# prompts P-60 to P-63 (23/11/2026): owner answers to PRD items 1 to 4 and 7 to 9 (CHG-058)
+changed_p63 = {i: "CHG-058" for i in ("SRS-F0-11 URS-F1-03 URS-F1-09 URS-F1-10 URS-F1-12 SRS-F1-02 SRS-F1-03 SRS-F1-05 SRS-F1-07 SRS-F1-08 "
+    "SRS-F1-12 SRS-F1-13 SRS-F1-14 SRS-F1-19 SRS-F1-23 SRS-F1-24 TC-F1-07 TC-F1-08 TC-F1-22 TC-F1-24 SRS-F3-17 TC-F3-16 "
+    "URS-F4-02 URS-F4-08 SRS-F4-03 SRS-F4-09 SRS-F4-12 TC-F4-03 TC-F4-12").split()}
+approved_p63 = {"SD-F1-02": "Approved by the owner 23/11/2026: no projection, option (a) (CHG-058)",
+    "SD-F1-05": "Approved by the owner 23/11/2026: follow LHDN (CHG-058)"}
+answered["OI-F1-02"] = "Answered by the owner 23/11/2026: counted once, PCB to date (CHG-058)"
+answered["OI-F1-03"] = "Answered by the owner 23/11/2026: closed = the YA has ended (CHG-058)"
+answered["OI-F3-01"] = "Answered by the owner 23/11/2026: admin download stays, admin responsible (CHG-058)"
 reg = {}
 counts = {}
 for k, f in files.items():
@@ -85,6 +94,8 @@ for k, f in files.items():
         else: d = short(cells[1], 120)
         status = {"URS": "Draft", "SRS": "Draft", "TC": "Draft", "SD": "Needs owner decision", "OI": "Open"}[typ]
         if "**Answered" in cells[1]: status = answered[id_]
+        elif id_ in approved_p63: status = approved_p63[id_]
+        elif id_ in changed_p63: status = f"Draft, changed in {version[k]} ({changed_p63[id_]})"
         elif id_ in approved_p34: status = approved_p34[id_]
         elif id_ in ("TC-F0-27", "TC-F1-24", "TC-F2-25", "TC-F2-26"): status = "Draft, new"
         elif id_ in changed_p46: status = f"Draft, changed in {version[k]} ({changed_p46[id_]})"
@@ -123,7 +134,7 @@ A("""# REG-02: URS and SRS change log
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055; F-067 applied, PRD revision 52, F0 at 0.7, F1 to F4 at 0.9, F5 at 0.8, CHG-057) |
+| Last updated | 2026-11-23 (owner answers to PRD items 1 to 4 and 7 to 9: no projection, PCB to date, closed year, admin download, LHDN rounding; DA-01 to DA-15 approved, DA-03 removed; F0 at 0.8, F1 to F4 at 0.10, F5 at 0.9; PRD not changed, CHG-058); 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055; F-067 applied, PRD revision 52, F0 at 0.7, F1 to F4 at 0.9, F5 at 0.8, CHG-057) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -208,22 +219,23 @@ Shared across all six: 21 interfaces, 8 events, 26 data additions, 26 category c
 | CHG-055 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5 | PRD section 5 (SubLimit), section 2.5, section 9.4; F2 B8 OI-F2-04; DA table (shared) | OI-F2-04, DA-25; pending sync item 28 | Decided | DA-25 and OI-F2-04 proposed; pending sync item 28 waiting; PRD section 2.5 did not say which YA is used for real | DA-25 approved: an item-level rule is a SubLimit row with its own eligibility test and claim frequency; OI-F2-04 answered; PRD revision 51: SubLimit has eligibility_rule and claim-frequency fields, item 28 synced and removed from section 9.4; section 2.5 says real use starts with YA 2026, YA 2025 is the reference year, YA 2025 and YA 2026 are the verification focus and YA 2027 stays loaded as Announced (option a). The YA 2027 breastfeeding detail is kept in view. F0 to 0.6, F1 to F4 to 0.8, F5 to 0.7 (the shared DA table changed) | Owner: "let make it a sub-limit"; "focus on YA 2025 and YA 2026"; "the target is to use it from YA 2026 and above"; option (a); "update and update the PRD" | Prompts P-43 and P-44 |
 | CHG-056 | 2026-11-23 | None (research note) | docs/decisions/research/RES_003_YA2025_And_PCB_2026_Check.md | None | Added | YA 2025 checked only from secondary sources and the LHDN reliefs page; PCB method not checked against LHDN | RES-003: every YA 2025 value matches LHDN (Form BE YA 2025 notes); the PCB 2026 specification uses the same projection as SRS-F1-12; proposals in F-067. No requirement document changed, so the versions stay | Owner asked to focus on YA 2025 and YA 2026 and to check them (P-43, P-44) | Prompts P-44 and P-45 |
 | CHG-057 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5 | PRD sections 2.3, 2.4, 3.1 (FR-1.10), 5; F0 B3.1, SRS-F0-01, SRS-F0-02, SRS-F0-07, B2, B3.3, B7; F1 SRS-F1-02, SRS-F1-12, SRS-F1-13, B7; F2 SRS-F2-04, SRS-F2-05, SRS-F2-08, SD-F2-03, B7; shared seed (R03, R06, R14, R20 to R22) and DA table | SRS-F0-01 SRS-F0-02 SRS-F0-07 TC-F0-02 TC-F0-03 SRS-F1-02 SRS-F1-12 SRS-F1-13 SRS-F2-04 SRS-F2-05 SRS-F2-08 SD-F2-03 changed; TC-F0-27, TC-F1-24, TC-F2-25, TC-F2-26, DA-26 added | Changed | No YA 2025 filing deadline; no LHDN conditions for a spouse with foreign income, a pensionable public servant, a first home that earns income, a shared child relief or a child with own income; no PCB entry help; no test from LHDN's PCB example | YA 2025 due 30/04/2026, e-Filing to 15/05/2026 (TaxYear.efiling_deadline); new questions Q11 (spouse foreign income above 4,000), Q12 (public servant under the pension scheme) and Q13 (first home earns income), and child fields relief_shared and own_income_above_relief (DA-26), applied to R03, R14, R06 and R20 to R22; visible question counts 6, 8, 9 and 7; PCB help text and the final-tax notice in F1; TC-F1-24 from LHDN's PCB 2026 example (projected regular PCB 1,284.00, bonus PCB 727.50, annual 2,011.50). PRD revision 52 (section 5 fields, 2.3 conditions, 2.4 deadline, FR-1.10) | Owner approved F-067 (a) to (d): "go for proposal a, b, c, d; update all" (RES-003) | Prompt P-46 |
+| CHG-058 | 2026-11-23 | F0, F1, F2, F3, F4, F5 | F1 A1, A3, FD-F1-03, FD-F1-04, B1, B2, B3, B7, B8; F4 A3, FD, B1, B2, B3.1, B7; F3 SRS-F3-17, B7, B8; F0 SRS-F0-11; F5 B3.3; shared glossary and DA table | URS-F1-03, URS-F1-09, URS-F1-10, URS-F1-12, SRS-F1-02, SRS-F1-03, SRS-F1-05, SRS-F1-07, SRS-F1-08, SRS-F1-12, SRS-F1-13, SRS-F1-14, SRS-F1-19, SRS-F1-23, SRS-F1-24, TC-F1-07, TC-F1-08, TC-F1-22, TC-F1-24, SD-F1-02, SD-F1-05, OI-F1-02, OI-F1-03, SRS-F3-17, TC-F3-16, OI-F3-01, URS-F4-02, URS-F4-08, SRS-F4-03, SRS-F4-09, SRS-F4-12, TC-F4-03, TC-F4-12, SRS-F0-11, DA-01 to DA-15 | Decided | Months with no record projected (carry forward, on by default); projected annual PCB with overrides; a projected PCB card; closed year, rounding and admin download open; DA-01 to DA-15 proposed | No projection: only entered months count; PCB to date = regular plus bonus PCB of every entered month from January, each once; balance "so far" until the YA ends, then final; projected PCB card removed; tax follows LHDN's Form BE method (tax on the first plus the balance, to the sen); admin download stays, the admin does not open the contents and is responsible for the file; DA-01 to DA-15 approved, DA-03 removed, DA-10 without include_projection. TC-F1-07 (1,250.00; 199.00), TC-F1-08 (1,550.00; -101.00), TC-F1-24 (1,161.90), TC-F4-03 and TC-F4-12 recomputed by script | Owner answers to PRD items 1 to 4 and 7 to 9 (option (a) for items 3 and 4); the PRD is not changed until the owner says "update the PRD" | Prompts P-60 to P-63, findings F-070 to F-072 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052), and item 28 in revision 51 on 23/11/2026 (CHG-055); their numbers are not reused. 19 items are still pending. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052), and item 28 in revision 51 on 23/11/2026 (CHG-055); their numbers are not reused. 19 items are still pending. Items 1 to 4 and 7 to 9 were approved by the owner on 23/11/2026 (CHG-058) and wait for "update the PRD"; the other 12 are proposals and keep the status "Waiting for owner approval" until the owner approves them. The PRD lists all 19 in section 9.4. When one is done, a CHG entry of type Synced is added.
 
 | # | PRD place | Change | Matching IDs | Status |
 | --- | --- | --- | --- | --- |
-| 1 | Section 5, data model | Add DA-01 to DA-15 (new fields, RuleTier, UserTaxYear) | DA-01 to DA-15 | Waiting for owner approval |
-| 2 | Section 5, TaxYear | Remove status open or filed (moves to UserTaxYear) | DA-12 | Waiting for owner approval |
-| 3 | FR-1.9 | State that PCB on bonus is counted once | SRS-F1-12, OI-F1-02 | Waiting for owner approval |
-| 4 | FR-1.1 and FR-1.9 | State that income of months with no record is projected, and how | SD-F1-02 | Waiting for owner approval |
+| 1 | Section 5, data model | Add DA-01 to DA-15 (new fields, RuleTier, UserTaxYear), without DA-03 (removed) and without TaxEstimate.include_projection | DA-01 to DA-15 | Approved by the owner 23/11/2026; waiting for "update the PRD" |
+| 2 | Section 5, TaxYear | Remove status open or filed (moves to UserTaxYear, per user) | DA-12 | Approved by the owner 23/11/2026; waiting for "update the PRD" |
+| 3 | FR-1.9 | PCB to date = regular PCB plus PCB on bonus of every entered month from January, each counted once | SRS-F1-12, OI-F1-02 | Approved by the owner 23/11/2026; waiting for "update the PRD" |
+| 4 | FR-1.1, FR-1.3, FR-1.9, FR-1.10, FR-4.2, FR-4.8, BR-9, section 5 TaxEstimate, section 6 PCB example and the FR-1 acceptance example, section 9.1 phase 1 | No projection: only entered months count; replace "projected annual PCB" with PCB to date; the balance is "so far" until the YA ends, then final; drop the projected PCB card; TaxEstimate.projected_pcb_total becomes pcb_to_date | SD-F1-02 | Approved by the owner 23/11/2026; waiting for "update the PRD" |
 | 5 | FR-4.4 | Replace "using the current marginal rate" with the tax difference from scenario | SD-F4-04 | Waiting for owner approval |
 | 6 | Section 2.2 and 5 | Bands store the lower threshold | SD-F1-09 | Waiting for owner approval |
-| 7 | BR-9 | Define "closed" | OI-F1-03 | Waiting for owner approval |
-| 8 | Section 8 roles | Say what "download" means for an admin | OI-F3-01 | Waiting for owner approval |
-| 9 | BR-10 | State the rounding rule | SD-F1-05 | Waiting for owner approval |
+| 7 | BR-9 | "Closed" means the YA has ended (after 31 December), not filed | OI-F1-03 | Approved by the owner 23/11/2026; waiting for "update the PRD" |
+| 8 | Section 8 roles | Admin download stays, only to help with a failed or broken file; the admin does not open the contents and is responsible for the downloaded file | OI-F3-01 | Approved by the owner 23/11/2026; waiting for "update the PRD" |
+| 9 | BR-10 | Follow LHDN: tax on the first part plus the rate times the balance, to the sen; not Bank Negara cash rounding | SD-F1-05 | Approved by the owner 23/11/2026; waiting for "update the PRD" |
 | 10 | Section 4 | Rule change log R1 per-rule history, R2 consolidated | SD-F2-08 | Waiting for owner approval |
 | 14 | Section 5, Dependant | Add person_key and display_name | DA-17 | Waiting for owner approval |
 | 15 | Section 5, TaxEstimate | Add profile_id and profile_version_no | DA-18 | Waiting for owner approval |
@@ -271,6 +283,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-23 | After the rule corrections (CHG-054): build, change log, acronym check and standard check; band tax recomputed by script for TC-F1-01 to TC-F1-06, TC-F1-10, TC-F1-11, TC-F1-17 (unchanged) and TC-F1-23 (new); cumulative tax at 400,000, 600,000 and 2,000,000 equals LHDN's table (84,400.00, 136,400.00, 528,400.00); Pending PRD sync and PRD section 9.4 both list 20 items | 0 errors; acronym check passed; standard check 0 errors; all values match |
 | 2026-11-23 | After DA-25 approval and sync (CHG-055): build, change log, acronym check and standard check; Pending PRD sync and PRD section 9.4 both list 19 items | 0 errors; acronym check passed; standard check 0 errors; 19 of 19 |
 | 2026-11-23 | After F-067 (CHG-057): build, change log, acronym check and standard check; TC-F1-24 recomputed by script (328.20 + 106.20 x 9 = 1,284.00; plus 727.50 = 2,011.50; wrong entry 328.20 + 833.70 x 9 = 7,831.50); TC-F2-25 (1,000 + 0 + 2,000 = 3,000); F0 counts (2 of 6 = 33%, 3 of 8 = 37%, 9 of 9) | 0 errors; acronym check passed; standard check 0 errors; all values match |
+| 2026-11-23 | After the owner answers to PRD items 1 to 4 and 7 to 9 (CHG-058): build, change log, acronym check and standard check; changed IDs found by diffing the built rows against the last commit; TC-F1-07 (125 x 10 = 1,250.00; 1,449 minus 1,250 = 199.00), TC-F1-08 (1,250 + 300 = 1,550.00; -101.00), TC-F1-24 (109.40 x 3 + 106.20 = 434.40; plus 727.50 = 1,161.90; wrong entry 328.20 + 833.70 = 1,161.90) and LHDN's Form BE example (45,500 gives 1,230.00) recomputed by script; no projection wording left in the specifications except the decision and removal notes | 0 errors; acronym check passed; standard check 0 errors; all values match |
 
 ## ID register
 
