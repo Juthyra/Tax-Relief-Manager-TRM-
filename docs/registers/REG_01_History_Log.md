@@ -13,7 +13,7 @@
 | Source | Every owner prompt (P-nn) |
 | Change tracking | This file; detail changes to the URS and SRS in [REG-02](REG_02_URS_SRS_Change_Log.md) |
 | Purpose | Record every finding, decision and process step, so project quality can be tracked and controlled. |
-| Last updated | 2026-11-23 (document standard, AGENTS.md section 6, CHG-051); 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; REG-04 at 0.9; CODEOWNERS for every path, RULE-52, REG-04 at 0.10); 2026-11-18 (main protected by ruleset, RULE-51, REG-04 at 0.8; agent opens pull requests with gh, RULE-49 extended, REG-04 at 0.7; review rule RULE-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47) |
+| Last updated | 2026-11-23 (document standard, AGENTS.md section 6, CHG-051; PRD revision 49 with the approved sync items, CHG-052); 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; REG-04 at 0.9; CODEOWNERS for every path, RULE-52, REG-04 at 0.10); 2026-11-18 (main protected by ruleset, RULE-51, REG-04 at 0.8; agent opens pull requests with gh, RULE-49 extended, REG-04 at 0.7; review rule RULE-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47) |
 
 This is the **main log** of our work on the project. It was called FINDINGS_LOG.md until 2026-11-12. Detail changes to the URS and SRS documents are **not** kept here. They are kept in [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md). This log points to it.
 
@@ -27,13 +27,13 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 
 | Open | Flagged | Unverified | Resolved or Verified | Total |
 | --- | --- | --- | --- | --- |
-| 13 | 12 | 1 | 34 | 60 |
+| 13 | 13 | 1 | 34 | 61 |
 
 ## Files in the project
 
 | Document ID | File | What it is | Version or state |
 | --- | --- | --- | --- |
-| PRD-TRM | docs/prd/PRD_TRM_Malaysia_Tax_Relief_System.md | Product requirements; Git is the master, the Claude Doc is a copy last synced at revision 47 | Revision 48 (header and file name, CHG-051); no PDF regenerated (owner rule of 14/11/2026) |
+| PRD-TRM | docs/prd/PRD_TRM_Malaysia_Tax_Relief_System.md | Product requirements; Git is the master, the Claude Doc is a copy last synced at revision 47 | Revision 49 (header and file name in 48, CHG-051; approved sync items 11, 12, 26, 27 and section 9.4 in 49, CHG-052); no PDF regenerated (owner rule of 14/11/2026) |
 | URS-SRS-F0 | docs/specs/URS_SRS_F0_User_Profile.md | URS and SRS for F0, the user profile and tax-year history | 0.4 draft; the old PDFs are out of date until you ask for new ones |
 | URS-SRS-F1 | docs/specs/URS_SRS_F1_Tax_Calculator.md | URS and SRS for F1, tax calculator for any year | 0.6 draft |
 | URS-SRS-F2 | docs/specs/URS_SRS_F2_Relief_Categories.md | URS and SRS for F2, relief categories and ranges | 0.6 draft |
@@ -154,6 +154,7 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | F-058 | 2026-11-22 | Risk | The PRD public launch gate (section 9.1) lists user export and deletion, but export is now built with R3 (SD-F5-19), and the roadmap does not say whether the public launch comes before or after R3. Also, the account deletion of Phase 2 (SRS-F5-15) offers "Export my data first", which exists only from R3; B3.6 now says the button appears once R3 has built the export. When F5 Phase 2 is built against the PRD phases is not set | PRD section 9.1, NFR-7; F5 SD-F5-19, B3.6 | Public launch could wait for R3, or export must move earlier | Open | Owner: decide whether the public launch waits for R3 or export comes earlier, and where F5 Phase 2 sits in the PRD phases |
 | F-059 | 2026-11-22 | Decision | Pull request notices, option B (P-34): `.github/CODEOWNERS` now starts with `*` for @Juthyra, so GitHub asks the code owners for a review on every pull request and notifies them. My readings: (a) the owner adds each developer's username later, on every CODEOWNERS line; (b) GitHub never notifies the author, and the agent opens pull requests under the owner's account, so the owner sees them in the Pull requests list, not as a notification; (c) I did not turn on "require review from code owners" in the ruleset, because you did not ask for it | Owner prompt P-34; RULE-52 | Developers who join are asked to review every pull request | Resolved | Owner: add the developers' usernames when they join; tell me if (a) to (c) is wrong |
 | F-060 | 2026-11-23 | Flagged | My readings of P-38 for the standard: (a) "the standard is the information in the document" means the title line, the same header rows and the same terms in every document, plus the file names; (b) "follow the ID from PRD" means feature IDs and names, FR, BR and NFR IDs, releases and phases come from the PRD, so F1 is now "Tax calculator for any year" and F2 "Relief categories and ranges" (the PRD headings of sections 3.1 and 3.2); F0 and F5 keep their names because the PRD has no section for them yet; (c) "change everything" covers every file under docs/, so the registers are now REG_01 to REG_04 and the rule IDs RULE-nn; README.md, AGENTS.md, CLAUDE.md, .github/ and the build inputs f0.md to f5.md keep their names because tools need them; (d) older log entries now use the new file names, and AGENTS.md section 6 item 8 lists every old name; (e) the F5 parts are renamed only, their content is unchanged; (f) the standard and the PRD sync are in one branch and one pull request, in two commits, because both change the same logs | Owner prompt P-38; AGENTS.md section 6; RULE-53 to RULE-59 | All documents | Flagged | Owner: tell me if any of (a) to (f) is wrong |
+| F-061 | 2026-11-23 | Flagged | My readings of P-38 for the PRD sync: (a) "the one that has approval" covers items 26 and 27 (SD-F5-17 and SD-F5-19, approved by you) and items 11 and 12 (OI-F2-01 and OI-F2-02, answered from LHDN's own pages on 12/11/2026 after you asked me to search LHDN, P-09); (b) the approved parts of items 22 and 23 (which feature is in which part) are written through item 26, while their values (password length, session lengths, grace period, export format) are proposals and stay waiting; (c) "remark this" is done in three places: the Status column "Waiting for owner approval" in Pending PRD sync (REG-02), the new PRD section 9.4, and RULE-21 and RULE-58; (d) the public launch gate now says the launch account comes before it, and names F-058 as still open instead of choosing the order of R3 and the launch | Owner prompt P-38; PRD sections 2.3, 9.1, 9.3, 9.4 | The PRD and the documents agree on the approved items | Flagged | Owner: tell me if any of (a) to (d) is wrong; 19 sync items wait for your approval |
 
 ## Process log
 
@@ -209,6 +210,8 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | 2026-11-23 | Checked the open pull requests #4, #5 and #6 (not merged yet); created branch `docs/CHG-051-document-standard` on top of `docs/CHG-050-pr-review-requests` | Git |
 | 2026-11-23 | Renamed 12 files with `git mv` and changed every reference by script; R-nn to RULE-nn and R-001 to RES-001; one title line and header in every document; PRD names for F1 and F2; F5 Phase 1 and Phase 2 renamed basic account and launch account; stages in AGENTS.md section 3; AGENTS.md section 6; RULE-53 to RULE-59; REG-04 0.11; new docs/tools/check_standard.py in the workflow | CHG-051; F-060; P-38 |
 | 2026-11-23 | Build 0 errors; change log built; acronym check passed (IDEA.md set aside, as before); standard check 0 errors | Build output |
+| 2026-11-23 | Wrote the approved pending sync items 11, 12, 26 and 27 into the PRD (revision 49), added PRD section 9.4 for the 19 items waiting for approval and the LHDN pages to the Sources; Pending PRD sync has a Status column | CHG-052; F-061; P-38 |
+| 2026-11-23 | Build 0 errors; change log built; acronym check passed; standard check 0 errors | Build output |
 
 ## Where the files live from 23/11/2026
 

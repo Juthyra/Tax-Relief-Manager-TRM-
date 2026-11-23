@@ -12,7 +12,7 @@
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4) |
+| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -94,36 +94,33 @@ Shared across all six: 21 interfaces, 8 events, 24 data additions, 26 category c
 | CHG-049 | 2026-11-22 | F5 | Header, A1, A2, A3, FD-F5-09 and FD-F5-13 titles, A5.4, A6 items 7 and 8, SRS-F5-08, SRS-F5-12, SRS-F5-14, SRS-F5-16, SRS-F5-21, B3.6, B4, B7, SD-F5-09, SD-F5-17, SD-F5-19 (new) | SD-F5-19 added; URS-F5-06, URS-F5-07, URS-F5-08, URS-F5-14, the SRS listed and TC-F5-14, TC-F5-19, TC-F5-21, TC-F5-22, TC-F5-29 changed | Changed | Phase 1 held data export and the deletion of a YA's records past 7 years; Phase 2 held the security events screen, the new-device notice and the list of devices; B3.6 had two columns; A6 item 8 said only that the owner accepted the risk | Data export, deletion of a YA's records past 7 years (with its notice and the one-YA erase run), the security events screen, the new-device notice and the session controls are built with R3, phase 4 of the PRD roadmap (SD-F5-19); B3.6 has a third column for R3; A6 item 8 records that Phase 1 is used only by the owner and invited people; SD-F5-09 confirmed: deletion is optional after the period and never before. F5 at version 0.3 | Owner answers of 22/11/2026 to F-049 and F-051: "yes for me and invited only"; "move it to phase 4 (r3)"; "deletio is optional after 7 years. strictly no delete before 7 years of YA" | Prompts P-33 and P-34 |
 | CHG-050 | 2026-11-22 | AGENTS.md, REG_04_Prompt_Rules.md, CODEOWNERS | AGENTS.md section 5 (review requests); REG-04 RULE-52 (new); `.github/CODEOWNERS` | Review requests on pull requests | Added | CODEOWNERS covered only docs/prd, docs/decisions, docs/registers and AGENTS.md, so a pull request that touched other paths asked nobody for a review | CODEOWNERS starts with `*` (every path) for the owner, with a note on how to add developers; GitHub asks the code owners for a review on every pull request and notifies them. REG-04 at version 0.10. No requirement document changed | The owner asked for a notice when a pull request is opened, so that the owner and later developers see it (option B) | Prompt P-34 |
 | CHG-051 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5, ADR-000 to ADR-005, RES-001, REG-01 to REG-04, AGENTS.md, README, docs-check workflow | File names, title line and header of every document; section 0 shared blocks (document set, FD-00, terms); F5 A1, B3.1, B3.6, SD-F5-17 and every row that said Phase 1 or Phase 2; SRS-F0-01; IF-20; AGENTS.md sections 2, 3 and 6 (new); REG-04 RULE-53 to RULE-59 (new) | The SRS, URS, TC and SD listed in the ID register as "wording changed in 0.4" or "0.6" | Changed | Each type of document had its own file name style (PRD_..., URS_SRS_..., ADR-001-..., HISTORY_LOG.md) and header; F1 and F2 had titles that differ from the PRD headings; "Phase" meant the PRD roadmap, the two parts of F5 and the stages; rule IDs R-nn and research R-001 looked like releases R1 to R4 and relief codes R01 to R24 | One standard (AGENTS.md section 6): file names `<type>_<ID>_<Short_Name>.md` (PRD_TRM, URS_SRS_F0 to F5, ADR_001, RES_001, REG_01 to REG_04); first line `# <Document ID>: <Title>`; the same header rows in every document; the PRD is the master for names and IDs, so F1 is "Tax calculator for any year" and F2 "Relief categories and ranges"; "Phase" means only a PRD roadmap phase; F5 Phase 1 and Phase 2 renamed basic account (R1) and launch account (before public launch), meaning unchanged; stages in AGENTS.md section 3; rule IDs RULE-nn; research RES-001; a new check docs/tools/check_standard.py runs in the workflow. PRD to revision 48 (header and file name only, no requirement changed); F0 to 0.4, F1 to F4 to 0.6, F5 to 0.4 (the shared blocks changed); REG-04 to 0.11 | The owner asked for one standard for every document, with names that follow the PRD IDs and the PRD winning when there is a conflict, so the work can be managed and tracked during development | Prompts P-37 and P-38 |
+| CHG-052 | 2026-11-23 | PRD | Section 2.3 (education and medical insurance; life insurance and EPF), section 9.1 (phase 1, phase 4, public launch gate), section 9.3 decisions 4 and 5, section 9.4 (new), Sources | Pending sync items 11, 12, 26 and 27 | Synced | Revision 48: education and medical insurance "4,000 (confirm)" for every YA; EPF and life insurance sub-limits "as published on LHDN's site"; decisions 4 and 5 kept in view; section 9.1 had no account and security parts; no list of the items waiting for approval | Revision 49: RM 4,000 for YA 2025 from LHDN, carried forward for YA 2026 and YA 2027 with needs confirmation; EPF up to 4,000 and life insurance, family takaful and additional voluntary EPF up to 3,000 inside 7,000; decisions 4 and 5 answered with the LHDN source; phase 1 holds the basic account, phase 4 (R3) the export, old-record deletion, security screens and session controls, and the public launch gate the launch account; F-058 named as open; section 9.4 lists the 19 items still waiting for owner approval | The owner said "update the PRD" for the items that have approval; the others wait and are marked (OI-F2-01, OI-F2-02 answered from LHDN on 12/11/2026; SD-F5-17 approved 14/11/2026; SD-F5-19 approved 22/11/2026) | Prompt P-38 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044); their numbers are not reused. 23 items are still pending. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), and items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052); their numbers are not reused. 19 items are still pending. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
 
-| # | PRD place | Change | Matching IDs |
-| --- | --- | --- | --- |
-| 1 | Section 5, data model | Add DA-01 to DA-15 (new fields, RuleTier, UserTaxYear) | DA-01 to DA-15 |
-| 2 | Section 5, TaxYear | Remove status open or filed (moves to UserTaxYear) | DA-12 |
-| 3 | FR-1.9 | State that PCB on bonus is counted once | SRS-F1-12, OI-F1-02 |
-| 4 | FR-1.1 and FR-1.9 | State that income of months with no record is projected, and how | SD-F1-02 |
-| 5 | FR-4.4 | Replace "using the current marginal rate" with the tax difference from scenario | SD-F4-04 |
-| 6 | Section 2.2 and 5 | Bands store the lower threshold | SD-F1-09 |
-| 7 | BR-9 | Define "closed" | OI-F1-03 |
-| 8 | Section 8 roles | Say what "download" means for an admin | OI-F3-01 |
-| 9 | BR-10 | State the rounding rule | SD-F1-05 |
-| 10 | Section 4 | Rule change log R1 per-rule history, R2 consolidated | SD-F2-08 |
-| 11 | Section 2.3 and decision 4 | Education and medical insurance: RM 4,000 for YA 2025 per LHDN (RM 3,000 for YA 2018 to YA 2024); remove "(confirm)" for YA 2025 | OI-F2-01 |
-| 12 | Section 2.3 and decision 5 | EPF limit RM 4,000 and life insurance limit RM 3,000 inside RM 7,000; additional voluntary EPF counts in the RM 3,000 | OI-F2-02 |
-| 14 | Section 5, Dependant | Add person_key and display_name | DA-17 |
-| 15 | Section 5, TaxEstimate | Add profile_id and profile_version_no | DA-18 |
-| 17 | Section 3 (features) | Add the profile and tax-year history feature F0 with its own FR block (proposed FR-0.1 to FR-0.8) and screens | URS-F0-01 to URS-F0-15 |
-| 20 | Section 5, User | Add status, email_verified_at, deletion_requested_at, deletion_due_on, last_sign_in_at | DA-21 |
-| 21 | Section 5 | Add Credential, Session, ConsentRecord, Invitation, DataRequest and SecurityEvent | DA-22 to DA-24 |
-| 22 | Section 7, Sign in and onboarding | Sign-up by invitation and password rules (basic account); email verified before use, session lengths and sign-in lockout (launch account, SD-F5-17) | SD-F5-01 to SD-F5-04, SD-F5-06 |
-| 23 | Section 7 Settings, NFR-7, NFR-8 | Export as a ZIP; deletion of the whole account with a 14-day grace period (launch account); consent purposes and text headings. The 7-year rule is already in the PRD (CHG-044) | SD-F5-08, SD-F5-09, SD-F5-12, SD-F5-14 |
-| 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (launch account) | SD-F5-05, SD-F5-07 |
-| 25 | Section 3 (features) | Add the account and security feature F5 with its own FR block (proposed FR-5.1 to FR-5.9) and screens | URS-F5-01 to URS-F5-14 |
-| 26 | Section 9.1 (phases) | Account and security is built in two parts: the basic account (the simple account, in R1) and the launch account (the held features, before the public launch) (SD-F5-17) | SD-F5-17 |
-| 27 | Section 9.1, phase 4 (R3) | Add data export, deletion of a YA's records after 7 years, the security events screen, the new-device notice and the session controls to the R3 scope; settle the order against the public launch gate, which lists user export (F-058) | SD-F5-19 |
+| # | PRD place | Change | Matching IDs | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Section 5, data model | Add DA-01 to DA-15 (new fields, RuleTier, UserTaxYear) | DA-01 to DA-15 | Waiting for owner approval |
+| 2 | Section 5, TaxYear | Remove status open or filed (moves to UserTaxYear) | DA-12 | Waiting for owner approval |
+| 3 | FR-1.9 | State that PCB on bonus is counted once | SRS-F1-12, OI-F1-02 | Waiting for owner approval |
+| 4 | FR-1.1 and FR-1.9 | State that income of months with no record is projected, and how | SD-F1-02 | Waiting for owner approval |
+| 5 | FR-4.4 | Replace "using the current marginal rate" with the tax difference from scenario | SD-F4-04 | Waiting for owner approval |
+| 6 | Section 2.2 and 5 | Bands store the lower threshold | SD-F1-09 | Waiting for owner approval |
+| 7 | BR-9 | Define "closed" | OI-F1-03 | Waiting for owner approval |
+| 8 | Section 8 roles | Say what "download" means for an admin | OI-F3-01 | Waiting for owner approval |
+| 9 | BR-10 | State the rounding rule | SD-F1-05 | Waiting for owner approval |
+| 10 | Section 4 | Rule change log R1 per-rule history, R2 consolidated | SD-F2-08 | Waiting for owner approval |
+| 14 | Section 5, Dependant | Add person_key and display_name | DA-17 | Waiting for owner approval |
+| 15 | Section 5, TaxEstimate | Add profile_id and profile_version_no | DA-18 | Waiting for owner approval |
+| 17 | Section 3 (features) | Add the profile and tax-year history feature F0 with its own FR block (proposed FR-0.1 to FR-0.8) and screens | URS-F0-01 to URS-F0-15 | Waiting for owner approval |
+| 20 | Section 5, User | Add status, email_verified_at, deletion_requested_at, deletion_due_on, last_sign_in_at | DA-21 | Waiting for owner approval |
+| 21 | Section 5 | Add Credential, Session, ConsentRecord, Invitation, DataRequest and SecurityEvent | DA-22 to DA-24 | Waiting for owner approval |
+| 22 | Section 7, Sign in and onboarding | Sign-up by invitation and password rules (basic account); email verified before use, session lengths and sign-in lockout (launch account, SD-F5-17) | SD-F5-01 to SD-F5-04, SD-F5-06 | Waiting for owner approval |
+| 23 | Section 7 Settings, NFR-7, NFR-8 | Export as a ZIP; deletion of the whole account with a 14-day grace period (launch account); consent purposes and text headings. The 7-year rule is already in the PRD (CHG-044) | SD-F5-08, SD-F5-09, SD-F5-12, SD-F5-14 | Waiting for owner approval |
+| 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (launch account) | SD-F5-05, SD-F5-07 | Waiting for owner approval |
+| 25 | Section 3 (features) | Add the account and security feature F5 with its own FR block (proposed FR-5.1 to FR-5.9) and screens | URS-F5-01 to URS-F5-14 | Waiting for owner approval |
 
 ## Consistency checks
 
@@ -156,6 +153,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-22 | After the R3 move in F5 (CHG-049): build, change log and acronym check repeated over six documents; only F5 changed | 0 errors; acronym check passed |
 | 2026-11-22 | After the review requests rule (CHG-050): build, change log and acronym check repeated over six documents | 0 errors; acronym check passed |
 | 2026-11-23 | After the document standard (CHG-051): build, change log, acronym check and the new document standard check (check_standard.py) over every document under docs/ | 0 errors; acronym check passed; standard check 0 errors |
+| 2026-11-23 | After the PRD sync (CHG-052): build, change log, acronym check and standard check; Pending PRD sync has 19 rows, each with the status Waiting for owner approval, and PRD section 9.4 lists the same 19 items | 0 errors; acronym check passed; standard check 0 errors; 19 of 19 |
 
 ## ID register
 

@@ -5,12 +5,12 @@
 | Document ID | PRD-TRM |
 | Document type | PRD (product requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | Revision 48 |
+| Version | Revision 49 |
 | Status | Active (the owner's document; changed only when the owner says so, RULE-20) |
 | Date | 2026-11-23 (first written 2026-11-07) |
 | Owner | Champs (product owner) |
 | PRD reference | This document. It is the master for feature names, IDs, releases and phases (AGENTS.md section 6) |
-| Source | Owner prompts P-01 to P-06, P-16 and P-38. The Claude Doc is a copy, last synced at revision 47 |
+| Source | Owner prompts P-01 to P-06, P-16 and P-38. The Claude Doc is a copy, last synced at revision 47; revisions 48 and 49 are in Git only |
 | Change tracking | Synced entries in [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md) |
 
 ## 1. Product overview
@@ -96,9 +96,9 @@ This is the seed data for the rules table, with one column per YA. YA 2027 value
 | Sports (additional lifestyle) | 1,000 | 1,000 | 1,000 | Equipment, facility fees, competition fees, gym. YA 2027: sports shoes up to 300 within the cap |
 | EV charging, food waste composter, home CCTV | 2,500 (EV charging, composter) | 2,500 (CCTV added) | 2,500 | Claimable once within the YA 2026 to YA 2027 period |
 | Domestic tourism | Not available | 1,000 | Not announced (confirm) | Entrance fees to local attractions; art and cultural programmes |
-| Life insurance and EPF | 7,000 combined | 7,000 combined | 7,000 combined | Employee EPF plus life insurance or takaful, one shared cap; sub-limits as published on LHDN's site (decision 5). Budget 2026 proposed extending insurance relief to children (confirm) |
+| Life insurance and EPF | 7,000 combined | 7,000 combined | 7,000 combined | One shared cap of 7,000: up to 4,000 for mandatory EPF (or an approved scheme) and up to 3,000 for life insurance, family takaful and additional voluntary EPF (LHDN, YA 2023 to YA 2025; carried forward for YA 2026 and YA 2027, needs confirmation; decision 5). Budget 2026 proposed extending insurance relief to children (confirm) |
 | PRS and deferred annuity | 3,000 | 3,000 | 3,000 | PRS relief extended to YA 2030 |
-| Education and medical insurance | 4,000 (confirm) | 4,000 (confirm) | 4,000 (confirm) | Premiums for self, spouse, child. See decision 4 |
+| Education and medical insurance | 4,000 (LHDN, Confirmed) | 4,000 (carried forward, needs confirmation) | 4,000 (carried forward, needs confirmation) | Premiums for self, spouse, child. LHDN gives 4,000 for YA 2025 (3,000 for YA 2018 to YA 2024); YA 2026 and YA 2027 are not printed yet. See decision 4 |
 | SOCSO and EIS | 350 | 350 | 350 plus 150 | YA 2027: covers mandatory Lindung Kendiri; extra 150 for voluntary Lindung 24 Jam or Lindung Kendiri |
 | SSPN net savings | 8,000 | 8,000 | 8,000 | Deposits minus withdrawals in the year |
 | Child under 18 | 2,000 per child | 2,000 per child | 2,000 per child | Unmarried |
@@ -425,12 +425,12 @@ R1 should be live early enough to enter YA 2026 receipts before filing in 2027 a
 | Phase | Scope | Exit criteria |
 | --- | --- | --- |
 | 0. Discovery | Research decision 4; verify every rule in section 2 for YA 2025, 2026 and 2027 against LHDN and Ministry of Finance documents; choose the stack | Each rule marked Confirmed, or Announced with a source; decision 4 answered |
-| 1. R1 build | Four core features including PCB projection, profile, household data structures, rule sets for YA 2026 and YA 2027, rules admin, admin support tools, audit fields, PWA offline | All R1 FR and NFR items pass; calculator tests match section 6 for YA 2025, 2026 and 2027 |
+| 1. R1 build | Four core features including PCB projection, profile, household data structures, rule sets for YA 2026 and YA 2027, rules admin, admin support tools, audit fields, PWA offline; the **basic account** of account and security: invitation-only sign-up, password sign-in, a simple session, the consent record, change of the own password and email, a temporary reset link sent by an admin, admin account tools and the Settings screen (SD-F5-17, approved 14/11/2026) | All R1 FR and NFR items pass; calculator tests match section 6 for YA 2025, 2026 and 2027 |
 | 2. Personal use | The product owner enters real YA 2026 receipts and tracks YA 2027 from 1 January 2027 | Estimate matches an independent calculation for YA 2026; no data loss from offline sync; owner judges the features proven |
 | 3. R2 | Year-end optimizer, spouse sharing and joint assessment on the R1 structures, PCB estimate from salary, reminders, filing export, receipt rules | Spouse flows tested with the R1 test data; export layout accepted by a tax-literate reviewer |
-| 4. R3 | Bank and e-wallet import, MyTax assisted entry | Per-feature acceptance set before start |
+| 4. R3 | Bank and e-wallet import, MyTax assisted entry; from account and security: data export, deletion of the records of a YA once its 7 years have ended (with its notice), the security events screen, the new-device notice and the session controls (SD-F5-19, approved 22/11/2026) | Per-feature acceptance set before start |
 | 5. R4 | Receipt OCR, non-salary income | Per-feature acceptance set before start |
-| Public launch gate | Decided by the owner once the features are proven | Items marked "before public launch" done: consent, user export and deletion, two-factor login, availability target, hosting decision, PDPA review |
+| Public launch gate | Decided by the owner once the features are proven; the **launch account** of account and security is built before it: sign-in lockout, emailed links (verification, self-service forgot password, email change), staying signed in, two-factor login, deletion of the whole account (SD-F5-17) | Items marked "before public launch" done: consent, user export and deletion, two-factor login, availability target, hosting decision, PDPA review. User export is built with R3, so whether the launch waits for R3 is still open (finding F-058) |
 
 ### 9.2 Risks
 
@@ -451,17 +451,36 @@ R1 should be live early enough to enter YA 2026 receipts before filing in 2027 a
 | 1 | Who uses v1? | Product owner only; opens to the public once the features are proven | Section 1 assumptions; public-launch items in sections 7 and 9 |
 | 2 | Spouse sharing and joint assessment | Build in R2; the data structures are ready in R1 so R2 can be developed and tested | Household data structures in R1; screens and calculation in R2 |
 | 3 | OCR and non-salary income | Moved to R4 | Section 4 |
-| 4 | Education and medical insurance cap (RM3,000 in one source, RM4,000 in another) | **Kept in view.** The system uses LHDN's published figures as its source, so the value is taken from LHDN's YA table when the rules are verified | Marked "confirm" in section 2.3; Phase 0 exit |
-| 5 | EPF and life insurance caps | Combined cap; limits as published on LHDN's website | BR-4; seed values taken from LHDN's site at verification |
+| 4 | Education and medical insurance cap (RM3,000 in one source, RM4,000 in another) | **Answered for YA 2025 (12/11/2026, OI-F2-01):** LHDN gives RM4,000 for YA 2025 and RM3,000 for YA 2018 to YA 2024. YA 2026 and YA 2027 carry RM4,000 forward until LHDN prints their tables | Section 2.3; the YA 2026 and YA 2027 values are confirmed at the phase 0 verification |
+| 5 | EPF and life insurance caps | **Answered (12/11/2026, OI-F2-02):** combined cap RM7,000; RM4,000 for mandatory EPF and RM3,000 for life insurance, family takaful and additional voluntary EPF (LHDN, YA 2023 to YA 2025) | BR-4; section 2.3; YA 2026 and YA 2027 confirmed at verification |
 | 6 | Admin access to user data | Admin manages the full profile (including marital status, children and disability) and upload, download and delete of files. Admin never accesses income, tax, PCB, spending or receipts; the profile owner manages those | Section 8 roles; data rule on admin actions |
 | 7 | Child age test and rounding | Follow LHDN's condition for each relief; tax rounded to the sen | BR-10, BR-11 |
 | 8 | Hosting | Split: the owner's personal use first on DigitalOcean or AWS; before public launch, the hosting location is decided against PDPA compliance. Not a government system; it only displays tax information | Hosting note in section 7; public launch gate |
 | 9 | Audit design | Confirmed as needed: audit fields on every entity, with every change kept in the entity itself. Implemented as a new version row per edit | Section 5 |
 
+### 9.4 Items waiting for owner approval
+
+These changes come from the URS and SRS documents. They are **proposals, not part of this PRD yet**. Each one waits for the owner's approval and then is written in here with a Synced entry. The full list is Pending PRD sync in [REG-02](../registers/REG_02_URS_SRS_Change_Log.md#pending-prd-sync).
+
+| Item | PRD place | Proposal | Status |
+| --- | --- | --- | --- |
+| 1, 2 | Section 5, data model | New fields and tables DA-01 to DA-15; filed status per user (UserTaxYear) | Waiting for owner approval |
+| 3, 4 | FR-1.1, FR-1.9 | PCB on bonus counted once; income of months with no record projected | Waiting for owner approval |
+| 5 | FR-4.4 | Rank reliefs by the tax difference, not the marginal rate | Waiting for owner approval |
+| 6, 9 | Sections 2.2 and 5, BR-10 | Bands store the lower threshold; rounding rule | Waiting for owner approval |
+| 7 | BR-9 | Meaning of a "closed" year | Waiting for owner approval |
+| 8 | Section 8 roles | What "download" means for an admin | Waiting for owner approval |
+| 10 | Section 4 | Rule change log: per-rule history in R1, consolidated view in R2 | Waiting for owner approval |
+| 14, 15 | Section 5 | Dependant person_key and display_name; profile reference on TaxEstimate | Waiting for owner approval |
+| 17, 25 | Section 3 | Feature blocks for F0 profile and F5 account and security (FR-0 and FR-5) | Waiting for owner approval |
+| 20, 21 | Section 5 | Account fields and tables (Credential, Session, ConsentRecord, Invitation, DataRequest, SecurityEvent) | Waiting for owner approval |
+| 22, 23, 24 | Section 7, NFR-6, NFR-7 | Sign-in values, export format, deletion grace period, consent purposes, two-factor method | Waiting for owner approval |
+
 ### Sources
 
 Pages opened for this document; all figures were read on 7 November 2026.
 
+- [LHDN, tax reliefs](https://www.hasil.gov.my/en/individual/individual-life-cycle/income-declaration/tax-reliefs/?pg=) and [LHDN, Maximise your tax relief leaflet](https://www.hasil.gov.my/wp-content/uploads/T2026_maximise-your-tax-relief.pdf), read on 12 November 2026 for decisions 4 and 5 (F-029)
 - [3E Accounting, Malaysia Personal Income Tax Rate](https://www.3ecpa.com.my/resources/malaysia-taxation/individual-income-tax/malaysia-personal-income-tax-rate/)
 - [RinggitPlus, Everything You Can Claim As Income Tax Relief (YA 2025)](https://ringgitplus.com/en/blog/tax/everything-you-can-claim-as-income-tax-relief-in-malaysia-2026-filing-for-ya-2025.html)
 - [BrioHR, Key Tax Relief Updates for 2026](https://support.briohr.com/knowledge/payroll-malaysia-key-tax-relief-updates-for-the-year-2026)
