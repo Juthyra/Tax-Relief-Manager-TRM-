@@ -46,7 +46,7 @@ added_p16 = {"URS-F0-15":("0.3","CHG-036"),"SD-F0-14":("0.3","CHG-036"),"TC-F0-2
  "URS-F5-14":("0.2","CHG-041"),"SRS-F5-21":("0.2","CHG-041"),"TC-F5-29":("0.2","CHG-041"),
  "SD-F5-17":("0.2","CHG-039"),"SD-F5-18":("0.2","CHG-040")}
 firstchg = {"F0":"CHG-018","F1":"CHG-001","F2":"CHG-002","F3":"CHG-003","F4":"CHG-004","F5":"CHG-028"}
-version = {"F0":"0.6","F1":"0.8","F2":"0.8","F3":"0.8","F4":"0.8","F5":"0.7"}
+version = {"F0":"0.7","F1":"0.9","F2":"0.9","F3":"0.9","F4":"0.9","F5":"0.8"}
 # changed in prompt P-34 (22/11/2026): F5 version 0.3, CHG-049
 changed_p34 = {i: "CHG-049" for i in ("URS-F5-06 URS-F5-07 URS-F5-08 URS-F5-14 SRS-F5-08 SRS-F5-12 SRS-F5-14 SRS-F5-16 SRS-F5-21 "
     "TC-F5-14 TC-F5-19 TC-F5-21 TC-F5-22 TC-F5-29").split()}
@@ -57,6 +57,9 @@ added_p16["SD-F5-19"] = ("0.3", "CHG-049")
 # prompt P-42 (23/11/2026): rule corrections from RES-002 (CHG-054)
 changed_p42 = {i: "CHG-054" for i in "SRS-F2-08 TC-F2-02 TC-F2-03 OI-F2-03 TC-F3-10 TC-F3-12".split()}
 added_p16["TC-F1-23"] = ("0.7", "CHG-054"); added_p16["OI-F2-04"] = ("0.7", "CHG-054")
+# prompt P-46 (23/11/2026): F-067 (a) to (d) applied (CHG-057)
+changed_p46 = {i: "CHG-057" for i in "SRS-F0-01 SRS-F0-02 SRS-F0-07 TC-F0-02 TC-F0-03 SRS-F1-02 SRS-F1-12 SRS-F1-13 SRS-F2-04 SRS-F2-05 SRS-F2-08 SD-F2-03".split()}
+for _i, _v in (("TC-F0-27", "0.7"), ("TC-F1-24", "0.9"), ("TC-F2-25", "0.9"), ("TC-F2-26", "0.9")): added_p16[_i] = (_v, "CHG-057")
 # changed in prompt P-38 (23/11/2026): wording only, Phase 1 and Phase 2 renamed basic account and launch account (CHG-051)
 changed_p38 = {i: "CHG-051" for i in ("SRS-F0-01 URS-F5-01 URS-F5-03 URS-F5-04 URS-F5-05 URS-F5-09 SRS-F5-01 SRS-F5-02 SRS-F5-03 "
     "SRS-F5-04 SRS-F5-05 SRS-F5-06 SRS-F5-07 SRS-F5-08 SRS-F5-09 SRS-F5-10 SRS-F5-11 SRS-F5-12 SRS-F5-13 SRS-F5-15 SRS-F5-16 "
@@ -83,6 +86,8 @@ for k, f in files.items():
         status = {"URS": "Draft", "SRS": "Draft", "TC": "Draft", "SD": "Needs owner decision", "OI": "Open"}[typ]
         if "**Answered" in cells[1]: status = answered[id_]
         elif id_ in approved_p34: status = approved_p34[id_]
+        elif id_ in ("TC-F0-27", "TC-F1-24", "TC-F2-25", "TC-F2-26"): status = "Draft, new"
+        elif id_ in changed_p46: status = f"Draft, changed in {version[k]} ({changed_p46[id_]})"
         elif id_ in ("TC-F1-23", "OI-F2-04"): status = "Draft, new" if id_ == "TC-F1-23" else "Answered by the owner 23/11/2026: sub-limits, DA-25 approved (CHG-055)"
         elif id_ in changed_p42: status = f"Draft, changed in {version[k]} ({changed_p42[id_]})"
         elif id_ == "OI-F5-06": status = "Held by the owner 23/11/2026, decided with the stack in ADR-006 (CHG-053)"
@@ -118,7 +123,7 @@ A("""# REG-02: URS and SRS change log
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055) |
+| Last updated | 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055; F-067 applied, PRD revision 52, F0 at 0.7, F1 to F4 at 0.9, F5 at 0.8, CHG-057) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -127,7 +132,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 1. **Version numbers.** Each document starts at 0.1 (first draft). Any change to an ID, a number, a rule or a diagram raises the minor version (0.2, 0.3). When the owner approves a document it becomes 1.0. After that, changes raise 1.1, 1.2.
 2. **One entry per detail.** Every change gets the next CHG number and states: the document, the section, the ID changed, the type, what it said before, what it says now, why, and which prompt or finding caused it.
 3. **Change types:** Added, Changed, Removed, Clarified, Decided (owner answered an SD or OI), Synced (the PRD was updated to match).
-4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-25) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
+4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-26) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
 5. **IDs are never reused.** A removed ID stays in the register with status Removed.
 6. **Status in the register:** Draft (written, not reviewed), Needs owner decision (SD), Open (OI), Approved, Changed, Removed.
 
@@ -140,7 +145,7 @@ for k, f in files.items():
     A(f"| {k} | [{f}](../specs/{f}) | {names[k]} | {version[k]} | 2026-11-13 | Draft for owner review | {c['URS']} | {c['SRS']} | {c['FD']} | {c['SQ']} | {c['TC']} | {c['SD']} | {c['OI']} | {c['lines']} |")
 A(f"| | Total | | | | | {tot['URS']} | {tot['SRS']} | {tot['FD']} | {tot['SQ']} | {tot['TC']} | {tot['SD']} | {tot['OI']} | |")
 A("""
-Shared across all six: 21 interfaces, 8 events, 25 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
+Shared across all six: 21 interfaces, 8 events, 26 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
 
 ## Change register
 
@@ -202,6 +207,7 @@ Shared across all six: 21 interfaces, 8 events, 25 data additions, 26 category c
 | CHG-054 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5 | PRD sections 2.2, 2.3, 2.5, 9.4, Sources; F1 B3.1, B7; F2 A6 item 3, SRS-F2-08, B7, B8; F3 B7; shared seed catalogue (B2.3) and DA table | SRS-F2-08, TC-F2-02, TC-F2-03, OI-F2-01, OI-F2-03, TC-F3-10, TC-F3-12 changed; TC-F1-23, OI-F2-04, DA-25 added | Changed | One band 400,001 to 1,000,000 at 26% (28% to 2,000,000; YA 2027 30% from 1,000,001); R12 once-only for the whole relief and no grinder; R23 child up to 12 everywhere from YA 2026; R15 child policy "confirm"; R17 YA 2026 and YA 2027 "needs confirmation"; R13 not available in YA 2027; R05 skills sub-limit 2,000 in YA 2027; R24 a separate relief in YA 2027; YA rule rows from secondary sources | Bands 400,001 to 600,000 at 26% and 600,001 to 1,000,000 at 28% (YA 2027 the same, then 30% above 1,000,000), with TC-F1-23 (RM 700,000 gives 164,400.00 for YA 2026 and 163,600.00 for YA 2027); R12 sub-limits EV_CHARGING, COMPOSTER, GRINDER, CCTV with their own once-only rules; R23 sub-limits TASKA_TADIKA (6) and CARE_CENTRE (12); R15 child policy counts from YA 2026; R17 Confirmed for YA 2026; R13 1,000 in YA 2027; R05 YA 2027 sub-limits TVET 3,000 and COURSES_CLASSES 2,000; R24 moves into R07 as BREASTFEEDING from YA 2027; R07 and R05 take their YA 2027 names; DA-25 and OI-F2-04 proposed for item-level rules; PRD revision 50 with primary sources and pending sync item 28. TC-F1-01 to TC-F1-06 recomputed by script: no change | The owner said "update" for the F-063 corrections found by the YA 2026 and YA 2027 check (RES-002) | Prompt P-42 |
 | CHG-055 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5 | PRD section 5 (SubLimit), section 2.5, section 9.4; F2 B8 OI-F2-04; DA table (shared) | OI-F2-04, DA-25; pending sync item 28 | Decided | DA-25 and OI-F2-04 proposed; pending sync item 28 waiting; PRD section 2.5 did not say which YA is used for real | DA-25 approved: an item-level rule is a SubLimit row with its own eligibility test and claim frequency; OI-F2-04 answered; PRD revision 51: SubLimit has eligibility_rule and claim-frequency fields, item 28 synced and removed from section 9.4; section 2.5 says real use starts with YA 2026, YA 2025 is the reference year, YA 2025 and YA 2026 are the verification focus and YA 2027 stays loaded as Announced (option a). The YA 2027 breastfeeding detail is kept in view. F0 to 0.6, F1 to F4 to 0.8, F5 to 0.7 (the shared DA table changed) | Owner: "let make it a sub-limit"; "focus on YA 2025 and YA 2026"; "the target is to use it from YA 2026 and above"; option (a); "update and update the PRD" | Prompts P-43 and P-44 |
 | CHG-056 | 2026-11-23 | None (research note) | docs/decisions/research/RES_003_YA2025_And_PCB_2026_Check.md | None | Added | YA 2025 checked only from secondary sources and the LHDN reliefs page; PCB method not checked against LHDN | RES-003: every YA 2025 value matches LHDN (Form BE YA 2025 notes); the PCB 2026 specification uses the same projection as SRS-F1-12; proposals in F-067. No requirement document changed, so the versions stay | Owner asked to focus on YA 2025 and YA 2026 and to check them (P-43, P-44) | Prompts P-44 and P-45 |
+| CHG-057 | 2026-11-23 | PRD, F0, F1, F2, F3, F4, F5 | PRD sections 2.3, 2.4, 3.1 (FR-1.10), 5; F0 B3.1, SRS-F0-01, SRS-F0-02, SRS-F0-07, B2, B3.3, B7; F1 SRS-F1-02, SRS-F1-12, SRS-F1-13, B7; F2 SRS-F2-04, SRS-F2-05, SRS-F2-08, SD-F2-03, B7; shared seed (R03, R06, R14, R20 to R22) and DA table | SRS-F0-01 SRS-F0-02 SRS-F0-07 TC-F0-02 TC-F0-03 SRS-F1-02 SRS-F1-12 SRS-F1-13 SRS-F2-04 SRS-F2-05 SRS-F2-08 SD-F2-03 changed; TC-F0-27, TC-F1-24, TC-F2-25, TC-F2-26, DA-26 added | Changed | No YA 2025 filing deadline; no LHDN conditions for a spouse with foreign income, a pensionable public servant, a first home that earns income, a shared child relief or a child with own income; no PCB entry help; no test from LHDN's PCB example | YA 2025 due 30/04/2026, e-Filing to 15/05/2026 (TaxYear.efiling_deadline); new questions Q11 (spouse foreign income above 4,000), Q12 (public servant under the pension scheme) and Q13 (first home earns income), and child fields relief_shared and own_income_above_relief (DA-26), applied to R03, R14, R06 and R20 to R22; visible question counts 6, 8, 9 and 7; PCB help text and the final-tax notice in F1; TC-F1-24 from LHDN's PCB 2026 example (projected regular PCB 1,284.00, bonus PCB 727.50, annual 2,011.50). PRD revision 52 (section 5 fields, 2.3 conditions, 2.4 deadline, FR-1.10) | Owner approved F-067 (a) to (d): "go for proposal a, b, c, d; update all" (RES-003) | Prompt P-46 |
 
 ## Pending PRD sync
 
@@ -264,6 +270,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-23 | After the phase 0 answers (CHG-053): build, change log, acronym check and standard check; RES-002 tax bands above RM 400,000 re-read on the LHDN rate page | 0 errors; acronym check passed; standard check 0 errors; LHDN table matches RES-002 |
 | 2026-11-23 | After the rule corrections (CHG-054): build, change log, acronym check and standard check; band tax recomputed by script for TC-F1-01 to TC-F1-06, TC-F1-10, TC-F1-11, TC-F1-17 (unchanged) and TC-F1-23 (new); cumulative tax at 400,000, 600,000 and 2,000,000 equals LHDN's table (84,400.00, 136,400.00, 528,400.00); Pending PRD sync and PRD section 9.4 both list 20 items | 0 errors; acronym check passed; standard check 0 errors; all values match |
 | 2026-11-23 | After DA-25 approval and sync (CHG-055): build, change log, acronym check and standard check; Pending PRD sync and PRD section 9.4 both list 19 items | 0 errors; acronym check passed; standard check 0 errors; 19 of 19 |
+| 2026-11-23 | After F-067 (CHG-057): build, change log, acronym check and standard check; TC-F1-24 recomputed by script (328.20 + 106.20 x 9 = 1,284.00; plus 727.50 = 2,011.50; wrong entry 328.20 + 833.70 x 9 = 7,831.50); TC-F2-25 (1,000 + 0 + 2,000 = 3,000); F0 counts (2 of 6 = 33%, 3 of 8 = 37%, 9 of 9) | 0 errors; acronym check passed; standard check 0 errors; all values match |
 
 ## ID register
 

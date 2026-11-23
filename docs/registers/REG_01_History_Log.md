@@ -13,7 +13,7 @@
 | Source | Every owner prompt (P-nn) |
 | Change tracking | This file; detail changes to the URS and SRS in [REG-02](REG_02_URS_SRS_Change_Log.md) |
 | Purpose | Record every finding, decision and process step, so project quality can be tracked and controlled. |
-| Last updated | 2026-11-23 (RES-003 YA 2025 and PCB 2026 check, CHG-056); 2026-11-23 (DA-25 approved, PRD revision 51, YA 2025 and YA 2026 focus, CHG-055); 2026-11-23 (rule corrections from RES-002, PRD revision 50, CHG-054); 2026-11-23 (phase 0 answers, ADR-006 email held, RES-002 YA 2026 and YA 2027 rule check, F5 at 0.5, CHG-053); 2026-11-23 (document standard, AGENTS.md section 6, CHG-051; PRD revision 49 with the approved sync items, CHG-052); 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; REG-04 at 0.9; CODEOWNERS for every path, RULE-52, REG-04 at 0.10); 2026-11-18 (main protected by ruleset, RULE-51, REG-04 at 0.8; agent opens pull requests with gh, RULE-49 extended, REG-04 at 0.7; review rule RULE-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47) |
+| Last updated | 2026-11-23 (F-067 applied, PRD revision 52, CHG-057); 2026-11-23 (RES-003 YA 2025 and PCB 2026 check, CHG-056); 2026-11-23 (DA-25 approved, PRD revision 51, YA 2025 and YA 2026 focus, CHG-055); 2026-11-23 (rule corrections from RES-002, PRD revision 50, CHG-054); 2026-11-23 (phase 0 answers, ADR-006 email held, RES-002 YA 2026 and YA 2027 rule check, F5 at 0.5, CHG-053); 2026-11-23 (document standard, AGENTS.md section 6, CHG-051; PRD revision 49 with the approved sync items, CHG-052); 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; REG-04 at 0.9; CODEOWNERS for every path, RULE-52, REG-04 at 0.10); 2026-11-18 (main protected by ruleset, RULE-51, REG-04 at 0.8; agent opens pull requests with gh, RULE-49 extended, REG-04 at 0.7; review rule RULE-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47) |
 
 This is the **main log** of our work on the project. It was called FINDINGS_LOG.md until 2026-11-12. Detail changes to the URS and SRS documents are **not** kept here. They are kept in [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md). This log points to it.
 
@@ -27,19 +27,19 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 
 | Open | Flagged | Unverified | Resolved or Verified | Total |
 | --- | --- | --- | --- | --- |
-| 16 | 10 | 1 | 40 | 67 |
+| 15 | 11 | 1 | 41 | 68 |
 
 ## Files in the project
 
 | Document ID | File | What it is | Version or state |
 | --- | --- | --- | --- |
-| PRD-TRM | docs/prd/PRD_TRM_Malaysia_Tax_Relief_System.md | Product requirements; Git is the master, the Claude Doc is a copy last synced at revision 47 | Revision 51 (header and file name in 48, CHG-051; approved sync items 11, 12, 26, 27 and section 9.4 in 49, CHG-052; rule corrections from RES-002 in 50, CHG-054; DA-25 and the YA focus in 51, CHG-055); no PDF regenerated (owner rule of 14/11/2026) |
-| URS-SRS-F0 | docs/specs/URS_SRS_F0_User_Profile.md | URS and SRS for F0, the user profile and tax-year history | 0.6 draft; the old PDFs are out of date until you ask for new ones |
-| URS-SRS-F1 | docs/specs/URS_SRS_F1_Tax_Calculator.md | URS and SRS for F1, tax calculator for any year | 0.8 draft |
-| URS-SRS-F2 | docs/specs/URS_SRS_F2_Relief_Categories.md | URS and SRS for F2, relief categories and ranges | 0.8 draft |
-| URS-SRS-F3 | docs/specs/URS_SRS_F3_Spending_Records.md | URS and SRS for F3, spending records | 0.8 draft |
-| URS-SRS-F4 | docs/specs/URS_SRS_F4_Dashboard.md | URS and SRS for F4, dashboard | 0.8 draft |
-| URS-SRS-F5 | docs/specs/URS_SRS_F5_Account_Security.md | URS and SRS for F5, account and security | 0.7 draft |
+| PRD-TRM | docs/prd/PRD_TRM_Malaysia_Tax_Relief_System.md | Product requirements; Git is the master, the Claude Doc is a copy last synced at revision 47 | Revision 52 (header and file name in 48, CHG-051; approved sync items 11, 12, 26, 27 and section 9.4 in 49, CHG-052; rule corrections from RES-002 in 50, CHG-054; DA-25 and the YA focus in 51, CHG-055; LHDN conditions, YA 2025 deadline and PCB help in 52, CHG-057); no PDF regenerated (owner rule of 14/11/2026) |
+| URS-SRS-F0 | docs/specs/URS_SRS_F0_User_Profile.md | URS and SRS for F0, the user profile and tax-year history | 0.7 draft; the old PDFs are out of date until you ask for new ones |
+| URS-SRS-F1 | docs/specs/URS_SRS_F1_Tax_Calculator.md | URS and SRS for F1, tax calculator for any year | 0.9 draft |
+| URS-SRS-F2 | docs/specs/URS_SRS_F2_Relief_Categories.md | URS and SRS for F2, relief categories and ranges | 0.9 draft |
+| URS-SRS-F3 | docs/specs/URS_SRS_F3_Spending_Records.md | URS and SRS for F3, spending records | 0.9 draft |
+| URS-SRS-F4 | docs/specs/URS_SRS_F4_Dashboard.md | URS and SRS for F4, dashboard | 0.9 draft |
+| URS-SRS-F5 | docs/specs/URS_SRS_F5_Account_Security.md | URS and SRS for F5, account and security | 0.8 draft |
 | ADR-000 to ADR-006 | docs/decisions/ADR_000_Template.md to ADR_006_Email_Service.md | Template and the six technical decisions | ADR-001 to ADR-005 at 0.2, ADR-006 at 0.1; all Proposed |
 | RES-001 | docs/decisions/research/RES_001_Frontend_Frameworks.md | Front-end framework findings | 0.2 draft, findings only |
 | RES-002 | docs/decisions/research/RES_002_YA2026_YA2027_Rule_Check.md | YA 2026 and YA 2027 rules checked against the Finance Act 2025, LHDN and Budget 2027 | 0.1 draft, findings only |
@@ -47,7 +47,7 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | REG-01 | docs/registers/REG_01_History_Log.md | This file, the main log | Running log |
 | REG-02 | docs/registers/REG_02_URS_SRS_Change_Log.md | Detail change log for the six URS and SRS documents and the PRD sync | Running log |
 | REG-03 | docs/registers/REG_03_Acronyms.md | Register of every acronym, ID prefix and code value, checked by docs/tools/check_acronyms.py | Running register |
-| REG-04 | docs/registers/REG_04_Prompt_Rules.md | Standing rules for prompts and for how we work | 0.13 draft |
+| REG-04 | docs/registers/REG_04_Prompt_Rules.md | Standing rules for prompts and for how we work | 0.14 draft |
 
 ## Prompt register
 
@@ -98,6 +98,7 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | P-43 | 2026-11-23 | F-065: focus on YA 2025 and YA 2026, the reference for filling in the tax form; DA-25 and OI-F2-04: make it a sub-limit; F-064: keep in view, focus on clear YA 2025 and YA 2026 requirements; the target is use from YA 2026 onwards | Information first: my readings and one question (keep YA 2027 in R1 or drop it); nothing changed |
 | P-44 | 2026-11-23 | "q1: we take (a)" (keep YA 2027 in R1 as Announced); "update and update the PRD" | DA-25 approved, OI-F2-04 answered, PRD revision 51 (SubLimit fields, section 2.5 year focus, item 28 synced); F-064 kept in view; F-065 split, F-066 new; YA 2025 check and PCB 2026 and TP1 check started; CHG-055 |
 | P-45 | 2026-11-23 | (No new prompt: the YA 2025 and PCB 2026 checks started in P-44 finished) | RES-003 written; F-065 items 1 and 4 done; F-067 proposals; no rule value changed; CHG-056 |
+| P-46 | 2026-11-23 | "go for proposal: a, b, c, d; update all" | F-067 applied (CHG-057): YA 2025 deadline; Q11 to Q13 and two child fields (DA-26); PCB help text and final-tax notice; TC-F0-27, TC-F1-24, TC-F2-25, TC-F2-26; PRD revision 52; F-067 resolved; F-068 |
 
 ## Findings
 
@@ -169,7 +170,8 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | F-064 | 2026-11-23 | Flagged | My readings of P-42 ("update"): (a) it covers the corrections listed in F-063, including PRD sections 2.2, 2.3 and 2.5, because F-063 asked for "update" for exactly these; (b) it also answers yes to my question about noting the re-check dates, so they are tracked in F-065; (c) three rules apply to one item inside a category (R12 once-only items, R23 age by type of centre, breastfeeding inside R07 from YA 2027), which the data model cannot hold yet, so I proposed DA-25 and OI-F2-04 and wrote the seed and tests on that proposal; (d) Budget 2027 does not say whether breastfeeding keeps "once every 2 YAs" inside R07, so I kept it until the Finance Act 2026 says otherwise; (e) R05 and R07 carry their Budget 2027 names from YA 2027 (Education and Skills Training Fees; Health and Well-being), and their codes stay the same | Owner prompt P-42; RES-002 | Seed catalogue, F3 tests TC-F3-10 and TC-F3-12 | Open | Kept in view by the owner on 23/11/2026 (P-43): the YA 2027 parts (d) and (e) wait until YA 2027 is in focus. DA-25 and OI-F2-04 of (c) were approved (CHG-055) |
 | F-065 | 2026-11-23 | Open | LHDN checks for YA 2025 and YA 2026, the focus years (owner, 23/11/2026): (1) PCB 2026 specification and the TP1 (1/2026) form; (2) the LHDN YA 2026 leaflet; (3) the YA 2026 filing deadline when LHDN publishes the 2027 filing programme; (4) every YA 2025 rule row by row against LHDN's YA 2025 relief page and the Form BE 2025 notes (RES-002 checked YA 2026 in full, not YA 2025). The YA 2027 checks moved to F-066 | RES-002 section 6; PRD section 2.5 | Rules change every year; the app holds them as data with a status and a source | Open | Items 1 and 4 done on 23/11/2026 (RES-003): YA 2025 matches LHDN in every value; the PCB 2026 method agrees with F1. Still open: item 2 (YA 2026 leaflet) and item 3 (YA 2026 filing deadline), when LHDN publishes them |
 | F-066 | 2026-11-23 | Open | YA 2027 checks kept in view by the owner (P-43, P-44): (1) every YA 2027 rule against the gazetted Finance Act 2026 (first reading 16/11/2026); (2) LHDN's public ruling for YA 2027; (3) Budget 2028 in October 2027 for YA 2028. YA 2027 stays in R1 as Announced (option a) | F-065 before the split; OI-F2-03; F-002 | YA 2027 estimates may change before the Act passes; they are labelled "estimate" | Open | Kept in view; check when the owner brings YA 2027 into focus or the Act is gazetted |
-| F-067 | 2026-11-23 | Open | Proposals from RES-003, waiting for the owner: (a) set the YA 2025 filing deadline to 30/04/2026, e-Filing to 15/05/2026 (LHDN filing programme 2026); (b) add the LHDN eligibility conditions A1 to A5 (spouse with foreign income above RM 4,000; child relief shared 50/50 and no relief for a child with own income above it; pensionable public servants without the EPF part; serious disease and fertility inside medical; first home one unit and not earning income); (c) PCB entry notes B1 to B4 in F1 (enter bonus PCB separately; leave out extra PCB and CP38 instalments; include an earlier employer's PCB from Form TP3; PCB as final tax only when the 5 conditions hold and the person does not file); (d) a new F1 test from LHDN's worked example (B5: normal PCB projection 1,284.00, bonus PCB 727.50) | RES-003 | Accuracy of the YA 2025 reference and the PCB balance for YA 2026 | Open | Owner: say which of (a) to (d) to apply, then "update" |
+| F-067 | 2026-11-23 | Open | Proposals from RES-003, waiting for the owner: (a) set the YA 2025 filing deadline to 30/04/2026, e-Filing to 15/05/2026 (LHDN filing programme 2026); (b) add the LHDN eligibility conditions A1 to A5 (spouse with foreign income above RM 4,000; child relief shared 50/50 and no relief for a child with own income above it; pensionable public servants without the EPF part; serious disease and fertility inside medical; first home one unit and not earning income); (c) PCB entry notes B1 to B4 in F1 (enter bonus PCB separately; leave out extra PCB and CP38 instalments; include an earlier employer's PCB from Form TP3; PCB as final tax only when the 5 conditions hold and the person does not file); (d) a new F1 test from LHDN's worked example (B5: normal PCB projection 1,284.00, bonus PCB 727.50) | RES-003 | Accuracy of the YA 2025 reference and the PCB balance for YA 2026 | Resolved | Owner approved (a) to (d) on 23/11/2026 (P-46); applied in CHG-057 |
+| F-068 | 2026-11-23 | Flagged | My readings of P-46 ("update all"): (a) "all" includes the PRD, so section 5 (new fields), 2.3 (conditions), 2.4 (deadline) and FR-1.10 changed in revision 52 without a pending sync item; (b) the conditions are asked as profile questions, mandatory when shown (SD-F0-14): Q12 (public servant) is shown to everyone, so every profile gets one more question, and existing test counts changed (2 of 6, 3 of 8, 9 of 9); (c) the e-Filing date is a new field TaxYear.efiling_deadline next to filing_deadline; (d) a shared child relief counts half and a child with own income above the relief counts nothing, for R20, R21 and R22 alike | Owner prompt P-46; DA-26 | Profile length and the PRD | Flagged | Owner: tell me if any of (a) to (d) is wrong, especially (b): Q12 for everyone |
 
 ## Process log
 
@@ -235,6 +237,7 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 | 2026-11-23 | Recomputed the band tax by script: TC-F1-01 to TC-F1-06 unchanged; TC-F1-23 164,400.00 and 163,600.00; cumulative tax equals LHDN's table. Build 0 errors; change log built; acronym check passed; standard check 0 errors | Build output |
 | 2026-11-23 | Started two research agents: YA 2025 rules row by row against LHDN; PCB 2026 specification and the TP1 (1/2026) form | F-065; P-44 |
 | 2026-11-23 | Both agents finished; wrote RES-003 (YA 2025 matches LHDN; PCB 2026 method agrees with F1; 5 eligibility conditions and 4 PCB entry notes proposed); branch `docs/CHG-056-ya2025-pcb-check` on top of `docs/CHG-055-sublimit-and-focus` | CHG-056; F-067 |
+| 2026-11-23 | Branch `docs/CHG-057-f067-apply` on top of `docs/CHG-056-ya2025-pcb-check`; applied F-067 (a) to (d); test values recomputed by script; build 0 errors, acronym and standard checks passed | CHG-057; P-46 |
 | 2026-11-23 | Created branch `docs/CHG-055-sublimit-and-focus` on top of `docs/CHG-054-rule-corrections` (pull requests #8 and #9 not merged yet); DA-25 approved, OI-F2-04 answered; PRD revision 51; F-064 kept in view; F-065 split into F-065 (YA 2025 and YA 2026) and F-066 (YA 2027); REG-04 0.13; build 0 errors, acronym and standard checks passed | CHG-055; P-44 |
 
 ## Where the files live from 23/11/2026
@@ -253,7 +256,7 @@ This is the **main log** of our work on the project. It was called FINDINGS_LOG.
 
 The full list, with the proposed default for each, is in section B8 of each document. Counts: 62 specification decisions (SD), 24 open items in the documents (OI; four answered), 24 data additions (DA). On 13/11/2026 and 14/11/2026 you approved SD-F0-01, SD-F0-14, SD-F5-09, SD-F5-10, SD-F5-17, SD-F5-18 and DA-16, DA-19, DA-20. The ones that change results most:
 
-1. F-067: which RES-003 proposals (a) to (d) to apply. F-065: YA 2025 and PCB 2026 done; the YA 2026 leaflet and filing deadline when published. F-066 (YA 2027) and F-064 are kept in view.
+1. F-068: my readings of "update all" (Q12 for everyone). F-065: YA 2025 and PCB 2026 done; the YA 2026 leaflet and filing deadline when published. F-066 (YA 2027) and F-064 are kept in view.
 2. F-012: count bonus PCB once.
 3. F-013: project income for months with no record.
 4. F-007 and F-014: audit design and per-user filed status.

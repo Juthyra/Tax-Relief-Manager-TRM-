@@ -5,8 +5,8 @@
 | Document ID | RES-003 |
 | Document type | Research note (findings only) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.1 |
-| Status | Draft. Findings only. No rule value or requirement is changed until the owner decides (F-067) |
+| Version | 0.2 |
+| Status | Draft. Findings only. Proposals (a) to (d) approved by the owner on 23/11/2026 and applied (F-067, CHG-057) |
 | Date | 2026-11-23 (first written 2026-11-23) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM sections 2.1 to 2.5 (YA 2025 rule set), FR-1.9 and FR-1.10 (PCB projection), section 9.1 phase 0 |
