@@ -5,12 +5,12 @@
 | Document ID | PRD-TRM |
 | Document type | PRD (product requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | Revision 50 |
+| Version | Revision 51 |
 | Status | Active (the owner's document; changed only when the owner says so, RULE-20) |
 | Date | 2026-11-23 (first written 2026-11-07) |
 | Owner | Champs (product owner) |
 | PRD reference | This document. It is the master for feature names, IDs, releases and phases (AGENTS.md section 6) |
-| Source | Owner prompts P-01 to P-06, P-16, P-38 and P-42. The Claude Doc is a copy, last synced at revision 47; revisions 48 to 50 are in Git only |
+| Source | Owner prompts P-01 to P-06, P-16, P-38, P-42 and P-44. The Claude Doc is a copy, last synced at revision 47; revisions 48 to 51 are in Git only |
 | Change tracking | Synced entries in [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md) |
 
 ## 1. Product overview
@@ -125,7 +125,7 @@ Sources: [Finance Act 2025, Act 874](https://www.hasil.gov.my/wp-content/uploads
 
 ### 2.5 Rule sets loaded in R1
 
-R1 ships with all three rule sets complete, so the calculator, catalogue and dashboard work for YA 2026 now and for YA 2027 from 1 January 2027 without a code release.
+R1 ships with all three rule sets complete, so the calculator, catalogue and dashboard work for YA 2026 now and for YA 2027 from 1 January 2027 without a code release. Real use starts with YA 2026, the return filed in 2027; YA 2025 is the reference year, the return filed in 2026. YA 2025 and YA 2026 are the focus of verification; YA 2027 stays loaded as Announced and is re-checked later (owner, 23/11/2026).
 
 | Rule set | Used for | Status in the system | What an admin confirms before publishing |
 | --- | --- | --- | --- |
@@ -272,7 +272,7 @@ One row's updated\_at and updated\_by show only its latest change. To keep **eve
 | TaxBand | year, income\_from, income\_to, rate, status, source\_url, confirmed\_on | Yes | Ordered rows per YA |
 | ReliefCategory | id, code, name, group | Yes | Stable across years |
 | ReliefRule | category\_id, year, cap, shared\_cap\_group, claim\_frequency, eligibility, required\_documents, status, source\_url, confirmed\_on | Yes | One row per category per YA |
-| SubLimit | rule\_id, name, cap | Yes | For example vaccination 1,000 inside medical |
+| SubLimit | rule\_id, name, cap, eligibility\_rule, claim\_frequency, frequency\_n, period\_from\_year, period\_to\_year | Yes | For example vaccination 1,000 inside medical. A rule that applies to one item of a category is held on its sub-limit, with its own eligibility test and claim frequency: the once-only green-technology items, the child's age by type of childcare centre (approved 23/11/2026, DA-25) |
 | RebateRule | year, type, amount, income\_threshold | Yes | RM400 rebate, zakat, departure levy |
 | IncomeRecord | user\_id, year, month, type, amount, pcb\_monthly, pcb\_additional, epf\_employee, socso\_eis, zakat\_paid | Yes | One row per month and type; pcb\_additional is PCB on bonus or other extra pay |
 | Expense | user\_id, year, date, amount, merchant, description, payment\_method, notes | Yes | Year derived from date |
@@ -476,7 +476,6 @@ These changes come from the URS and SRS documents. They are **proposals, not par
 | 17, 25 | Section 3 | Feature blocks for F0 profile and F5 account and security (FR-0 and FR-5) | Waiting for owner approval |
 | 20, 21 | Section 5 | Account fields and tables (Credential, Session, ConsentRecord, Invitation, DataRequest, SecurityEvent) | Waiting for owner approval |
 | 22, 23, 24 | Section 7, NFR-6, NFR-7 | Sign-in values, export format, deletion grace period, consent purposes, two-factor method | Waiting for owner approval |
-| 28 | Section 5, SubLimit | Eligibility test and claim frequency on a sub-limit, for item-level rules (DA-25, OI-F2-04) | Waiting for owner approval |
 
 ### Sources
 

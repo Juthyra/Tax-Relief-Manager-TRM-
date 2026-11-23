@@ -5,12 +5,12 @@
 | Document ID | REG-04 |
 | Document type | Register (standing rules for prompts and work) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.12 |
+| Version | 0.13 |
 | Status | Draft (for owner review) |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | RULE-20 to RULE-22 (how the PRD is changed); AGENTS.md section 6 (the PRD is the master for names and IDs) |
-| Source | Owner prompts P-13 to P-41 |
+| Source | Owner prompts P-13 to P-44 |
 | Change tracking | Section 7 of this file; [REG_01_History_Log.md](REG_01_History_Log.md), [AGENTS.md](../../AGENTS.md), [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md), [REG_03_Acronyms.md](REG_03_Acronyms.md) |
 
 This file collects the standing rules for how we work on the Tax Relief Manager (TRM) documents: how you give a prompt, how I answer, and what I must update. Every rule below came from your messages. When you give a new rule, I add it here and raise the version.
@@ -101,6 +101,8 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | Deletion | Records can be deleted only after 7 years from the end of the YA, and strictly never before. Deleting is optional, the taxpayer's own choice. The app shows a notice when a YA becomes deletable. | SD-F5-09 (confirmed 22/11/2026) |
 | Document standard | Every document follows one standard: names follow the PRD IDs and the PRD wins in a conflict; underscore file names; the same title and header; basic account and launch account for F5 (23/11/2026) | RULE-53 to RULE-59, CHG-051 |
 | Phase 0 | YA 2026 and YA 2027 are checked against primary sources before phase 1; a YA 2027 rule that is Announced with a source counts as firm. The stack (ADR-001 to ADR-006) is chosen after the confirmations are firm (23/11/2026) | F-062, RES-002 |
+| Year focus | Real use starts with YA 2026 (filed in 2027); YA 2025 (filed in 2026) is the reference. Requirements and checks focus on YA 2025 and YA 2026. YA 2027 stays in R1 as Announced and its re-checks are kept in view (23/11/2026) | PRD section 2.5, F-065, F-066 |
+| Item-level rules | A rule on one item of a category is a sub-limit with its own eligibility test and claim frequency (23/11/2026) | DA-25, OI-F2-04 |
 | Email service | Held: no domain yet; decided with the stack (23/11/2026) | ADR-006, OI-F5-06 |
 | Later | Hosting and consent text are decided during development. Where to store and share the documents is decided after the basic documents are complete. | OI-F5-01, OI-F5-02, OI-F5-06, F-035 |
 
@@ -126,6 +128,7 @@ You can write in your own words. These short forms help me act correctly.
 | 0.3 | 2026-11-14 | Added the branch rules RULE-46 and RULE-47 (prompt P-19) |
 | 0.4 | 2026-11-14 | Added the commit message rule RULE-48 with examples (prompt P-20) |
 | 0.5 | 2026-11-14 | Added the automatic commit and push rule RULE-49 (prompt P-21) |
+| 0.13 | 2026-11-23 | Section 5: year focus (YA 2025 and YA 2026, YA 2027 kept in view) and item-level rules as sub-limits (prompts P-43 and P-44, CHG-055) |
 | 0.12 | 2026-11-23 | Section 5: phase 0 order and the email service held for the stack (prompt P-41, CHG-053) |
 | 0.11 | 2026-11-23 | New section 4b, RULE-53 to RULE-59 (document standard); rule IDs renamed R-nn to RULE-nn; RULE-20, RULE-21, RULE-30, RULE-45, RULE-47 and section 5 brought in line (prompt P-38, CHG-051) |
 | 0.10 | 2026-11-22 | New RULE-52: CODEOWNERS covers every path, so every pull request asks the code owners for a review (prompt P-34, CHG-050) |
