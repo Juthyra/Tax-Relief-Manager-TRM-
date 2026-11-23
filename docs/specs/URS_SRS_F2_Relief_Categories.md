@@ -5,12 +5,12 @@
 | Document ID | URS-SRS-F2 |
 | Document type | URS and SRS (user and system requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.10 |
+| Version | 0.11 |
 | Status | Draft (for owner review) |
 | Date | 2026-11-23 (first written 2026-11-13) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 3.2 "Relief categories and ranges", FR-2.1 to FR-2.7, including the yearly rules admin (PRD-TRM sections 2.5 and 4) |
-| Source | PRD-TRM (written from revision 37; names checked against revision 48); owner prompts P-16, P-38, P-42, P-44 and P-46; rules checked in RES-002 and RES-003; owner answers to PRD items 1 to 4 and 7 to 9 (P-60 to P-63) |
+| Source | PRD-TRM (written from revision 37; names checked against revision 48); owner prompts P-16, P-38, P-42, P-44 and P-46; rules checked in RES-002 and RES-003; owner answers to the PRD items (P-60 to P-67); PRD revision 53 |
 | Change tracking | [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md); short forms in [REG-03 Acronyms](../registers/REG_03_Acronyms.md) |
 
 ## 0. Conventions shared by all six documents
@@ -459,7 +459,7 @@ Reading the map: a solid arrow is data a feature reads or receives; a dashed arr
 ### B2.2 Data additions
 
 <a id="da-list"></a>
-**DA-01 to DA-26: data additions the specification needs (identical in all six documents).** None of these is in the PRD data model yet. They stay "proposed" until the owner approves them; then the PRD is updated. On 13/11/2026 the owner approved DA-16 and DA-19. On 14/11/2026 he approved DA-20 with a change: every question is mandatory. On 23/11/2026 he approved DA-01 to DA-15 (PRD items 1 and 2); DA-03 is removed and DA-10 loses include_projection, because he chose no projection ([SD-F1-02](URS_SRS_F1_Tax_Calculator.md#sd-f1-02)).
+**DA-01 to DA-26: data additions the specification needs (identical in all six documents).** Each stays "proposed" until the owner approves it; then the PRD is updated. Since PRD revision 53 (23/11/2026) every one of them is approved and in the PRD data model, except DA-03, which is removed. On 13/11/2026 the owner approved DA-16 and DA-19. On 14/11/2026 he approved DA-20 with a change: every question is mandatory. On 23/11/2026 he approved DA-01 to DA-15 (PRD items 1 and 2); DA-03 is removed and DA-10 loses include_projection, because he chose no projection ([SD-F1-02](URS_SRS_F1_Tax_Calculator.md#sd-f1-02)). Later on 23/11/2026 he approved DA-17, DA-18 and DA-21 to DA-24; the account tables are built by phase (basic account in R1, the rest with the launch account and R3).
 
 | ID | Entity and field | Why it is needed | Used by | Status |
 | --- | --- | --- | --- | --- |
@@ -479,14 +479,14 @@ Reading the map: a solid arrow is data a feature reads or receives; a dashed arr
 | DA-14 | ReliefRule.needs_confirmation (boolean), notes (text), retired_on (date) | Mark unresolved values (decision 4); retire a rule instead of deleting it | F2 | Approved 23/11/2026 |
 | DA-15 | ExpenseAllocation.beneficiary_dependant_id (nullable) | Parents' medical care and childcare depend on who the expense is for | F3, F2 | Approved 23/11/2026 |
 | DA-16 | TaxpayerProfile.year (integer), copied_from_year (nullable integer), state (draft, active). One current row per user per YA. Dependants follow through Dependant.profile_id | The PRD holds one profile per user, but marital status, children and disability change between years and each YA must keep the facts it was calculated with (F-033) | F0, F1, F2, F3, F4 | Approved 13/11/2026 |
-| DA-17 | Dependant.person_key (UUID shared by every yearly copy of the same person), Dependant.display_name (text; a nickname is enough) | History can follow one child across years, and an expense can name its beneficiary | F0, F3 | Proposed |
-| DA-18 | TaxEstimate.profile_id, TaxEstimate.profile_version_no | A saved calculation must show exactly which profile version it used | F1, F0 | Proposed |
+| DA-17 | Dependant.person_key (UUID shared by every yearly copy of the same person), Dependant.display_name (text; a nickname is enough) | History can follow one child across years, and an expense can name its beneficiary | F0, F3 | Approved 23/11/2026 |
+| DA-18 | TaxEstimate.profile_id, TaxEstimate.profile_version_no | A saved calculation must show exactly which profile version it used | F1, F0 | Approved 23/11/2026 |
 | DA-19 | TaxpayerProfile.first_home_price (money, nullable) | R06 has two tiers by home price (up to 500,000 and up to 750,000) and no field holds the price (F-036) | F0, F2 | Approved 13/11/2026 |
 | DA-20 | TaxpayerProfile.has_first_home and dependants_confirmed (boolean). Every fact on TaxpayerProfile, and Dependant.is_disabled, is_unmarried and education_level, is null only while its question is open or not shown; every visible question is mandatory ([SD-F0-14](URS_SRS_F0_User_Profile.md#sd-f0-14)) | A profile is either Incomplete or Complete, and F1 to F4 stay behind the gate until it is Complete, so an unanswered fact is never read as "No" | F0, F1, F2, F3, F4 | Approved 14/11/2026 (changed from the proposal) |
-| DA-21 | User.status (active, disabled, deletion_pending), User.email_verified_at, User.deletion_requested_at, User.deletion_due_on, User.last_sign_in_at | Email verification before first use, admin disable, the deletion grace period (NFR-6, NFR-7) | F5, F0 | Proposed |
-| DA-22 | New entity Credential (user_id, password_hash, hash_algorithm, password_changed_at, failed_attempts, locked_until, totp_secret_encrypted, totp_enabled, recovery_codes_hash) and new entity Session (id, user_id, device_label, remembered, created_at, last_seen_at, expires_at, revoked_at, revoked_reason) | Password, two-factor login, the list of signed-in devices and session timeout (NFR-6) | F5 | Proposed |
-| DA-23 | New entity ConsentRecord (id, user_id, purpose, text_version, language, accepted_at, withdrawn_at) and new entity Invitation (id, code_hash, created_by, created_at, expires_at, used_by, used_at) | PDPA consent recorded at sign-up (NFR-7); invitation-only sign-up in R1 ([SD-F5-01](URS_SRS_F5_Account_Security.md#sd-f5-01)) | F5 | Proposed |
-| DA-24 | New entity DataRequest (id, user_id, type export, delete or delete_ya, ya, status, requested_at, ready_at, due_on, expires_at, file_ref) and new entity SecurityEvent (id, user_id, type, at, device_label, actor_id, reason, ip_address kept 30 days) | Export and deletion on request (NFR-7); the user's list of security events; the trail of admin actions on accounts | F5 | Proposed |
+| DA-21 | User.status (active, disabled, deletion_pending), User.email_verified_at, User.deletion_requested_at, User.deletion_due_on, User.last_sign_in_at | Email verification before first use, admin disable, the deletion grace period (NFR-6, NFR-7) | F5, F0 | Approved 23/11/2026 (deletion dates built with the launch account) |
+| DA-22 | New entity Credential (user_id, password_hash, hash_algorithm, password_changed_at, failed_attempts, locked_until, totp_secret_encrypted, totp_enabled, recovery_codes_hash) and new entity Session (id, user_id, device_label, remembered, created_at, last_seen_at, expires_at, revoked_at, revoked_reason) | Password, two-factor login, the list of signed-in devices and session timeout (NFR-6) | F5 | Approved 23/11/2026 (R1: password and session fields; lock, two-factor and remembered with the launch account; device_label with R3) |
+| DA-23 | New entity ConsentRecord (id, user_id, purpose, text_version, language, accepted_at, withdrawn_at) and new entity Invitation (id, code_hash, created_by, created_at, expires_at, used_by, used_at) | PDPA consent recorded at sign-up (NFR-7); invitation-only sign-up in R1 ([SD-F5-01](URS_SRS_F5_Account_Security.md#sd-f5-01)) | F5 | Approved 23/11/2026 (built in R1) |
+| DA-24 | New entity DataRequest (id, user_id, type export, delete or delete_ya, ya, status, requested_at, ready_at, due_on, expires_at, file_ref) and new entity SecurityEvent (id, user_id, type, at, device_label, actor_id, reason, ip_address kept 30 days) | Export and deletion on request (NFR-7); the user's list of security events; the trail of admin actions on accounts | F5 | Approved 23/11/2026 (built with the launch account and R3) |
 | DA-25 | SubLimit.eligibility_rule (structured test, as DA-04) and SubLimit.claim_frequency, frequency_n, period_from_year, period_to_year (as DA-06) | Some rules apply to one item of a category: once-only items in R12, the child's age by type of centre in R23, breastfeeding inside R07 from YA 2027 ([OI-F2-04](URS_SRS_F2_Relief_Categories.md#oi-f2-04)) | F2, F3 | Approved 23/11/2026 |
 | DA-26 | TaxpayerProfile.spouse_foreign_income_above_limit, is_pensionable_public_servant, first_home_earns_income (booleans); Dependant.relief_shared, own_income_above_relief (booleans); TaxYear.efiling_deadline (date) | LHDN eligibility conditions for R03, R14, R06 and R20 to R22, and the e-Filing deadline next to the filing deadline (RES-003) | F0, F2 | Approved 23/11/2026 |
 
@@ -643,7 +643,7 @@ Accessibility: progress bars have text values and an ARIA progressbar role; stat
 | <a id="sd-f2-05"></a>SD-F2-05 | Draft rows and change sets for admin edits | The PRD's versioned rows had no draft state |
 | <a id="sd-f2-06"></a>SD-F2-06 | A value edit on a Confirmed rule resets it to Gazetted | Keeps "Confirmed" meaning "checked against LHDN" |
 | <a id="sd-f2-07"></a>SD-F2-07 | No override on the publish gate; band tests are generated for new YAs | NFR-10 says a failing test blocks publish; new YAs have no worked example yet |
-| <a id="sd-f2-08"></a>SD-F2-08 | A taxpayer sees only "Last changed on"; a change_reason text is stored on every rule version | PRD roles: only admin views rule history; R2 log needs the reason |
+| <a id="sd-f2-08"></a>SD-F2-08 | **Approved by the owner on 23/11/2026 (P-64, P-67).** Per-rule history in R1; the combined log view is R2. A taxpayer sees only "Last changed on"; a change_reason text is stored on every rule version | PRD roles: only admin views rule history; R2 log needs the reason |
 | <a id="sd-f2-09"></a>SD-F2-09 | Bilingual name and condition fields on categories | NFR-11 asks for Bahasa Malaysia; the data model has one name |
 
 **Open items (OI).**
