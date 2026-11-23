@@ -24,12 +24,15 @@ This file lists every acronym and abbreviation used in the PRD, the six URS and 
 4. **Automatic check.** The script `src/check_acronyms.py` scans all documents for capital-letter short forms and fails if one is not listed here. Run it before finishing any change.
 5. **Status:** Active (used now), Retired (no longer used), Proposed (used in a draft, waiting for owner confirmation).
 
-Counts: 72 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code values (section 5), 7 collisions (section 6).
+Counts: 75 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code values (section 5), 7 collisions (section 6).
 
 ## 1. Malaysian tax and government terms
 
 | Short form | Stands for | Meaning in this project | Used in | Status |
 | --- | --- | --- | --- | --- |
+| CP38 | Form CP38 | LHDN's instruction to an employer to deduct extra tax instalments; not part of PCB paid so far | RES-003, REG-01 | Active |
+| CP39 | Form CP39 | The employer's monthly PCB remittance; the PCB schedule is electronic through e-CP39 | RES-003 | Active |
+| TP3 | Form TP3 | The form a new employee gives with pay and PCB from an earlier employer in the same year | RES-003, REG-01 | Active |
 | LINDUNG 24, LINDUNG KENDIRI | SOCSO scheme names (not short forms) | LINDUNG 24 is the non-employment injury scheme; LINDUNG KENDIRI is the self-employment social security scheme. Both count in the SOCSO relief from YA 2027 | RES-002 | Active |
 | LLP | Limited liability partnership | From YA 2026 an LLP's profit paid to an individual partner above RM 100,000 is taxed at 2%; out of scope for TRM v1 | RES-002 | Active |
 | NPRA | National Pharmaceutical Regulatory Agency | From YA 2026 any vaccine it registers counts for the vaccination relief | RES-002 | Active |
@@ -208,3 +211,4 @@ Read the context before you assume a meaning.
 | 2026-11-23 | Added and changed | RULE, RES, REG, document IDs (PRD-TRM, URS-SRS-Fn, ADR-nnn, RES-nnn, REG-nn); R3 added to the releases row; F1 and F2 names follow the PRD | Document standard: rule IDs R-nn became RULE-nn and research R-001 became RES-001 so they no longer look like releases or relief codes | Prompt P-38, CHG-051 |
 | 2026-11-23 | Added | LINDUNG, KENDIRI, LLP, NPRA, REIT, TADIKA, TASKA, TVET (section 1); DKIM, DMARC, KPMG, SMTP, SPF (section 3) | RES-002 (YA 2026 and YA 2027 check) and ADR-006 (email service) use them | Prompt P-41, CHG-053 |
 | 2026-11-23 | Added | COMPOSTER, GRINDER (section 5) | New R12 sub-limit codes from the rule corrections | Prompt P-42, CHG-054 |
+| 2026-11-23 | Added | CP38, CP39, TP3 (section 1) | RES-003 (PCB 2026 check) uses them | CHG-056 |
