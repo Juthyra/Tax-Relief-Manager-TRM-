@@ -159,6 +159,8 @@ These appear in capitals because they are values stored in the system or in test
 | --- | --- | --- |
 | ERRORS | The word the build prints with the error count (ERRORS: 0) | README, AGENTS.md |
 | CHECKUP | Sub-limit code: medical check-up (inside R07) | F2, F3 |
+| COMPOSTER | Sub-limit code: food waste composter (inside R12, once in YA 2025 to YA 2027) | F2, F3 |
+| GRINDER | Sub-limit code: food waste grinder (inside R12, once in YA 2026 or YA 2027) | F2, F3 |
 | CORE | Consent purpose code: the required consent to process the user's data to run TRM | F5 |
 | DELETE | The word the user types to confirm an account deletion | F5 |
 | DENTAL | Sub-limit code: dental exam (inside R07) | F2, F3 |
@@ -205,3 +207,4 @@ Read the context before you assume a meaning.
 | 2026-11-14 | Added | HTML, PHP (section 3) | The front-end findings file RES-001 uses them | Prompt P-22 |
 | 2026-11-23 | Added and changed | RULE, RES, REG, document IDs (PRD-TRM, URS-SRS-Fn, ADR-nnn, RES-nnn, REG-nn); R3 added to the releases row; F1 and F2 names follow the PRD | Document standard: rule IDs R-nn became RULE-nn and research R-001 became RES-001 so they no longer look like releases or relief codes | Prompt P-38, CHG-051 |
 | 2026-11-23 | Added | LINDUNG, KENDIRI, LLP, NPRA, REIT, TADIKA, TASKA, TVET (section 1); DKIM, DMARC, KPMG, SMTP, SPF (section 3) | RES-002 (YA 2026 and YA 2027 check) and ADR-006 (email service) use them | Prompt P-41, CHG-053 |
+| 2026-11-23 | Added | COMPOSTER, GRINDER (section 5) | New R12 sub-limit codes from the rule corrections | Prompt P-42, CHG-054 |
