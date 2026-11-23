@@ -6,7 +6,7 @@ Owner: Champs (product owner)
 Purpose: record every finding, decision and process step, so project quality can be tracked and controlled.
 Detail changes to the URS and SRS documents are **not** kept here. They are kept in [URS_SRS_CHANGE_LOG.md](URS_SRS_CHANGE_LOG.md). This log points to it.
 Started: 2026-11-12 (entries up to F-011 were back-filled from work done on 2026-11-07 to 2026-11-12)
-Last updated: 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; PROMPT_RULES at 0.9); 2026-11-18 (main protected by ruleset, R-51, PROMPT_RULES at 0.8; agent opens pull requests with gh, R-49 extended, PROMPT_RULES at 0.7; review rule R-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47)
+Last updated: 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 0.3 with data export, deletion of old records and the security screens moved to R3; PROMPT_RULES at 0.9; CODEOWNERS for every path, R-52, PROMPT_RULES at 0.10); 2026-11-18 (main protected by ruleset, R-51, PROMPT_RULES at 0.8; agent opens pull requests with gh, R-49 extended, PROMPT_RULES at 0.7; review rule R-50 added; Git started, GitHub remote set; six documents: F0 at 0.3, F1 to F4 at 0.5, F5 at 0.2; PRD at revision 47)
 
 ## How to read this log
 
@@ -18,7 +18,7 @@ Last updated: 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 
 
 | Open | Flagged | Unverified | Resolved or Verified | Total |
 | --- | --- | --- | --- | --- |
-| 13 | 11 | 1 | 33 | 58 |
+| 13 | 11 | 1 | 34 | 59 |
 
 ## Files in the project
 
@@ -35,7 +35,7 @@ Last updated: 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 
 | ACRONYMS.md | Register of every acronym, ID prefix and code value, with a check script (src/check_acronyms.py) | Created 2026-11-13 |
 | HISTORY_LOG.md | This file, the main log | |
 | URS_SRS_CHANGE_LOG.md | Detail change log for the six URS and SRS documents | |
-| PROMPT_RULES.md | Standing rules for prompts and for how we work on the documents | 0.9 draft (created 2026-11-14) |
+| PROMPT_RULES.md | Standing rules for prompts and for how we work on the documents | 0.10 draft (created 2026-11-14) |
 
 ## Prompt register
 
@@ -138,6 +138,7 @@ Last updated: 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 
 | F-056 | 2026-11-18 | Decision | My readings of P-29 and P-30, now in the ruleset and the rules: (a) the ruleset applies to `main` only (the default branch); (b) it blocks deletion and force push, and requires a pull request with 1 approving review; (c) the only bypass is the repository admin role (you), mode "pull requests only"; (d) I added **no required status check** because you did not answer that question, so a pull request can merge before the build and acronym check pass; (e) because this branch was written while pull request #3 was still open, it is stacked on `docs/CHG-047-pr-opening-rule`, so merge #3 first | Owner prompts P-29 and P-30 | Needed so only reviewed pull requests reach `main` | Resolved | Owner: tell me if any of (a) to (e) is wrong, and whether the `docs-check` workflow should be a required check |
 | F-057 | 2026-11-22 | Flagged | My readings of P-33 and P-34: (a) "phase 4 (r3)" is phase 4 of PRD section 9.1, the release R3, not a new F5 phase, so F5 now has Phase 1, Phase 2 and parts built with R3; (b) for (c), "this" covers the security events screen, the new-device notice and the session controls (list of devices, sign out one or all other devices), and data export moves with them; (c) the one-YA erase run (SRS-F5-16) and the records_deleted event move with SRS-F5-21; (d) "ignore this" for F-045 means set aside, not approved, so the values stay proposals; (e) "update it" did not include the PRD, so the PRD is unchanged and pending sync item 27 is added; (f) "update it" covered the F5 A6 note (step 2) | Owner prompts P-33 and P-34 | The scope of Phase 1 and R3 | Flagged | Owner: tell me if any of (a) to (f) is wrong, and say "update the PRD" for sync item 27 |
 | F-058 | 2026-11-22 | Risk | The PRD public launch gate (section 9.1) lists user export and deletion, but export is now built with R3 (SD-F5-19), and the roadmap does not say whether the public launch comes before or after R3. Also, the account deletion of Phase 2 (SRS-F5-15) offers "Export my data first", which exists only from R3; B3.6 now says the button appears once R3 has built the export. When F5 Phase 2 is built against the PRD phases is not set | PRD section 9.1, NFR-7; F5 SD-F5-19, B3.6 | Public launch could wait for R3, or export must move earlier | Open | Owner: decide whether the public launch waits for R3 or export comes earlier, and where F5 Phase 2 sits in the PRD phases |
+| F-059 | 2026-11-22 | Decision | Pull request notices, option B (P-34): `.github/CODEOWNERS` now starts with `*` for @Juthyra, so GitHub asks the code owners for a review on every pull request and notifies them. My readings: (a) the owner adds each developer's username later, on every CODEOWNERS line; (b) GitHub never notifies the author, and the agent opens pull requests under the owner's account, so the owner sees them in the Pull requests list, not as a notification; (c) I did not turn on "require review from code owners" in the ruleset, because you did not ask for it | Owner prompt P-34; R-52 | Developers who join are asked to review every pull request | Resolved | Owner: add the developers' usernames when they join; tell me if (a) to (c) is wrong |
 
 ## Process log
 
@@ -187,6 +188,7 @@ Last updated: 2026-11-22 (owner answers to F-045, F-049, F-050 and F-051; F5 at 
 | 2026-11-18 | Created the ruleset `protect-main` with `gh api` and confirmed GitHub applies deletion, non_fast_forward and pull_request rules to `main`; created branch `docs/CHG-048-protect-main`; wrote R-51, updated R-50 and AGENTS.md; PROMPT_RULES 0.8; CHG-048 and F-056 | CHG-048; F-056; P-29, P-30 |
 | 2026-11-22 | Answered P-31 to P-33 with information only; checked PR #3 (merged) and PR #4 (CHG-048, open, checks pass, review required) | P-31 to P-33 |
 | 2026-11-22 | Created branch `docs/CHG-049-phase1-owner-answers` on top of `docs/CHG-048-protect-main` (PR #4 not merged yet); moved data export, deletion of old records, the security screens and the session controls to R3 in F5 (SD-F5-19, B3.6 with a third column); A6 item 8 and SD-F5-09 record the owner's answers; F5 0.3; PROMPT_RULES 0.9; CHG-049; F-057, F-058 | CHG-049; P-34 |
+| 2026-11-22 | Created branch `docs/CHG-050-pr-review-requests` on top of `docs/CHG-049-phase1-owner-answers`; CODEOWNERS covers every path; AGENTS.md section 5 and R-52; PROMPT_RULES 0.10; CHG-050; F-059 | CHG-050; P-34 |
 | 2026-11-22 | Build 0 errors; change log built; acronym check passed on the tracked files (the untracked IDEA.md has one short form that is not in the register; it is not part of this change) | Build output |
 
 ## Where the files live from 14/11/2026
