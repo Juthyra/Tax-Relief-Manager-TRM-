@@ -5,7 +5,7 @@
 | Document ID | REG-04 |
 | Document type | Register (standing rules for prompts and work) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.21 |
+| Version | 0.22 |
 | Status | Draft (for owner review) |
 | Date | 2026-11-23 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
@@ -91,6 +91,7 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | RULE-58 | **Waiting items are marked.** What you have not approved says "Proposed"; a PRD change that waits keeps the status "Waiting for owner approval" (RULE-21). | Prompt P-38 |
 | RULE-59 | **Checked.** `docs/tools/check_standard.py` checks file names, titles and headers, and runs in the `docs-check` workflow. It must pass, like the build and the acronym check. | Prompt P-38 |
 | RULE-60 | **Design files.** They live in `docs/design/`, in a folder per phase and feature. A `DES` document names the SRS, URS and tests it shows, is Markdown with the standard header, and stays Proposed until the owner approves it. Mockups are static pages with test data only, in English and Bahasa Malaysia, and never go into `src/`. Where the design and a specification differ, the specification wins and the difference is a finding. | Prompts P-80 to P-83 |
+| RULE-61 | **Guides and data diagrams.** A guide lives in `docs/guides/` and a data diagram (ERD) in `docs/data/<phase>/<feature>/`, each with the standard header. An ERD is drawn from the specification, never the other way round: where they differ the specification wins and the difference is a finding. A guide says which steps were run and on which system, and every image in it has a full version tag (never `latest`) and a digest. Both stay Proposed until the owner approves. | Prompts P-87 to P-90 |
 
 ## 5. Decisions you have already made (14/11/2026, 22/11/2026 and 23/11/2026)
 
@@ -107,6 +108,7 @@ This file collects the standing rules for how we work on the Tax Relief Manager 
 | LHDN conditions and PCB help | LHDN's eligibility conditions are asked in the profile (Q11 to Q13, child relief shared or child with own income); the YA 2025 deadline is stored; PCB entry has help text and LHDN's PCB example is a test (23/11/2026) | F-067, DA-26, RES-003 |
 | Email service | Held: no domain yet; decided with the stack (23/11/2026) | ADR-006, OI-F5-06 |
 | Design | Direction A "Navy Trust" is chosen, direction B is kept as a backup file. Design files are kept in `docs/design/` by phase and feature, in English and Bahasa Malaysia, and the other developer reviews them. Phase 1 starts with the seven F0 screens. DES-000 and DES-F0 are approved at 1.0; the screens of F1 to F5 are designed only when the owner asks (23/11/2026) | RULE-60, DES-000, DES-F0, F-080, F-083 |
+| Guides and data | The Docker setup guide (GDE-001) and the F0 data diagram (ERD-F0) are written, with their own paths: `docs/guides/` and `docs/data/phase-1_R1/F0_User_Profile/`. The other features get an ERD later, when the owner asks (24/11/2026) | RULE-61, GDE-001, ERD-F0, F-084 |
 | Stack records | ADR-001 to ADR-004 are approved at version 1.0 (23/11/2026). ADR-005 hosting and ADR-006 email are held | ADR-001 to ADR-004, F-079 |
 | Docker | All development runs in Docker; no PHP, Node or PostgreSQL on a laptop; the document tools are included. Sail or our own compose file is decided when the project is created; the project is not started yet (23/11/2026) | ADR-003, F-077 |
 | Stack | Laravel, Inertia, Vue 3, TypeScript and PostgreSQL; local development first, other environments and hosting later. The tax engine runs only in the browser and the server never calculates. The publish gate runs in the admin's browser with the passing run stored on the server. Offline is built later but is still required before phase 1 exits (23/11/2026) | ADR-001 to ADR-006, SD-F1-11, SD-F2-10, OI-F1-05, F-074 |
@@ -137,6 +139,7 @@ You can write in your own words. These short forms help me act correctly.
 | 0.3 | 2026-11-14 | Added the branch rules RULE-46 and RULE-47 (prompt P-19) |
 | 0.4 | 2026-11-14 | Added the commit message rule RULE-48 with examples (prompt P-20) |
 | 0.5 | 2026-11-14 | Added the automatic commit and push rule RULE-49 (prompt P-21) |
+| 0.22 | 2026-11-24 | New RULE-61 (guides and data diagrams); section 5: Docker guide and F0 ERD (prompts P-87 to P-90, CHG-067) |
 | 0.21 | 2026-11-23 | Section 5: DES-000 and DES-F0 approved; F1 to F5 not designed now (prompts P-84 to P-86, CHG-066) |
 | 0.20 | 2026-11-23 | New RULE-60 (design files); section 5: design direction A (prompts P-80 to P-83, CHG-065) |
 | 0.19 | 2026-11-23 | Section 5: ADR-001 to ADR-004 approved (prompts P-77 and P-78, CHG-064) |

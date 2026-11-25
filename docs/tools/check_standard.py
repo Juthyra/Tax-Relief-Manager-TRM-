@@ -1,4 +1,4 @@
-"""Fail if a document breaks the document standard (AGENTS.md section 6, RULE-53 to RULE-60).
+"""Fail if a document breaks the document standard (AGENTS.md section 6, RULE-53 to RULE-61).
 Checks the file name, the title line and the header table of every Markdown file under docs/.
 Usage: python3 docs/tools/check_standard.py   (works from any folder)"""
 import glob, os, re, sys
@@ -12,6 +12,8 @@ TYPES = [
     (re.compile(r"^RES_(\d{3})_[A-Z][A-Za-z0-9]*(?:_[A-Z0-9][A-Za-z0-9]*)*\.md$"), "RES-{}"),
     (re.compile(r"^REG_(\d{2})_[A-Z][A-Za-z0-9]*(?:_[A-Z0-9][A-Za-z0-9]*)*\.md$"), "REG-{}"),
     (re.compile(r"^DES_(\d{3}|F[0-9])_[A-Z][A-Za-z0-9]*(?:_[A-Z0-9][A-Za-z0-9]*)*\.md$"), "DES-{}"),
+    (re.compile(r"^GDE_(\d{3})_[A-Z][A-Za-z0-9]*(?:_[A-Z0-9][A-Za-z0-9]*)*\.md$"), "GDE-{}"),
+    (re.compile(r"^ERD_(F[0-5])_[A-Z][A-Za-z0-9]*(?:_[A-Z0-9][A-Za-z0-9]*)*\.md$"), "ERD-{}"),
 ]
 ROWS = ["Document ID", "Document type", "Product", "Version", "Status", "Date", "Owner",
         "PRD reference", "Source", "Change tracking"]

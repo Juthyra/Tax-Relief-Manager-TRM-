@@ -12,7 +12,7 @@
 | PRD reference | All of PRD-TRM |
 | Source | A scan of every document; checked by docs/tools/check_acronyms.py |
 | Change tracking | [REG_01_History_Log.md](REG_01_History_Log.md) (main log), [REG_02_URS_SRS_Change_Log.md](REG_02_URS_SRS_Change_Log.md) (detail log for the documents) |
-| Last updated | 2026-11-23 (DES, SVG, CSS and TT added, CHG-065); 2026-11-23 (LTS and UTC added, CHG-061); 2026-11-23 (RULE, RES, REG prefixes and document IDs, CHG-051); 2026-11-18 (CLI added) |
+| Last updated | 2026-11-24 (ERD, GDE and short forms of the Docker guide added, CHG-067); 2026-11-23 (DES, SVG, CSS and TT added, CHG-065); 2026-11-23 (LTS and UTC added, CHG-061); 2026-11-23 (RULE, RES, REG prefixes and document IDs, CHG-051); 2026-11-18 (CLI added) |
 
 This file lists every acronym and abbreviation used in the PRD, the six URS and SRS documents and the two logs. It is the single place to look up what a short form means.
 
@@ -123,6 +123,18 @@ Counts: 75 acronyms (sections 1 to 3), 25 ID prefixes (section 4), 21 code value
 | UUID | Universally unique identifier (version 7) | The id the app creates on the phone before it reaches the server | F0 to F4 | Active |
 | WCAG | Web Content Accessibility Guidelines | The accessibility standard the PWA follows | PRD, F4 | Active |
 | SVG | Scalable Vector Graphics | The image format of the line icons in the design | DES-000 | Active |
+| AMD | Advanced Micro Devices | A maker of processors; `amd64` is the name of the usual 64-bit Intel and AMD image build | GDE-001 | Active |
+| BIOS | Basic input and output system | The first computer setting screen, where hardware virtualization is switched on | GDE-001 | Active |
+| UEFI | Unified Extensible Firmware Interface | The newer form of the BIOS | GDE-001 | Active |
+| CRLF | Carriage return and line feed | The Windows line ending, which can break shell scripts in Linux containers | GDE-001 | Active |
+| FK | Foreign key | A column that links a row to a row of another table; marked FK in the data diagram | ERD-F0 | Active |
+| PK | Primary key | The column or columns that identify a row; marked PK in the data diagram | ERD-F0 | Active |
+| GB | Gigabyte | A unit of computer memory or disk space | GDE-001 | Active |
+| PDO | PHP Data Objects | The PHP module that connects to a database | GDE-001 | Active |
+| RAM | Random access memory | The working memory of a computer | GDE-001 | Active |
+| USD | United States dollar | The currency in which Docker states its licence limit | GDE-001 | Active |
+| USER | User (a Dockerfile instruction) | The line that sets which user a container runs as; the project must set it to a non-root user | GDE-001 | Active |
+| WSL | Windows Subsystem for Linux | The Linux layer inside Windows that Docker Desktop uses; version 2 is meant | GDE-001 | Active |
 | CSS | Cascading Style Sheets | The files that hold the colours, fonts and shapes of the design | DES-000 | Active |
 | YYYY | Four-digit year | Date format DD/MM/YYYY | PRD, F0 to F4 | Active |
 | ZIP | ZIP archive | The single file that holds a data export | F5 | Active |
@@ -136,6 +148,8 @@ These are not acronyms in the usual sense, but they are the short forms readers 
 | BR | Business rule | PRD rule ID, for example BR-11 | PRD | Active |
 | CHG | Change | One detail change in the URS and SRS change log, for example CHG-017 | REG-02 | Active |
 | DES | Design | Prefix of a design document, DES-000 for the design system and DES-F0 to DES-F5 for the screens of a feature | docs/design | Active |
+| ERD | Entity relationship diagram | A picture of the tables of a feature and how they link; prefix of the data documents, ERD-F0 to ERD-F5 | docs/data | Active |
+| GDE | Guide | Prefix of a how-to document, for example GDE-001 for the Docker setup | docs/guides | Active |
 | DA | Data addition | A field or table the specification needs that the PRD data model lacks, for example DA-05. Proposed until the owner approves. | F0 to F4, Part B2 | Active |
 | EV | Event | A message that tells other features to refresh, for example EV-03 ProfileChanged | F0 to F4, section A5 | Active |
 | F-nnn | Finding | A finding in REG_01_History_Log.md, for example F-030 | REG-01 | Active |
@@ -220,3 +234,4 @@ Read the context before you assume a meaning.
 | 2026-11-23 | Added | CP38, CP39, TP3 (section 1) | RES-003 (PCB 2026 check) uses them | CHG-056 |
 | 2026-11-23 | Added | LTS, UTC (section 3) | ADR-001 and ADR-004 use them | CHG-061 |
 | 2026-11-23 | Added | DES (section 4), SVG and CSS (section 3), TT (section 1) | The design documents DES-000 and DES-F0 use them | CHG-065 |
+| 2026-11-24 | Added | ERD, GDE (section 4), AMD, BIOS, CRLF, FK, GB, PDO, PK, RAM, UEFI, USD, USER, WSL (section 3) | GDE-001 and ERD-F0 use them | CHG-067 |
