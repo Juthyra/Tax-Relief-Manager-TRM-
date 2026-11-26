@@ -5,13 +5,14 @@
 | Document ID | ERD-F0 |
 | Document type | ERD (entity relationship diagram: the data of one feature) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.2 |
-| Status | Proposed (the key design of section 5 findings 1, 2 and 9 was decided by the owner on 25/11/2026; the document waits for the approval of the owner) |
-| Date | 2026-11-25 (first written 2026-11-24) |
+| Version | 1.0 |
+| Status | Approved by the owner on 26/11/2026 |
+| Date | 2026-11-26 (first written 2026-11-24) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 3.1 (F0 user profile), FR-0.1 to FR-0.8, section 5 (data) |
-| Source | URS-SRS-F0 section B2.1 (fields F0 writes and reads) and SRS-F0-04, SRS-F0-08, SRS-F0-17; DA-02, DA-12, DA-16 to DA-20, DA-26; ADR-004 (approved 23/11/2026); URS-SRS-F0 version 0.11 (SD-F0-15, SD-F0-16, SD-F0-17, DA-28, DA-29); owner prompts P-87 to P-90 and P-101 to P-107 |
+| Source | URS-SRS-F0 section B2.1 (fields F0 writes and reads) and SRS-F0-04, SRS-F0-08, SRS-F0-17; DA-02, DA-12, DA-16 to DA-20, DA-26; ADR-004 (approved 23/11/2026); URS-SRS-F0 version 0.12 (SD-F0-15, SD-F0-16, SD-F0-17, DA-28, DA-29); owner prompts P-87 to P-90, P-101 to P-107 and P-117 |
 | Change tracking | [REG-01 History log](../../../registers/REG_01_History_Log.md); detail in [REG-02](../../../registers/REG_02_URS_SRS_Change_Log.md) |
+| Decided by | Owner, 26/11/2026 (P-117) |
 | Scope | Feature F0 only, phase 1 (R1). The other features get their own ERD later, by the owner's decision (P-88) |
 
 ## 1. What this is
@@ -162,11 +163,11 @@ These come from the specification. Whether each becomes an index or a check is d
 | 7 | Money is whole sen. Dates are `date`. `language` is `en` or `ms` | NFR-11, ADR-004 |
 | 8 | A filed YA locks the profile: a write is refused. The lock is read from UserTaxYear by (`user_id`, `year`), not by a key | SRS-F0-10 |
 | 9 | A saved calculation names the profile version (`profile_id`, `profile_version_no`) and, in TaxEstimateDependant, the `row_id` of each dependant row it used. A unique index on (`estimate_id`, `dependant_row_id`). The profile of a filed YA is read from these rows | SRS-F0-12, SRS-F1-19, SD-F0-16, DA-29 |
-| 10 | The server refuses a profile row whose `profile_id` is not the UUID v5 of its user and year, and any row whose `row_id` is not a UUID v7. A clash on (`profile_id`, `version_no`) takes the next free number. **Proposed, not decided** | SRS-F0-17, SD-F0-17 |
+| 10 | The server refuses a profile row whose `profile_id` is not the UUID v5 of its user and year, and any row whose `row_id` is not a UUID v7. A clash on (`profile_id`, `version_no`) takes the next free number. **Approved by the owner on 26/11/2026** | SRS-F0-17, SD-F0-17 |
 
 ## 5. Findings from drawing it
 
-Findings 1, 2 and 9 were decided by the owner on 25/11/2026 (option C for the key and option 2 for the saved calculation; SD-F0-15, SD-F0-16, DA-28, DA-29). ADR-004 and DA-02 are **not changed**: the primary key is a UUID v7. The other findings are not decided. The owner decides.
+Findings 1, 2 and 9 were decided by the owner on 25/11/2026 (option C for the key and option 2 for the saved calculation; SD-F0-15, SD-F0-16, DA-28, DA-29), and finding 10 on 26/11/2026 (SD-F0-17). ADR-004 and DA-02 are **not changed**: the primary key is a UUID v7. The other findings are not decided. The owner decides.
 
 | # | Finding | Why it matters |
 | --- | --- | --- |
@@ -179,7 +180,7 @@ Findings 1, 2 and 9 were decided by the owner on 25/11/2026 (option C for the ke
 | 7 | **No link from `year` to TaxYear.** See section 3 | A reading: a profile may exist for a year without rules. Confirm |
 | 8 | **Counts.** TaxpayerProfile has 28 columns in the diagram, Dependant has 20 and TaxEstimateDependant has 3. Counted by script from the diagram, not copied from the specification | If a column is added to B2.1, this diagram needs the same change |
 | 9 | **Resolved 25/11/2026 (SD-F0-16, DA-29).** A saved calculation named the profile version but not the dependant versions. A dependant is versioned on its own, so the dependants of a filed YA could not be told from the profile version alone | The new table TaxEstimateDependant (F1 owns, insert only) holds the `row_id` of each dependant row used. The profile of a filed YA is read from it. A dependant removed after filing still shows as it was |
-| 10 | **Proposed rules (SD-F0-17).** The server refuses a wrong `profile_id` and a `row_id` that is not a UUID v7; two devices that send the same `profile_id` and `version_no` get the next free version number. These are my proposal | The owner has not decided them. Without the first rule the server would accept any UUID as a profile id |
+| 10 | **Resolved 26/11/2026 (SD-F0-17).** The server refuses a wrong `profile_id` and a `row_id` that is not a UUID v7; two devices that send the same `profile_id` and `version_no` get the next free version number | Without the first rule the server would accept any UUID as a profile id |
 | 11 | **The PRD is not changed.** The PRD data model has no row ids and no TaxEstimateDependant. It waits as pending item 30 (REG-02) | The PRD is the master. Until it is synced, the F0 specification and the PRD differ on the data model |
 | 12 | **TaxEstimateDependant has its own `id` (UUID v7) and a unique pair.** B2.1 of F1 lists it that way: my reading, to keep one UUID primary key on every table as ADR-004 says | A pair of columns would also work as the key. Confirm |
 
