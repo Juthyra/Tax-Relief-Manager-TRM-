@@ -5,12 +5,12 @@
 | Document ID | ERD-F0 |
 | Document type | ERD (entity relationship diagram: the data of one feature) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 0.1 |
-| Status | Proposed (waits for review by the other developer and approval by the owner) |
-| Date | 2026-11-24 (first written 2026-11-24) |
+| Version | 0.2 |
+| Status | Proposed (the key design of section 5 findings 1, 2 and 9 was decided by the owner on 25/11/2026; the document waits for the approval of the owner) |
+| Date | 2026-11-25 (first written 2026-11-24) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 3.1 (F0 user profile), FR-0.1 to FR-0.8, section 5 (data) |
-| Source | URS-SRS-F0 section B2.1 (fields F0 writes and reads) and SRS-F0-04, SRS-F0-08, SRS-F0-17; DA-02, DA-12, DA-16 to DA-20, DA-26; ADR-004 (approved 23/11/2026); owner prompts P-87 to P-90 |
+| Source | URS-SRS-F0 section B2.1 (fields F0 writes and reads) and SRS-F0-04, SRS-F0-08, SRS-F0-17; DA-02, DA-12, DA-16 to DA-20, DA-26; ADR-004 (approved 23/11/2026); URS-SRS-F0 version 0.11 (SD-F0-15, SD-F0-16, SD-F0-17, DA-28, DA-29); owner prompts P-87 to P-90 and P-101 to P-107 |
 | Change tracking | [REG-01 History log](../../../registers/REG_01_History_Log.md); detail in [REG-02](../../../registers/REG_02_URS_SRS_Change_Log.md) |
 | Scope | Feature F0 only, phase 1 (R1). The other features get their own ERD later, by the owner's decision (P-88) |
 
@@ -33,6 +33,8 @@ erDiagram
     User ||--o{ UserTaxYear : "has"
     TaxpayerProfile }o..o| UserTaxYear : "lock read by user_id and year"
     TaxpayerProfile ||--o{ TaxEstimate : "profile_id and profile_version_no"
+    TaxEstimate ||--o{ TaxEstimateDependant : "estimate_id"
+    Dependant ||--o{ TaxEstimateDependant : "dependant_row_id"
 
     User {
         uuid id PK "F5 owns"
@@ -44,8 +46,9 @@ erDiagram
     }
 
     TaxpayerProfile {
-        uuid id PK "UUID v5 of user and year"
-        integer version_no PK
+        uuid row_id PK "UUID v7, made on the device"
+        uuid profile_id "UUID v5 of user and year, same on every version"
+        integer version_no "unique with profile_id"
         uuid user_id FK
         integer year "YA, DA-16"
         integer copied_from_year "nullable"
@@ -74,9 +77,10 @@ erDiagram
     }
 
     Dependant {
-        uuid id PK "UUID v5 for a copy, v7 when added"
-        integer version_no PK
-        uuid profile_id "logical link to TaxpayerProfile.id"
+        uuid row_id PK "UUID v7, made on the device"
+        uuid dependant_id "UUID v5 for a copy, v7 when added, same on every version"
+        integer version_no "unique with dependant_id"
+        uuid profile_id "logical link to TaxpayerProfile.profile_id"
         uuid person_key "same across years"
         text display_name "nickname, 1 to 50"
         text type "child or parent"
@@ -116,23 +120,30 @@ erDiagram
         integer year
         text trigger "user, filed or system"
         timestamptz computed_at
-        uuid profile_id "logical link to TaxpayerProfile.id"
+        uuid profile_id "with profile_version_no, names one profile version"
         integer profile_version_no
+    }
+
+    TaxEstimateDependant {
+        uuid id PK "F1 owns, insert only"
+        uuid estimate_id FK
+        uuid dependant_row_id FK "one Dependant version row"
     }
 ```
 
-How to read it: a line with `||` and a crow's foot is one-to-many. A dotted line is a link by value, with no foreign key. `PK` is a key column, `FK` is a link to another table. Two `PK` rows in one table mean a **combined key**. Every column marked "nullable" may be empty, because an unanswered question stays empty (DA-20). Types follow ADR-004: `uuid`, `bigint` for money in sen, `date`, and times in UTC (`timestamptz`).
+How to read it: a line with `||` and a crow's foot is one-to-many. A dotted line is a link by value, with no foreign key. `PK` is a key column, `FK` is a link to another table. Every column marked "nullable" may be empty, because an unanswered question stays empty (DA-20). Types follow ADR-004: `uuid`, `bigint` for money in sen, `date`, and times in UTC (`timestamptz`).
 
 ## 3. The tables
 
 | Table | Owner | F0 access | Source | Rows |
 | --- | --- | --- | --- | --- |
 | User | F5 | Writes `name` and `language`; reads the rest | B2.1, IF-18, SD-F5-13 | One per account |
-| TaxpayerProfile | F0 | Writes | B2.1, DA-16, SRS-F0-04, SRS-F0-08 | One **current** row per user and year, and every earlier version of it |
-| Dependant | F0 | Writes | B2.1, DA-17, SRS-F0-07 | One current row per dependant and profile, plus versions. At most 20 per YA |
+| TaxpayerProfile | F0 | Writes | B2.1, DA-16, DA-28, SRS-F0-04, SRS-F0-08 | One **current** row per user and year, and every earlier version of it. `row_id` is the primary key; (`profile_id`, `version_no`) is unique |
+| Dependant | F0 | Writes | B2.1, DA-17, DA-28, SRS-F0-07 | One current row per dependant and profile, plus versions. At most 20 per YA. `row_id` is the primary key; (`dependant_id`, `version_no`) is unique |
 | HouseholdLink | F0 | Structure only | B2.1, SD-F0-07 | The table and test data in R1. No screen until R2 |
 | UserTaxYear | F1 | Reads (the lock for a filed year) | DA-12, SRS-F0-10 | One per user and year |
 | TaxEstimate | F1 | Reads, through IF-16 | DA-18, SRS-F1-19 | Insert only |
+| TaxEstimateDependant | F1 | Reads, through IF-16 | DA-29, SRS-F1-19, SD-F0-16 | Insert only. One row for each dependant version row that a saved calculation used |
 
 Not drawn, to keep the picture readable: the audit columns of User and UserTaxYear, the links from `created_by` and `updated_by` to User, the other columns of TaxEstimate (the figures), and the F2 tables (TaxYear and the rule tables). F0 does not link to F2 by a key: `year` is a plain number, so a profile can exist for a YA that has no rule set yet.
 
@@ -143,28 +154,34 @@ These come from the specification. Whether each becomes an index or a check is d
 | # | Rule | Source |
 | --- | --- | --- |
 | 1 | One current TaxpayerProfile per user and year: a unique index on (`user_id`, `year`) where `is_current` is true | B2.1, ADR-004 item 4 |
-| 2 | One current Dependant per profile and `person_key`: a unique index on (`profile_id`, `person_key`) where `is_current` is true | DA-17, SRS-F0-08 |
-| 3 | Every save inserts a new row with `version_no` + 1 and sets the old row's `is_current` to false. Nothing is updated in place, except `is_current` | SRS-F0-08 |
-| 4 | A profile row id is a UUID v5 of the text `profile:{user_id}:{year}`, so two offline devices create the same row. A dependant copy gets the UUID v5 of `{profile_id}:{person_key}`. A dependant added by the user gets a UUID v7 | SRS-F0-17, SD-F0-09, DA-02 |
-| 5 | A copy to a new YA sets `copied_from_year`, `state` = draft and `dependants_confirmed` = false. New dependants get new ids and the same `person_key` | SRS-F0-04 |
+| 2 | One current Dependant per profile and `person_key`: a unique index on (`profile_id`, `person_key`) where `is_current` is true. Each dependant version is unique by (`dependant_id`, `version_no`) | DA-17, SRS-F0-08 |
+| 3 | Every save inserts a new row with its own `row_id` and `version_no` + 1, and sets the old row's `is_current` to false. Nothing is updated in place, except `is_current`. A profile save and a dependant save each move only their own `version_no` (SD-F0-16). (`profile_id`, `version_no`) is unique | SRS-F0-08, SD-F0-16 |
+| 4 | `row_id` is a UUID v7 made on the device and is the primary key, so ADR-004 and DA-02 hold. `profile_id` is a UUID v5 of the text `profile:{user_id}:{year}` and is the same on every version, so two offline devices create the same profile. `dependant_id` is the UUID v5 of `{profile_id}:{person_key}` for a copy and a UUID v7 for a dependant the user adds | SRS-F0-17, SD-F0-09, SD-F0-15, DA-02, DA-28 |
+| 5 | A copy to a new YA sets `copied_from_year`, `state` = draft and `dependants_confirmed` = false. Each copied dependant gets a new `row_id`, a new `dependant_id` and the same `person_key` | SRS-F0-04 |
 | 6 | Deletes are soft (`deleted_at`, `deleted_by`) while the user has the data. The erase is a hard delete in a planned order (ADR-004 item 6, SRS-F0-19) | B2.1, ADR-004 |
 | 7 | Money is whole sen. Dates are `date`. `language` is `en` or `ms` | NFR-11, ADR-004 |
 | 8 | A filed YA locks the profile: a write is refused. The lock is read from UserTaxYear by (`user_id`, `year`), not by a key | SRS-F0-10 |
+| 9 | A saved calculation names the profile version (`profile_id`, `profile_version_no`) and, in TaxEstimateDependant, the `row_id` of each dependant row it used. A unique index on (`estimate_id`, `dependant_row_id`). The profile of a filed YA is read from these rows | SRS-F0-12, SRS-F1-19, SD-F0-16, DA-29 |
+| 10 | The server refuses a profile row whose `profile_id` is not the UUID v5 of its user and year, and any row whose `row_id` is not a UUID v7. A clash on (`profile_id`, `version_no`) takes the next free number. **Proposed, not decided** | SRS-F0-17, SD-F0-17 |
 
 ## 5. Findings from drawing it
 
-These are not decided. **The specification and the ADRs are not changed.** The owner decides.
+Findings 1, 2 and 9 were decided by the owner on 25/11/2026 (option C for the key and option 2 for the saved calculation; SD-F0-15, SD-F0-16, DA-28, DA-29). ADR-004 and DA-02 are **not changed**: the primary key is a UUID v7. The other findings are not decided. The owner decides.
 
 | # | Finding | Why it matters |
 | --- | --- | --- |
-| 1 | **UUID v5 against ADR-004.** ADR-004 item 3 says the server accepts only a valid UUID v7 for the tables whose records are made on the device. SRS-F0-17 and SD-F0-09 make profile ids UUID v5 (and dependant copies too) | One of them must change, or the rule must name the exception. If the server checks for v7 only, every profile save would be refused |
-| 2 | **The id is the same on every version.** A profile id is fixed by user and year, but every save inserts a new row. So `id` alone cannot be the primary key. I drew a combined key (`id`, `version_no`). TaxEstimate already stores `profile_id` and `profile_version_no`, which fits it. The same holds for a dependant copy (id from profile and `person_key`) | ADR-004 item 3 says "primary keys are `uuid`". The combined key needs a decision. It also means `Dependant.profile_id` and `TaxEstimate.profile_id` cannot be database foreign keys to one row |
+| 1 | **Resolved 25/11/2026 (SD-F0-15).** UUID v5 against ADR-004: ADR-004 item 3 says the server accepts only a valid UUID v7 for the tables whose records are made on the device, and SRS-F0-17 made the profile ids UUID v5 | The primary key is now `row_id`, a UUID v7, so the ADR holds. The UUID v5 is the column `profile_id`, which is not a key. The server check on it is a rule in SD-F0-17 (proposed) |
+| 2 | **Resolved 25/11/2026 (SD-F0-15).** The id is the same on every version, so it cannot be the primary key alone | `row_id` is the single primary key; (`profile_id`, `version_no`) and (`dependant_id`, `version_no`) are unique. `Dependant.profile_id` stays a link by value, with no foreign key, because `profile_id` is not unique across versions. `TaxEstimate` can use a composite foreign key on (`profile_id`, `profile_version_no`) |
 | 3 | **HouseholdLink has no key.** B2.1 lists five columns and no id | A key is needed for the table. R1 has no screen, so it can wait, but the migration cannot |
 | 4 | **The SYSTEM user.** `created_by` and `updated_by` are SYSTEM for a copy (SRS-F0-04), and F5 says the system acts as the SYSTEM user, but no User row for it is specified | A foreign key from `created_by` to User needs that row. F5 must create it |
 | 5 | **Text columns without a value list.** B2.1 lists the values of `marital_status`, `state`, `type` and `language`, but not of `residency_status` (Q1 allows Yes and No, and No is not accepted in R1), and `education_level` points to SD-F0-10 | A check constraint needs the list. I drew `text` |
 | 6 | **User.status and role** are F5's; I show them only as read columns | Nothing to decide for F0 |
 | 7 | **No link from `year` to TaxYear.** See section 3 | A reading: a profile may exist for a year without rules. Confirm |
-| 8 | **Counts.** TaxpayerProfile has 27 columns in the diagram and Dependant has 19. Counted by script from the diagram, not copied from the specification | If a column is added to B2.1, this diagram needs the same change |
+| 8 | **Counts.** TaxpayerProfile has 28 columns in the diagram, Dependant has 20 and TaxEstimateDependant has 3. Counted by script from the diagram, not copied from the specification | If a column is added to B2.1, this diagram needs the same change |
+| 9 | **Resolved 25/11/2026 (SD-F0-16, DA-29).** A saved calculation named the profile version but not the dependant versions. A dependant is versioned on its own, so the dependants of a filed YA could not be told from the profile version alone | The new table TaxEstimateDependant (F1 owns, insert only) holds the `row_id` of each dependant row used. The profile of a filed YA is read from it. A dependant removed after filing still shows as it was |
+| 10 | **Proposed rules (SD-F0-17).** The server refuses a wrong `profile_id` and a `row_id` that is not a UUID v7; two devices that send the same `profile_id` and `version_no` get the next free version number. These are my proposal | The owner has not decided them. Without the first rule the server would accept any UUID as a profile id |
+| 11 | **The PRD is not changed.** The PRD data model has no row ids and no TaxEstimateDependant. It waits as pending item 30 (REG-02) | The PRD is the master. Until it is synced, the F0 specification and the PRD differ on the data model |
+| 12 | **TaxEstimateDependant has its own `id` (UUID v7) and a unique pair.** B2.1 of F1 lists it that way: my reading, to keep one UUID primary key on every table as ADR-004 says | A pair of columns would also work as the key. Confirm |
 
 ## 6. What comes next
 
@@ -172,10 +189,17 @@ When F1 is started, an ERD for F1 is made the same way, in `docs/data/phase-1_R1
 
 ## 7. How the picture was made
 
-The diagram text is in `erd_f0.mmd`. The SVG was made on 24/11/2026 with the image `minlag/mermaid-cli:12.0.1` (digest in [GDE-001](../../../guides/GDE_001_Docker_Setup.md)), from this folder:
+The diagram text is in `erd_f0.mmd`. Version 0.1 of the SVG was made on 24/11/2026 on macOS with the image `minlag/mermaid-cli:12.0.1` (digest in [GDE-001](../../../guides/GDE_001_Docker_Setup.md)), from this folder:
 
 ```bash
 docker run --rm -v "$PWD:/data" minlag/mermaid-cli:12.0.1 -p /puppeteer-config.json -i /data/erd_f0.mmd -o /data/erd_f0.svg -b white -q
 ```
 
-The command worked on macOS with Apple silicon. It was not tried on Windows or Linux; on Linux the folder must be writable by the container user. GitHub also draws the diagram in section 2 by itself.
+Version 0.2 of the SVG was made on 25/11/2026 on Windows, where Docker is not installed. It used the npm package `@mermaid-js/mermaid-cli` 12.0.0 (the closest release: npm has no 12.0.1) with Microsoft Edge as the browser, and the picture was checked by eye. Use the Docker command above when Docker is available, so the picture stays the same on every machine. The two versions may differ in small details of the drawing. The command used on Windows:
+
+```bash
+PUPPETEER_SKIP_DOWNLOAD=1 npm install @mermaid-js/mermaid-cli@12.0.0
+npx mmdc -p puppeteer-config.json -i erd_f0.mmd -o erd_f0.svg -b white -q
+```
+
+where `puppeteer-config.json` holds `{"executablePath": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe", "args": ["--no-sandbox"]}`. On Linux the folder must be writable by the container user. GitHub also draws the diagram in section 2 by itself.

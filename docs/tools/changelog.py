@@ -46,7 +46,7 @@ added_p16 = {"URS-F0-15":("0.3","CHG-036"),"SD-F0-14":("0.3","CHG-036"),"TC-F0-2
  "URS-F5-14":("0.2","CHG-041"),"SRS-F5-21":("0.2","CHG-041"),"TC-F5-29":("0.2","CHG-041"),
  "SD-F5-17":("0.2","CHG-039"),"SD-F5-18":("0.2","CHG-040")}
 firstchg = {"F0":"CHG-018","F1":"CHG-001","F2":"CHG-002","F3":"CHG-003","F4":"CHG-004","F5":"CHG-028"}
-version = {"F0":"0.10","F1":"0.12","F2":"0.12","F3":"0.12","F4":"0.12","F5":"0.11"}
+version = {"F0":"0.11","F1":"0.13","F2":"0.13","F3":"0.13","F4":"0.13","F5":"0.12"}
 # changed in prompt P-34 (22/11/2026): F5 version 0.3, CHG-049
 changed_p34 = {i: "CHG-049" for i in ("URS-F5-06 URS-F5-07 URS-F5-08 URS-F5-14 SRS-F5-08 SRS-F5-12 SRS-F5-14 SRS-F5-16 SRS-F5-21 "
     "TC-F5-14 TC-F5-19 TC-F5-21 TC-F5-22 TC-F5-29").split()}
@@ -84,6 +84,13 @@ changed_p71 = {i: "CHG-062" for i in "SRS-F1-19 TC-F1-21 SD-F1-07 SRS-F2-11 SRS-
 approved_p71 = {"SD-F1-11": "Approved by the owner 23/11/2026 (CHG-062)", "SD-F2-10": "Approved by the owner 23/11/2026 (CHG-062)",
     "OI-F1-05": "Open: offline approach deferred by the owner 23/11/2026 (CHG-062)", "TC-F2-27": "Draft, new"}
 added_p16.update({"SD-F1-11": ("0.12", "CHG-062"), "OI-F1-05": ("0.12", "CHG-062"), "SD-F2-10": ("0.12", "CHG-062"), "TC-F2-27": ("0.12", "CHG-062")})
+# prompts P-101 to P-107 (25/11/2026): profile row ids and the dependants of a saved calculation (CHG-068)
+changed_p107 = {i: "CHG-068" for i in "SRS-F0-04 SRS-F0-08 SRS-F0-12 SRS-F0-15 SRS-F0-17 SD-F0-09 TC-F0-07 TC-F0-20 SRS-F1-19 SRS-F1-23".split()}
+approved_p107 = {"SD-F0-15": "Approved by the owner 25/11/2026: option C, row_id as primary key (CHG-068)",
+    "SD-F0-16": "Approved by the owner 25/11/2026: option 2, dependant rows kept on the saved calculation (CHG-068)",
+    "SD-F0-17": "Proposed: waits for the owner (CHG-068)"}
+added_p16.update({"SD-F0-15": ("0.11", "CHG-068"), "SD-F0-16": ("0.11", "CHG-068"), "SD-F0-17": ("0.11", "CHG-068"),
+    "TC-F0-28": ("0.11", "CHG-068"), "TC-F0-29": ("0.11", "CHG-068"), "TC-F0-30": ("0.11", "CHG-068")})
 reg = {}
 counts = {}
 for k, f in files.items():
@@ -104,6 +111,8 @@ for k, f in files.items():
         else: d = short(cells[1], 120)
         status = {"URS": "Draft", "SRS": "Draft", "TC": "Draft", "SD": "Needs owner decision", "OI": "Open"}[typ]
         if "**Answered" in cells[1]: status = answered[id_]
+        elif id_ in approved_p107: status = approved_p107[id_]
+        elif id_ in changed_p107: status = f"Draft, changed in {version[k]} ({changed_p107[id_]})"
         elif id_ in approved_p71: status = approved_p71[id_]
         elif id_ in changed_p71: status = f"Draft, changed in {version[k]} ({changed_p71[id_]})"
         elif id_ in approved_p63: status = approved_p63[id_]
@@ -147,7 +156,7 @@ A("""# REG-02: URS and SRS change log
 | PRD reference | Synced entries record each PRD-TRM change; Pending PRD sync lists the changes waiting for the owner |
 | Source | The six URS and SRS documents and the owner prompts (P-nn) |
 | Change tracking | This file; the main log is [REG-01 History log](REG_01_History_Log.md) |
-| Last updated | 2026-11-24 (Docker guide GDE-001 and F0 data diagram ERD-F0, CHG-067); 2026-11-23 (DES-000 and DES-F0 approved, CHG-066); 2026-11-23 (design files, DES-000 and DES-F0, new type DES and RULE-60, CHG-065); 2026-11-23 (ADR-001 to ADR-004 approved, CHG-064); 2026-11-23 (Docker-only development decided, ADR-003, CHG-063); 2026-11-23 (stack decisions: ADR-001 to ADR-006 written, CHG-061; the engine runs only in the browser, so the publish gate, month-end snapshot and sync check changed, DA-27 proposed, CHG-062; F0 at 0.10, F1 to F4 at 0.12, F5 at 0.11; PRD not changed); 2026-11-23 (remaining PRD items approved, F0 at 0.9, F1 to F4 at 0.11, F5 at 0.10, CHG-059; PRD revision 53 synced items 1 to 10, 14, 15, 17, 20, 21, 25 and part of 22, 3 items pending, CHG-060); 2026-11-23 (owner answers to PRD items 1 to 4 and 7 to 9: no projection, PCB to date, closed year, admin download, LHDN rounding; DA-01 to DA-15 approved, DA-03 removed; F0 at 0.8, F1 to F4 at 0.10, F5 at 0.9; PRD not changed, CHG-058); 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055; F-067 applied, PRD revision 52, F0 at 0.7, F1 to F4 at 0.9, F5 at 0.8, CHG-057) |
+| Last updated | 2026-11-25 (profile row ids and the dependants of a saved calculation, DA-28 and DA-29, CHG-068; F0 at 0.11, F1 to F4 at 0.13, F5 at 0.12; PRD and ADR-004 not changed); 2026-11-24 (Docker guide GDE-001 and F0 data diagram ERD-F0, CHG-067); 2026-11-23 (DES-000 and DES-F0 approved, CHG-066); 2026-11-23 (design files, DES-000 and DES-F0, new type DES and RULE-60, CHG-065); 2026-11-23 (ADR-001 to ADR-004 approved, CHG-064); 2026-11-23 (Docker-only development decided, ADR-003, CHG-063); 2026-11-23 (stack decisions: ADR-001 to ADR-006 written, CHG-061; the engine runs only in the browser, so the publish gate, month-end snapshot and sync check changed, DA-27 proposed, CHG-062; F0 at 0.10, F1 to F4 at 0.12, F5 at 0.11; PRD not changed); 2026-11-23 (remaining PRD items approved, F0 at 0.9, F1 to F4 at 0.11, F5 at 0.10, CHG-059; PRD revision 53 synced items 1 to 10, 14, 15, 17, 20, 21, 25 and part of 22, 3 items pending, CHG-060); 2026-11-23 (owner answers to PRD items 1 to 4 and 7 to 9: no projection, PCB to date, closed year, admin download, LHDN rounding; DA-01 to DA-15 approved, DA-03 removed; F0 at 0.8, F1 to F4 at 0.10, F5 at 0.9; PRD not changed, CHG-058); 2026-11-23 (document standard, CHG-051: F0 at version 0.4, F1 to F4 at version 0.6, F5 at version 0.4; PRD revision 49 with pending sync items 11, 12, 26 and 27, CHG-052; F5 at version 0.5, email service held, CHG-053; rule corrections from RES-002, PRD revision 50, F0 at 0.5, F1 to F4 at 0.7, F5 at 0.6, CHG-054; DA-25 approved and synced, PRD revision 51, F0 at 0.6, F1 to F4 at 0.8, F5 at 0.7, CHG-055; F-067 applied, PRD revision 52, F0 at 0.7, F1 to F4 at 0.9, F5 at 0.8, CHG-057) |
 
 This file records **every detail change** to the six URS and SRS documents (F0 profile, F1 to F4 core features and F5 account and security). The main log of our work is [REG_01_History_Log.md](../registers/REG_01_History_Log.md); this log is the detail log for the documents only.
 
@@ -156,7 +165,7 @@ This file records **every detail change** to the six URS and SRS documents (F0 p
 1. **Version numbers.** Each document starts at 0.1 (first draft). Any change to an ID, a number, a rule or a diagram raises the minor version (0.2, 0.3). When the owner approves a document it becomes 1.0. After that, changes raise 1.1, 1.2.
 2. **One entry per detail.** Every change gets the next CHG number and states: the document, the section, the ID changed, the type, what it said before, what it says now, why, and which prompt or finding caused it.
 3. **Change types:** Added, Changed, Removed, Clarified, Decided (owner answered an SD or OI), Synced (the PRD was updated to match).
-4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-27) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
+4. **Shared blocks.** The system map FD-00, the interface table (IF-01 to IF-21), the events (EV-01 to EV-08), the data ownership table, the data additions (DA-01 to DA-29) and the category codes are identical in all six documents. A change to one of them is applied to all four in the same CHG entry.
 5. **IDs are never reused.** A removed ID stays in the register with status Removed.
 6. **Status in the register:** Draft (written, not reviewed), Needs owner decision (SD), Open (OI), Approved, Changed, Removed.
 
@@ -169,7 +178,7 @@ for k, f in files.items():
     A(f"| {k} | [{f}](../specs/{f}) | {names[k]} | {version[k]} | 2026-11-13 | Draft for owner review | {c['URS']} | {c['SRS']} | {c['FD']} | {c['SQ']} | {c['TC']} | {c['SD']} | {c['OI']} | {c['lines']} |")
 A(f"| | Total | | | | | {tot['URS']} | {tot['SRS']} | {tot['FD']} | {tot['SQ']} | {tot['TC']} | {tot['SD']} | {tot['OI']} | |")
 A("""
-Shared across all six: 21 interfaces, 8 events, 27 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
+Shared across all six: 21 interfaces, 8 events, 29 data additions, 26 category codes (R01 to R24, D01, D02), the FD-00 system map.
 
 ## Change register
 
@@ -242,10 +251,11 @@ Shared across all six: 21 interfaces, 8 events, 27 data additions, 26 category c
 | CHG-065 | 2026-11-23 | DES-000, DES-F0 | New | DES-000, DES-F0, RULE-60 | Added | No design files | Design direction A chosen and direction B kept as a backup; DES-000 (design system) and DES-F0 (the seven F0 screens, 28 screenshots in English and Bahasa Malaysia); new document type DES in AGENTS.md section 6 and check_standard.py; RULE-60; findings on the F0 specification; no specification or PRD change | Owner asked for the design with the ui-ux-pro-max skill before development, saved in the repo by phase and feature | Prompts P-80 to P-83; findings F-080 to F-082 |
 | CHG-066 | 2026-11-23 | DES-000, DES-F0 | Header and section 7 | DES-000, DES-F0 | Decided | Version 0.1, status Proposed | Version 1.0, status Approved by the owner on 23/11/2026; the design of F1 to F5 is not started, by the owner's decision | The owner approved the design documents and said F0 is enough for now | Prompts P-84 to P-86; finding F-083 |
 | CHG-067 | 2026-11-24 | GDE-001, ERD-F0 | New | GDE-001, ERD-F0, RULE-61 | Added | No setup guide and no data diagram | Docker setup guide for macOS, Windows and Linux with seven pinned images (tags and digests read from Docker Hub, run on a Mac); F0 data diagram with six tables and eight findings, as text and SVG; new document types GDE and ERD in AGENTS.md and check_standard.py; RULE-61; no specification or PRD change | Owner asked for the document on installing Docker and the stack images, and for the F0 ERD in its own path tied to phase and feature | Prompts P-87 to P-90; findings F-084 to F-086 |
+| CHG-068 | 2026-11-25 | F0, F1, F2, F3, F4, F5, ERD-F0 | F0 FD-F0-08, SRS-F0-04, SRS-F0-08, SRS-F0-12, SRS-F0-15, SRS-F0-17, B2.1, B6, B7, B8; F1 SRS-F1-19, SRS-F1-23, B2.1, data diagram; shared DA table, IF-16 and ownership table; ERD-F0 | SRS-F0-04, SRS-F0-08, SRS-F0-12, SRS-F0-15, SRS-F0-17, SD-F0-09, TC-F0-07, TC-F0-20, SRS-F1-19, SRS-F1-23 changed; SD-F0-15, SD-F0-16, SD-F0-17, TC-F0-28, TC-F0-29, TC-F0-30, DA-28, DA-29 added | Decided | A profile row and a dependant row used one id for every version, so the id could not be the primary key; the profile id was a UUID v5 while ADR-004 asks for a UUID v7; a saved calculation named only the profile version, not the dependants it used (F-086, F-087) | Every profile row and dependant row has its own row_id (UUID v7) as the primary key; profile_id (UUID v5) and dependant_id are ordinary columns that stay the same on every version; a dependant save moves only the dependant's version_no; a saved calculation stores the dependant rows it used (TaxEstimateDependant); the server refuses a wrong profile_id and a row_id that is not a UUID v7, and a version clash takes the next free number (SD-F0-17, proposed); ADR-004 and DA-02 are not changed; the PRD is not changed (pending item 30); ERD-F0 at 0.2; F0 at 0.11, F1 to F4 at 0.13, F5 at 0.12 | The owner chose option C for the key and option 2 for the saved calculation, and said "update" | Prompts P-101 to P-107; findings F-086, F-087, F-088 |
 
 ## Pending PRD sync
 
-These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052), item 28 in revision 51 on 23/11/2026 (CHG-055), and items 1 to 10, 14, 15, 17, 20, 21, 25 and the basic account part of item 22 in revision 53 on 23/11/2026 (CHG-060); their numbers are not reused. 4 items are still pending: 3 the owner keeps for the launch account and R3, and item 29 from the stack decision. Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
+These are the changes the PRD needs if the owner approves the matching item. Items 13, 16, 18 and 19 were done in PRD revision 47 on 14/11/2026 (CHG-044), items 11, 12, 26 and 27 in revision 49 on 23/11/2026 (CHG-052), item 28 in revision 51 on 23/11/2026 (CHG-055), and items 1 to 10, 14, 15, 17, 20, 21, 25 and the basic account part of item 22 in revision 53 on 23/11/2026 (CHG-060); their numbers are not reused. 5 items are still pending: 3 the owner keeps for the launch account and R3, item 29 from the stack decision and item 30 from the ids of the profile rows (CHG-068). Every pending item is a proposal and keeps the status "Waiting for owner approval" until the owner approves it; the PRD lists them in section 9.4. When one is done, a CHG entry of type Synced is added.
 
 | # | PRD place | Change | Matching IDs | Status |
 | --- | --- | --- | --- | --- |
@@ -253,6 +263,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 23 | Section 7 Settings, NFR-7, NFR-8 | Export as a ZIP (R3); deletion of the whole account with a 14-day grace period (launch account); 35-day backup purge; consent purposes and text headings | SD-F5-08, SD-F5-12, SD-F5-14 | Waiting for owner approval |
 | 24 | NFR-6 | Two-factor by authenticator app, optional for taxpayers, required for admins; no SMS (launch account) | SD-F5-05, SD-F5-07 | Waiting for owner approval |
 | 29 | Section 7 (suggested technology direction), section 5 | Say that the tax engine runs only in the browser and the server never calculates; add the RuleTestRun entity (DA-27) to the data model | SD-F1-11, SD-F2-10, DA-27, ADR-001 | Waiting for owner approval |
+| 30 | Section 5 (data model), section 7 (offline) | Say that TaxpayerProfile and Dependant keep one row for each version with a row_id (UUID v7) as the primary key, with profile_id and dependant_id as ordinary columns that stay the same on every version; add the TaxEstimateDependant entity (DA-29) to the data model | SD-F0-15, SD-F0-16, DA-28, DA-29, ADR-004 | Waiting for owner approval |
 
 ## Consistency checks
 
@@ -298,6 +309,7 @@ These are the changes the PRD needs if the owner approves the matching item. Ite
 | 2026-11-23 | After the design files (CHG-065): build, change log, acronym check and standard check (23 documents, DES included); every colour pair in DES-000 recomputed by script and meets 4.5:1 for text and 3:1 for graphics; 28 screenshots checked for horizontal overflow by script and by eye; the specifications and the PRD did not change | 0 errors; acronym check passed; standard check 0 errors |
 | 2026-11-23 | After the approval of the design documents (CHG-066): build, change log, acronym check and standard check; only DES-000, DES-F0 and the logs changed; the specifications and the PRD did not | 0 errors; acronym check passed; standard check 0 errors |
 | 2026-11-24 | After the guide and the data diagram (CHG-067): build, change log, acronym check and standard check (25 documents, GDE and ERD included); the document tools also ran in the image python:3.12.16 as user 1000; the diagram text rendered to SVG and the picture was checked by eye; the specifications and the PRD did not change | 0 errors; acronym check passed; standard check 0 errors |
+| 2026-11-25 | After the ids of the profile rows and the dependants of a saved calculation (CHG-068): build, change log, acronym check and standard check; changed IDs found by diffing the built rows against the last commit; every ID named in a new or changed SRS exists; the diagram text of ERD-F0 rendered to SVG and checked by eye; the PRD, ADR-004 and DA-02 did not change | 0 errors; acronym check passed; standard check 0 errors (both check scripts run with forward slash paths, because on Windows they compare paths with "/") |
 
 ## ID register
 
