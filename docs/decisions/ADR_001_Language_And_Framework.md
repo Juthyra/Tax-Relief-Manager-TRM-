@@ -5,14 +5,14 @@
 | Document ID | ADR-001 |
 | Document type | ADR (architecture decision record) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | 1.0 |
-| Status | Approved on 23/11/2026 (the offline approach stays open, OI-F1-05) |
-| Date | 2026-11-23 (first written 2026-11-14) |
+| Version | 1.1 |
+| Status | Approved on 23/11/2026; version 1.1 (stable versions written down) approved by the owner on 25/11/2026 (the offline approach stays open, OI-F1-05) |
+| Date | 2026-11-25 (first written 2026-11-14) |
 | Owner | Champs (product owner) |
 | PRD reference | PRD-TRM section 7 (non-functional and PWA requirements) |
-| Source | Owner prompts P-68 to P-78; stack choice of the owner on 23/11/2026 |
+| Source | Owner prompts P-68 to P-78 and P-109, P-110; stack choice of the owner on 23/11/2026; version check of 25/11/2026 (endoflife.date, npm, Packagist, php.net, postgresql.org, the Laravel Vue starter kit) |
 | Change tracking | [REG-01 History log](../registers/REG_01_History_Log.md) |
-| Decided by | Owner, 23/11/2026 (P-77, P-78) |
+| Decided by | Owner, 23/11/2026 (P-77, P-78); version 1.1: owner, 25/11/2026 (P-110) |
 
 ## Question
 
@@ -55,7 +55,7 @@ Front-end findings (Blade, Livewire, Vue 3, React, Angular, Svelte, with Laravel
 
 | # | Decision | Reason | Date and source |
 | --- | --- | --- | --- |
-| 1 | Laravel 13 on PHP 8.5; Vue 3.5; Inertia (version 3 unless the starter kit needs 2, to be checked when the project is created); TypeScript in strict mode; Node 26 LTS for the build. The PHP and Node versions come from the container images, because all development runs in Docker ([ADR-003](ADR_003_Docker.md)) | Newest Laravel line with the longest support; versions are pinned in the lock files and the container images | Owner 23/11/2026 (stack); versions are my proposal |
+| 1 | Laravel 13 on PHP 8.5; Vue 3.5; Inertia 3; TypeScript 5.9 in strict mode; Vite 8; Node 26 LTS for the build. Newest stable release of each line on 25/11/2026: Laravel 13.44.1 (needs PHP 8.3 or later), PHP 8.5.13, Vue 3.5.46, Inertia 3.11.0 with inertia-laravel 3.8.0, TypeScript 5.9.3, Vite 8.3.8, Node 26.13.1 (LTS since 28/10/2026). **Not taken:** PHP 8.6 (released 19/11/2026), Vue 3.6 (release candidate), TypeScript 7 (a new major release: the Laravel Vue starter kit uses TypeScript 5.x, and I did not confirm that vue-tsc works with 7). The PHP and Node versions come from the container images, because all development runs in Docker ([ADR-003](ADR_003_Docker.md)). The exact versions are checked again when the project is created, and this record gets a new version if a check fails | Newest Laravel line with the longest support (to 30/09/2027, security fixes to 17/03/2028); the other lines are the stable ones that the Laravel Vue starter kit uses (Inertia 3, TypeScript 5.x, Vite 8); versions are pinned in the lock files and the container images | Owner 23/11/2026 (stack); versions approved by the owner 25/11/2026 (P-110), after the check of P-109 |
 | 2 | **The tax engine is one pure TypeScript function that runs only in the browser.** The server stores and processes data, applies access rules and never calculates tax | One engine, one set of tests. A second engine in PHP could disagree with the first, and a wrong tax figure is the worst fault this product can have | **Owner 23/11/2026 (P-69, P-70)** |
 | 3 | The rule publish gate runs the calculator tests in the admin's browser; the server stores the passing run with a hash of the draft rows and accepts Publish only for that hash; the same tests run in CI before each deploy (SD-F2-10, DA-27) | The server has no engine to run them. Risk accepted: the server cannot re-check the result; only an admin can publish, and in R1 the admins are the two developers | **Owner 23/11/2026 (P-70, option A)** |
 | 4 | The browser makes the month-end snapshot at the first visit after month-end; nothing is compared with a server figure after sync (SRS-F1-19, SRS-F4-10) | The server cannot calculate. A month with no visit gets no snapshot | **Owner 23/11/2026 (P-70)** |
