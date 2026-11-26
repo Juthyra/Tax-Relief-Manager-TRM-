@@ -5,12 +5,12 @@
 | Document ID | PRD-TRM |
 | Document type | PRD (product requirements) |
 | Product | Tax Relief Manager (TRM), Malaysia tax relief system (PWA) |
-| Version | Revision 53 |
+| Version | Revision 54 |
 | Status | Active (the owner's document; changed only when the owner says so, RULE-20) |
-| Date | 2026-11-23 (first written 2026-11-07) |
+| Date | 2026-11-26 (first written 2026-11-07) |
 | Owner | Champs (product owner) |
 | PRD reference | This document. It is the master for feature names, IDs, releases and phases (AGENTS.md section 6) |
-| Source | Owner prompts P-01 to P-06, P-16, P-38, P-42, P-44, P-46 and P-60 to P-67. The Claude Doc is a copy, last synced at revision 47; revisions 48 to 53 are in Git only |
+| Source | Owner prompts P-01 to P-06, P-16, P-38, P-42, P-44, P-46, P-60 to P-67, P-101, P-106, P-117 and P-119. The Claude Doc is a copy, last synced at revision 47; revisions 48 to 54 are in Git only |
 | Change tracking | Synced entries in [REG-02 URS and SRS change log](../registers/REG_02_URS_SRS_Change_Log.md); work history in [REG-01 History log](../registers/REG_01_History_Log.md) |
 
 ## 1. Product overview
@@ -300,16 +300,16 @@ One row's updated\_at and updated\_by show only its latest change. To keep **eve
 
 | Entity | Key fields | Versioned | Notes |
 | --- | --- | --- | --- |
-| User | id, name, email, role (user, admin or system), status (active, disabled, deletion\_pending), email\_verified\_at, deletion\_requested\_at, deletion\_due\_on, last\_sign\_in\_at | Yes | The reserved SYSTEM row is the default created\_by and updated\_by. The verification and deletion dates are filled from the launch account |
+| User | id, name, email, role (user, admin or system), status (active, disabled, deletion\_pending), email\_verified\_at, deletion\_requested\_at, deletion\_due\_on, last\_sign\_in\_at | Yes | The reserved SYSTEM row is the default created\_by and updated\_by. It has role system, status disabled and no Credential, so it cannot sign in; the first migration seeds it. The verification and deletion dates are filled from the launch account |
 | Credential | user\_id, password\_hash, hash\_algorithm, password\_changed\_at, failed\_attempts, locked\_until, totp\_secret\_encrypted, totp\_enabled, recovery\_codes\_hash | Yes | One per user; never returned by any interface. R1 builds the password fields; the lock fields and two-factor fields come with the launch account |
 | Session | id, user\_id, device\_label, remembered, created\_at, last\_seen\_at, expires\_at, revoked\_at, revoked\_reason, token\_hash | No | Hashed token only. R1 builds the session and its expiry; remembered comes with the launch account and device\_label with the R3 device list |
 | Invitation | id, code\_hash, created\_by, created\_at, expires\_at, used\_by, used\_at | No | Single use, valid 7 days (R1) |
 | ConsentRecord | id, user\_id, purpose, text\_version, language, accepted\_at, withdrawn\_at | No | Insert only, except withdrawn\_at (R1) |
 | DataRequest | id, user\_id, type (export, delete, delete\_ya), ya, status, requested\_at, ready\_at, due\_on, expires\_at, file\_ref | Yes | Built with export (R3) and account deletion (launch account) |
 | SecurityEvent | id, user\_id, type, at, device\_label, actor\_id, reason, ip\_address | No | Insert only; built with the R3 security events screen. Until then admin actions are traced by the audit fields |
-| TaxpayerProfile | user\_id, year, copied\_from\_year, state (draft or active), residency\_status, marital\_status, spouse\_has\_income, spouse\_is\_disabled, pays\_alimony, joint\_assessment, is\_disabled, has\_first\_home, first\_home\_spa\_date, first\_home\_price, dependants\_confirmed, spouse\_foreign\_income\_above\_limit, is\_pensionable\_public\_servant, first\_home\_earns\_income | Yes | One per user per YA, copied forward from the previous YA so a later change never rewrites an earlier year; drives applicable reliefs. Every visible question is mandatory: null only while a question is open or not shown |
-| HouseholdLink | user\_id, linked\_user\_id, relationship, joint\_assessment, link\_status | Yes | R1 holds the table and test data; screens and calculation come in R2 |
-| Dependant | profile\_id, person\_key, display\_name, type (child or parent), date\_of\_birth, is\_disabled, is\_unmarried, education\_level, relief\_shared, own\_income\_above\_relief | Yes | person\_key is shared by every yearly copy of the same person. Eligibility follows the LHDN condition on each relief rule |
+| TaxpayerProfile | row\_id, profile\_id, user\_id, year, copied\_from\_year, state (draft or active), residency\_status (resident or non\_resident; non\_resident is not accepted in R1), marital\_status, spouse\_has\_income, spouse\_is\_disabled, pays\_alimony, joint\_assessment, is\_disabled, has\_first\_home, first\_home\_spa\_date, first\_home\_price, dependants\_confirmed, spouse\_foreign\_income\_above\_limit, is\_pensionable\_public\_servant, first\_home\_earns\_income | Yes | One per user per YA, copied forward from the previous YA so a later change never rewrites an earlier year; drives applicable reliefs. Every visible question is mandatory: null only while a question is open or not shown. row\_id (UUID v7, made on the device) is the primary key; profile\_id (UUID v5 of the user and the YA) is the same on every version and is not a key. A profile is created only for a YA that has a rule set |
+| HouseholdLink | row\_id, user\_id, linked\_user\_id, relationship, joint\_assessment, link\_status | Yes | R1 holds the table and test data; screens and calculation come in R2. One current row for each pair of users |
+| Dependant | row\_id, dependant\_id, profile\_id, person\_key, display\_name, type (child or parent), date\_of\_birth, is\_disabled, is\_unmarried, education\_level, relief\_shared, own\_income\_above\_relief | Yes | person\_key is shared by every yearly copy of the same person. Eligibility follows the LHDN condition on each relief rule. row\_id (UUID v7) is the primary key; dependant\_id is the same on every version of one dependant |
 | TaxYear | year, period\_start, period\_end, filing\_deadline, efiling\_deadline, publish\_state, change\_set\_id | Yes | Shared by all users. YA 2027 exists as announced |
 | UserTaxYear | user\_id, year, status (open or filed), filed\_on | Yes | "Filed" is per user, so it is not on the shared TaxYear |
 | TaxBand | year, income\_from, income\_to, rate, status, source\_url, confirmed\_on, publish\_state, change\_set\_id | Yes | Ordered rows per YA; income\_from is the lower threshold (5,000, not 5,001) |
@@ -322,12 +322,13 @@ One row's updated\_at and updated\_by show only its latest change. To keep **eve
 | Expense | user\_id, year, date, amount, merchant, description, payment\_method, notes, do\_not\_claim | Yes | Year derived from date |
 | ExpenseAllocation | expense\_id, relief\_category\_id, sub\_limit\_id, allocated\_amount, beneficiary\_dependant\_id | Yes | Splits one expense; parts sum to the total; names who the expense is for when the relief depends on it |
 | Receipt | expense\_id, file\_reference, file\_name, file\_size, mime\_type, upload\_state (pending, uploaded, failed), uploaded\_at, retain\_until | Yes | retain\_until = end of YA plus 7 years; a replaced file is a new version; a pending receipt counts as attached |
-| TaxEstimate | user\_id, year, chargeable\_income, tax\_before\_rebates, rebates, tax\_payable, pcb\_to\_date, balance, is\_estimate, trigger (user, filed, system), profile\_id, profile\_version\_no, computed\_at | No | Insert-only snapshot for history and comparison, with the profile version it used |
+| TaxEstimate | user\_id, year, chargeable\_income, tax\_before\_rebates, rebates, tax\_payable, pcb\_to\_date, balance, is\_estimate, trigger (user, filed, system), profile\_id, profile\_version\_no, computed\_at | No | Insert-only snapshot for history and comparison, with the profile version it used and, in TaxEstimateDependant, the dependant rows it used |
+| TaxEstimateDependant | id, estimate\_id, dependant\_row\_id | No | Insert-only; one row for each dependant row that a saved calculation used, so the profile of a filed YA is shown as it was |
 
 **Data rules**
 
 - Store money as integer sen to avoid rounding errors; display in RM.
-- Every record created offline takes a client-generated UUID v7 as its key, so a sync never creates a duplicate.
+- Every record created offline takes a client-generated UUID v7 as its key, so a sync never creates a duplicate. A versioned row has its own row\_id as the key; the profile\_id and the dependant\_id are plain columns that stay the same on every version, and the profile\_id is a UUID v5 of the user and the YA, so two offline devices agree on one profile.
 - A rule change is saved as a draft change set and published as one unit after the calculator tests pass (NFR-10).
 - A rule's status (Announced, Gazetted, Confirmed) is selectable, so the calculator can run on announced rules and label the result as an estimate.
 - Deleting is soft: deleted\_at and deleted\_by are set on the current version. A ReliefRule used by any Expense cannot be deleted; it is end-dated instead.
